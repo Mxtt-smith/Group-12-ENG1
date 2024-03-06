@@ -11,6 +11,10 @@ This is a ToDo list for the Implementation section of the project, Heslington Hu
   - Energy
   - Time
   - Hunger
+- Screens
+  - Main Menu
+  - Pause
+  - Game
 ## Classes
 - Player
 - Coordinates

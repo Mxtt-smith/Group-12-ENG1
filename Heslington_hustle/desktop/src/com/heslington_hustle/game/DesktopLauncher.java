@@ -8,8 +8,10 @@ import com.heslington_hustle.game.Heslington_hustle;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setForegroundFPS(60);
-		config.setTitle("Heslington_hustle");
+		config.setForegroundFPS(10);
+		config.setTitle("Heslington Hustle");
+		config.useVsync(true);
+		config.setWindowedMode(1200, 1200);
 		new Lwjgl3Application(new Heslington_hustle(), config);
 	}
 }
