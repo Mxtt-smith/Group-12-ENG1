@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+[*] --> StartMenu
+
+state StartMenu {
+
+}
+
+state Game{
+    [*] --> IdleMovement
+
+    IdleMovement --> Interaction:Collision with building
+    Interaction --> IdleMovement:Activity Finished
+    Interaction: Updates energy and time counters
+}
+
+state End{
+    End:Calculates and displays the Players score
+}
+
+state PauseMenu{
+
+}
+StartMenu --> Game: StartGame
+Game -> PauseMenu
+PauseMenu -> Game
+Game --> End
+[*] <- End
+PauseMenu --> [*]
+@enduml
