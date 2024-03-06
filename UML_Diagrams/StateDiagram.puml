@@ -4,15 +4,20 @@
 [*] --> StartMenu
 
 state StartMenu {
-
+    StartMenu: User can select character
 }
 
 state Game{
     [*] --> IdleMovement
 
+    IdleMovement: Player can move around the map
+
     IdleMovement --> Interaction:Collision with building
     Interaction --> IdleMovement:Activity Finished
     Interaction: Updates energy and time counters
+    Interaction  --> Sleep
+    Sleep:New day
+    Sleep --> IdleMovement
 }
 
 state End{
@@ -22,10 +27,11 @@ state End{
 state PauseMenu{
 
 }
+
 StartMenu --> Game: StartGame
 Game -> PauseMenu
-PauseMenu -> Game
+Game <- PauseMenu
 Game --> End
-[*] <- End
-PauseMenu --> [*]
+End -> [*]
+PauseMenu --> [*] : Quit game
 @enduml
