@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="Tilled_Dirt" tilewidth="16" tileheight="16" tilecount="77" columns="11">
- <image source="Assets/Sprout Lands - Sprites - Basic pack/Tilesets/Tilled_Dirt.png" width="176" height="112"/>
+ <image source="Tilled_Dirt.png" width="176" height="112"/>
  <wangsets>
   <wangset name="Path" type="mixed" tile="-1">
    <wangcolor name="" color="#ff0000" tile="-1" probability="1"/>
