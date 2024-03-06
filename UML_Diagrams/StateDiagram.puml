@@ -12,12 +12,14 @@ state Game{
 
     IdleMovement: Player can move around the map
 
-    IdleMovement --> Interaction:Collision with building
+    IdleMovement --> StartActivity :Collision with building
+    StartActivity --> Interaction
+    StartActivity  --> Sleep
     Interaction --> IdleMovement:Activity Finished
     Interaction: Updates energy and time counters
-    Interaction  --> Sleep
     Sleep:New day
     Sleep --> IdleMovement
+    Sleep --> [*]
 }
 
 state End{
