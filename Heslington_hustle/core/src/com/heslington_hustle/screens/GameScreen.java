@@ -19,7 +19,7 @@ public class GameScreen implements Screen {
     // fetch the assets
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
-    private OrthographicCamera camera;
+    private final OrthographicCamera camera;
     private Texture playerImage;
 
     public GameScreen(final Heslington_hustle game) {
@@ -51,9 +51,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-//        camera.setToOrtho(false, width/16f, height/16f);
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
+        camera.setToOrtho(false, width/16f, height/16f);
     }
 
     @Override

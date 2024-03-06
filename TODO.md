@@ -16,7 +16,7 @@ This is a ToDo list for the Implementation section of the project, Heslington Hu
   - Pause
   - Game
 ## Classes
-- Player
+- **_Player_**
 - Coordinates
 - Velocity
 - Input (keys)
