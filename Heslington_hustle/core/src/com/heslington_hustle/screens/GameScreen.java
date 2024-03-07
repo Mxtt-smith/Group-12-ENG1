@@ -16,17 +16,12 @@ import com.heslington_hustle.game.Player;
 // This is the screen that will show the actual game
 public class GameScreen implements Screen {
     final Heslington_hustle game;
-    // the world width and height are 50
-    int worldBlockRatioW = Gdx.graphics.getWidth() / 16;
-    int worldBlockRatioH = Gdx.graphics.getHeight() / 16;
-    int w = Gdx.graphics.getWidth();
-    int h = Gdx.graphics.getHeight();
     // fetch the assets
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
-    private SpriteBatch batch;
+    private final TiledMap map;
+    private final OrthogonalTiledMapRenderer renderer;
+    private final SpriteBatch batch;
     private final OrthographicCamera overviewCam;
-    private TextureAtlas atlas;
+    private final TextureAtlas atlas;
     Player player;
 
     public GameScreen(final Heslington_hustle game) {
@@ -45,6 +40,7 @@ public class GameScreen implements Screen {
         atlas = new TextureAtlas(Gdx.files.internal("characters/char1.atlas"));
         player = new Player(atlas);
         player.setTexture("char1sd");
+        // Multiply by 16 as all assets are 16 bit
         player.setPosition(12*16, (50-15)*16);
     }
 
