@@ -6,3 +6,9 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+#build files
+/Heslington_hustle/.gradle
+#temp files
+/Heslington_hustle/core/build/tmp
+/Heslington_hustle/desktop/build/tmp
