@@ -44,6 +44,8 @@ public class Heslington_hustle extends Game {
 
     @Override
     public void dispose() {
+        batch.dispose();
+        font.dispose();
         super.dispose();
     }
 }
