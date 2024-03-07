@@ -1,8 +1,8 @@
 package com.heslington_hustle.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -25,15 +25,15 @@ public class GameScreen implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private SpriteBatch batch;
-    private final OrthographicCamera camera;
+    private final OrthographicCamera overviewCam;
     private TextureAtlas atlas;
     Player player;
 
     public GameScreen(final Heslington_hustle game) {
         this.game = game;
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 50, 50);
+        overviewCam = new OrthographicCamera();
+        overviewCam.setToOrtho(false, 50, 50);
 
         // load the tiled map
         map = new TmxMapLoader().load("map1.tmx");
@@ -51,7 +51,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         System.out.println("Game showing");
-        renderer.setView(camera);
+        renderer.setView(overviewCam);
         renderer.render();
     }
 
@@ -59,9 +59,22 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 0);
 
-        camera.update();
-        renderer.setView(camera);
+        overviewCam.update();
+        renderer.setView(overviewCam);
         renderer.render();
+
+        // Player movement
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            player.moveLeft();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            player.moveRight();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            player.moveUp();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            player.moveDown();
+        } else {
+            player.stationary();
+        }
 
         batch.begin();
         player.draw(batch);
@@ -70,7 +83,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        camera.setToOrtho(false, width/16f, height/16f);
+        overviewCam.setToOrtho(false, width/16f, height/16f);
     }
 
     @Override
@@ -94,5 +107,6 @@ public class GameScreen implements Screen {
         map.dispose();
         renderer.dispose();
         atlas.dispose();
+        batch.dispose();
     }
 }
