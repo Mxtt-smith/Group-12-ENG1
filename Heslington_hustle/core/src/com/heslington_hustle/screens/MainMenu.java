@@ -4,14 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.Heslington_hustle;
 
 public class MainMenu implements Screen {
 
-    private int w = Gdx.graphics.getWidth();
-    private int h = Gdx.graphics.getHeight();
+    private final int w = Gdx.graphics.getWidth();
+    private final int h = Gdx.graphics.getHeight();
     private final Heslington_hustle game;
 
     public MainMenu (final Heslington_hustle game) {

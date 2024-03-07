@@ -1,15 +1,13 @@
 package com.heslington_hustle.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.heslington_hustle.screens.MainMenu;
 
 // Our core class will extend the Game class
 // (implementing the ApplicationListener interface.)
-// This is easier to use when setting up different screens (Startup, pause, etc)
+// This is easier to use when setting up different screens (Startup, pause, etc.)
 public class Heslington_hustle extends Game {
     // load the assets
     public SpriteBatch batch;
