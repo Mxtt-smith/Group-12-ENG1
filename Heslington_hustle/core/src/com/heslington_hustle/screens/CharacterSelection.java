@@ -13,21 +13,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class MainMenu implements Screen {
+public class CharacterSelection implements Screen {
 
     private final int w = Gdx.graphics.getWidth();
     private final int h = Gdx.graphics.getHeight();
     private final Stage stage;
     private final Heslington_hustle game;
 
-    public MainMenu (final Heslington_hustle game) {
+    public CharacterSelection (final Heslington_hustle game) {
         this.game = game;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
     @Override
-        public void show() {
+    public void show() {
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
         table.setFillParent(true);
@@ -38,33 +38,33 @@ public class MainMenu implements Screen {
         Skin skin = new Skin(Gdx.files.internal("skin.json"));
 
         //create buttons
-        TextButton newGame = new TextButton("New Game", skin);
-        TextButton preferences = new TextButton("Change Character", skin);
-        TextButton exit = new TextButton("Exit", skin);
+        TextButton Char1 = new TextButton("Character 1", skin);
+        TextButton Char2 = new TextButton("Character 2", skin);
+        TextButton back = new TextButton("Back", skin);
 
         //add buttons to table
-        table.add(newGame).fillX().uniformX();
+        table.add(Char1).fillX().uniformX();
         table.row().pad(10, 0, 10, 0);
-        table.add(preferences).fillX().uniformX();
+        table.add(Char2).fillX().uniformX();
         table.row();
-        table.add(exit).fillX().uniformX();
+        table.add(back).fillX().uniformX();
 
         // create button listeners
-        exit.addListener(new ChangeListener() {
+        back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.exit();
+                game.setScreen(new MainMenu(game));
             }
         });
 
-        newGame.addListener(new ChangeListener() {
+        Char1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new GameScreen(game));
             }
         });
 
-        preferences.addListener(new ChangeListener() {
+        Char2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new CharacterSelection(game));
