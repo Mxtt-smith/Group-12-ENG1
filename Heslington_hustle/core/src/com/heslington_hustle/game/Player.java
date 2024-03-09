@@ -9,16 +9,15 @@ public class Player extends Sprite{
     Rectangle playerShape;
     TextureAtlas textureAtlas;
     Sprite playerSprite;
-    String character;
+    public static String character;
     String direction;
 
     public Player(TextureAtlas atlas) {
         super(atlas.getRegions().get(0));
-        character = "char1";
         direction = "DOWN";
         textureAtlas = atlas;
         playerShape = new Rectangle(16, 16);
-        playerSprite = new Sprite(textureAtlas.findRegion("char1sd"));
+        playerSprite = new Sprite(textureAtlas.findRegion(character + "sd"));
     }
 
     public void setTexture(String textureName) {

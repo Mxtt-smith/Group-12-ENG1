@@ -1,6 +1,6 @@
 package com.heslington_hustle.screens;
 
-
+import com.heslington_hustle.game.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.heslington_hustle.game.Heslington_hustle;
@@ -28,6 +28,7 @@ public class CharacterSelection implements Screen {
     }
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
         table.setFillParent(true);
@@ -60,6 +61,7 @@ public class CharacterSelection implements Screen {
         Char1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Player.character = "char1";
                 game.setScreen(new GameScreen(game));
             }
         });
@@ -67,7 +69,8 @@ public class CharacterSelection implements Screen {
         Char2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new CharacterSelection(game));
+                Player.character = "char2";
+                game.setScreen(new GameScreen(game));
             }
         });
     }
