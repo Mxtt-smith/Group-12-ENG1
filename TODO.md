@@ -15,6 +15,7 @@ This is a ToDo list for the Implementation section of the project, Heslington Hu
   - Main Menu
   - Pause
   - Game
+  - How to play
 ## Classes
 - **_Player_**
 - Coordinates
@@ -24,3 +25,10 @@ This is a ToDo list for the Implementation section of the project, Heslington Hu
 - Camera
 - UI
 - Activity to select (inherits from UI)
+
+## Activities/Collisions
+- Set player Bounds
+- Collision detection for activity activation
+- Activity Selection
+- Activity Overlay (?)
+- 

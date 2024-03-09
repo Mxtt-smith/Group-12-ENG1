@@ -1,5 +1,6 @@
 package com.heslington_hustle.screens;
 
+import com.heslington_hustle.game.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -11,7 +12,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.Heslington_hustle;
-import com.heslington_hustle.game.Player;
+import static com.heslington_hustle.game.Player.character;
 
 // This is the screen that will show the actual game
 public class GameScreen implements Screen {
@@ -37,9 +38,9 @@ public class GameScreen implements Screen {
         // create the renderer
         renderer = new OrthogonalTiledMapRenderer(map, 1/16f);
 
-        atlas = new TextureAtlas(Gdx.files.internal("characters/char1.atlas"));
+        atlas = new TextureAtlas(Gdx.files.internal("characters/"+character+".atlas"));
         player = new Player(atlas);
-        player.setTexture("char1sd");
+        player.setTexture(character+"sd");
         // Multiply by 16 as all assets are 16 bit
         player.setPosition(12*16, (50-15)*16);
     }
