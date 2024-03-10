@@ -13,13 +13,27 @@ state Game{
     IdleMovement: Player can move around the map
 
     IdleMovement --> StartActivity :Collision with building
-    StartActivity --> Interaction
+    StartActivity -down-> Interaction
     StartActivity  --> Sleep
-    Interaction --> IdleMovement:Activity Finished
+    Interaction -up-> IdleMovement:Activity Finished
     Interaction: Updates energy and time counters
     Sleep:New day
     Sleep --> IdleMovement
     Sleep --> [*]
+
+    note bottom of Sleep
+    UR_SLEEP
+    end note
+
+    note bottom of Interaction
+    UR_BUILDINGS
+    UR_ACTION_TIME
+    UR_ACTION_ENERGY
+    end note
+
+    note right of IdleMovement
+    UR_MAP
+    end note
 }
 
 state End{
@@ -30,10 +44,24 @@ state PauseMenu{
 
 }
 
-StartMenu --> Game: StartGame
-Game -> PauseMenu
-Game <- PauseMenu
-Game --> End
-End -> [*]
-PauseMenu --> [*] : Quit game
+StartMenu -down-> Game: StartGame
+Game -> PauseMenu: Pause
+Game <- PauseMenu: Unpause
+Game -down-> End: End of 7th day
+End -down-> [*]
+PauseMenu -down-> [*] : Quit game
+
+note right of StartMenu
+UR_CHARACTER
+end note
+
+note right of PauseMenu
+UR_PAUSE
+end note
+
+note bottom of End
+UR_SCORE
+end note
+
+
 @enduml
