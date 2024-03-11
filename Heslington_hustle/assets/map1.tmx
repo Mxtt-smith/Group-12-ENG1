@@ -59,20 +59,6 @@
 59,61,13,72,72,56,69,71,61,71,68,59,61,68,68,69,70,56,56,58,57,70,69,69,69,67,61,57,67,57,59,68,13,13,56,58,70,72,56,56,13,69,58,69,71,59,13,13,61,58
 </data>
  </layer>
- <objectgroup id="2" name="Accom" visible="0">
-  <object id="2" name="Accomodation" x="61.3642" y="62.3082">
-   <point/>
-  </object>
-  <object id="3" name="Catering" x="725.985" y="85.9098">
-   <point/>
-  </object>
-  <object id="4" name="Sport/Leisure" x="69.8608" y="732.594">
-   <point/>
-  </object>
-  <object id="5" name="Studying" x="735.426" y="729.762">
-   <point/>
-  </object>
- </objectgroup>
  <group id="14" name="Lake">
   <layer id="15" name="Lake water" width="50" height="50">
    <data encoding="csv">
