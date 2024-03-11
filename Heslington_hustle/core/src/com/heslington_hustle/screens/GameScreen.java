@@ -1,5 +1,6 @@
 package com.heslington_hustle.screens;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.heslington_hustle.game.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -29,17 +30,19 @@ public class GameScreen implements Screen {
         this.game = game;
 
         overviewCam = new OrthographicCamera();
-        overviewCam.setToOrtho(false, 50, 50);
+        //overviewCam.setToOrtho(false, 50, 50);
 
         // load the tiled map
         map = new TmxMapLoader().load("map1.tmx");
+
         // create the spriteBatch
         batch = new SpriteBatch();
         // create the renderer
         renderer = new OrthogonalTiledMapRenderer(map, 1/16f);
+        renderer.setView(overviewCam);
 
         atlas = new TextureAtlas(Gdx.files.internal("characters/"+character+".atlas"));
-        player = new Player(atlas);
+        player = new Player(atlas, (TiledMapTileLayer)map.getLayers().get("Collisions"));
         player.setTexture(character+"sd");
         // Multiply by 16 as all assets are 16 bit
         player.setPosition(12*16, (50-15)*16);
@@ -61,13 +64,14 @@ public class GameScreen implements Screen {
         renderer.render();
 
         // Player movement
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        // Collision detection first
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && !player.collision(-2, 0)) {
             player.moveLeft();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !player.collision(2, 0)) {
             player.moveRight();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.UP) && !player.collision(0, 2)) {
             player.moveUp();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && !player.collision(0, -2)) {
             player.moveDown();
         } else {
             player.stationary();
