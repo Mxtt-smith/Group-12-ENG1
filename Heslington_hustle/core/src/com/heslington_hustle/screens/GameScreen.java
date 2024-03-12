@@ -109,5 +109,6 @@ public class GameScreen implements Screen {
         renderer.dispose();
         atlas.dispose();
         batch.dispose();
+        player.dispose();
     }
 }
