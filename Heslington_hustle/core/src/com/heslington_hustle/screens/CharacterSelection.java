@@ -104,7 +104,7 @@ public class CharacterSelection implements Screen {
 
     @Override
     public void hide() {
-        System.out.println("Main menu hiding");
+        System.out.println("Character Selection hiding");
         Gdx.input.setInputProcessor(null);
     }
 

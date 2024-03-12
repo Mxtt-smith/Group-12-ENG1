@@ -32,6 +32,7 @@ public class GameScreen implements Screen {
     BitmapFont font = new BitmapFont();
     Study study;
     Eat eat;
+    Sleep sleep;
     Recreation recreation;
 
     public GameScreen(final Heslington_hustle game) {
@@ -62,11 +63,15 @@ public class GameScreen implements Screen {
 
         // Create the activities on the map
         study = new Study();
-        recreation = new Recreation();
+        study.set(39*16, 4*16, 2*16, 16);
 
+        recreation = new Recreation();
+        recreation.set(11*16, 8*16, 2*16, 2*16);
         eat = new Eat();
         eat.set(35*16, 39*16, 2*16, 16);
-        System.out.println("Location of eat activity boundary: " + eat.zone.getX() + ',' + eat.zone.getY());
+
+        sleep = new Sleep();
+        sleep.set(11*16, 35*16, 2*16, 16);
     }
 
     @Override
@@ -98,10 +103,15 @@ public class GameScreen implements Screen {
             player.stationary();
         }
 
-        System.out.println("Player's rectangle location: " + player.getBoundingRectangle().getX() + player.getBoundingRectangle().getY());
         // Check if player is hovering over an activity
         if (player.getBoundingRectangle().overlaps(eat.zone)) {
             System.out.println("Player wants to eat");
+        } else if (player.getBoundingRectangle().overlaps(study.zone)) {
+            System.out.println("Player wants to study");
+        } else if (player.getBoundingRectangle().overlaps(sleep.zone)) {
+            System.out.println("Player wants to sleep");
+        } else if (player.getBoundingRectangle().overlaps(recreation.zone)) {
+            System.out.println("Player wants to feed the ducks");
         }
 
         batch.begin();
