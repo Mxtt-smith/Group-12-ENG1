@@ -3,6 +3,7 @@ package com.heslington_hustle.screens;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
 import com.heslington_hustle.game.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -86,7 +87,6 @@ public class GameScreen implements Screen {
             player.stationary();
         }
 
-
         batch.begin();
         player.draw(batch);
 //        batch.draw(blank,55,783,200,10);
@@ -121,6 +121,8 @@ public class GameScreen implements Screen {
         map.dispose();
         renderer.dispose();
         atlas.dispose();
+        blank.dispose();
+        orange.dispose();
         batch.dispose();
     }
 }

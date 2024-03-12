@@ -1,5 +1,6 @@
 package com.heslington_hustle.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -19,6 +20,7 @@ public class Player extends Sprite {
         textureAtlas = atlas;
         playerSprite = new Sprite(textureAtlas.findRegion(character + "sd"));
         playerSprite.setOriginCenter();
+
     }
 
     public void setTexture(String textureName) {
@@ -63,6 +65,52 @@ public class Player extends Sprite {
             // Catch the null exception - no tile exists there
             System.out.println("No tile to collide into at lower bound");
         }
+
+        // Create player rectangle
+        final com.badlogic.gdx.math.Rectangle bounds = playerSprite.getBoundingRectangle();
+
+        // Create screen rectangle
+        final Rectangle screenBounds = new Rectangle(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        // Set the values of the player rectangle
+        float left = bounds.getX();
+        float bottom = bounds.getY();
+        float top = bottom + bounds.getHeight();
+        float right = left + bounds.getWidth();
+
+
+        // Set the values of the screen rectangle
+        float screenLeft = (float) screenBounds.getX();
+        float screenBottom = (float) screenBounds.getY();
+        float screenTop = (float) (screenBottom + screenBounds.getHeight());
+        float screenRight = (float) (screenLeft + screenBounds.getWidth());
+
+        // Get player position
+        float correctX = playerSprite.getX();
+        float correctY = playerSprite.getY();
+
+        // Screen sides
+        if(left < screenLeft)
+        {
+            correctX = screenLeft;
+        }
+        else if(right > screenRight)
+        {
+            correctX = screenRight - 16;
+        }
+
+        // Top and bottom
+        if(bottom < screenBottom)
+        {
+            correctY = screenBottom;
+        }
+        else if(top > screenTop)
+        {
+            correctY = screenTop - 16;
+        }
+
+        // Set player position
+        playerSprite.setPosition(correctX, correctY);
 
         // No collision at either bound, so there is no tile
         return false;
