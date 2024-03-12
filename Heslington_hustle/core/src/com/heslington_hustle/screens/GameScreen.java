@@ -1,10 +1,11 @@
 package com.heslington_hustle.screens;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
-import com.heslington_hustle.game.Player;
+import com.heslington_hustle.game.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -15,7 +16,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.heslington_hustle.game.Heslington_hustle;
+
+import java.util.Dictionary;
+import java.util.List;
+
 import static com.heslington_hustle.game.Player.character;
 import static com.heslington_hustle.game.Heslington_hustle.Energy;
 
@@ -32,6 +36,9 @@ public class GameScreen implements Screen {
     Texture blank;
     Texture orange;
     BitmapFont font = new BitmapFont();
+    Study study;
+    Eat eat;
+    Recreation recreation;
 
     public GameScreen(final Heslington_hustle game) {
         this.game = game;
@@ -39,6 +46,7 @@ public class GameScreen implements Screen {
         overviewCam = new OrthographicCamera();
         //overviewCam.setToOrtho(false, 50, 50);
 
+        // Energy bar
         orange = new Texture("orange.png");
         blank = new Texture("blank.png");
 
@@ -51,11 +59,20 @@ public class GameScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map, 1/16f);
         renderer.setView(overviewCam);
 
+        // Generate the texture atlas for the player
         atlas = new TextureAtlas(Gdx.files.internal("characters/"+character+".atlas"));
+        // Create the player
         player = new Player(atlas, (TiledMapTileLayer)map.getLayers().get("Collisions"));
         player.setTexture(character+"sd");
         // Multiply by 16 as all assets are 16 bit
         player.setPosition(12*16, (50-15)*16);
+
+        // Create the activities on the map
+        study = new Study();
+        recreation = new Recreation();
+
+        eat = new Eat();
+        eat.set(35*16, 40*16, 2*16, 1*16);
     }
 
     @Override
@@ -86,6 +103,9 @@ public class GameScreen implements Screen {
         } else {
             player.stationary();
         }
+
+        // Check if player is hovering over an activity
+
 
         batch.begin();
         player.draw(batch);
