@@ -5,7 +5,9 @@
 
 state StartMenu {
     StartMenu: User can select character
+    StartMenu: User can select the how to play screen
 }
+
 
 state Game{
     [*] --> IdleMovement
