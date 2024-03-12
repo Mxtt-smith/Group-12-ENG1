@@ -39,8 +39,8 @@ public class GameScreen implements Screen {
         overviewCam = new OrthographicCamera();
         //overviewCam.setToOrtho(false, 50, 50);
 
-//        orange = new Texture("orange.png");
-//        blank = new Texture("blank.png");
+        orange = new Texture("orange.png");
+        blank = new Texture("blank.png");
 
         // load the tiled map
         map = new TmxMapLoader().load("map1.tmx");
@@ -89,8 +89,8 @@ public class GameScreen implements Screen {
 
         batch.begin();
         player.draw(batch);
-//        batch.draw(blank,55,783,200,10);
-//        batch.draw(orange,55,783,200*(Energy/100),10);
+        batch.draw(blank,55,783,200,10);
+        batch.draw(orange,55,783,200*(Energy/100),10);
         font.draw(batch, "Energy", 5, 795);
         batch.end();
     }
