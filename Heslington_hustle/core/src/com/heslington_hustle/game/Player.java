@@ -5,10 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
-import java.awt.*;
-
 public class Player extends Sprite {
-    Rectangle playerShape;
     TextureAtlas textureAtlas;
     Sprite playerSprite;
     public static String character;
@@ -20,7 +17,6 @@ public class Player extends Sprite {
         direction = "DOWN";
         this.collisionLayer = gameCollisionLayer;
         textureAtlas = atlas;
-        playerShape = new Rectangle(16, 16);
         playerSprite = new Sprite(textureAtlas.findRegion(character + "sd"));
         playerSprite.setOriginCenter();
     }
@@ -74,26 +70,34 @@ public class Player extends Sprite {
 
     // Movement methods
     public void moveUp() {
-        playerSprite.translateY(2);
-        this.setTexture(character+"u");
-        this.direction = "UP";
+        if (playerSprite.getY() + 2 < 800) {
+            playerSprite.translateY(2);
+            this.setTexture(character + "u");
+            this.direction = "UP";
+        }
     }
     public void moveDown() {
-        playerSprite.translateY(-2);
-        this.setTexture(character+"d");
-        this.direction = "DOWN";
+        if (playerSprite.getY() - 2 > 0) {
+            playerSprite.translateY(-2);
+            this.setTexture(character + "d");
+            this.direction = "DOWN";
+        }
     }
 
     public void moveLeft() {
-        playerSprite.translateX(-2);
-        this.setTexture(character+"l");
-        this.direction = "LEFT";
+        if (playerSprite.getX() - 2 > 0) {
+            playerSprite.translateX(-2);
+            this.setTexture(character + "l");
+            this.direction = "LEFT";
+        }
     }
 
     public void moveRight() {
-        playerSprite.translateX(2);
-        this.setTexture(character+"r");
-        this.direction = "RIGHT";
+        if (playerSprite.getX() + 2 < 800) {
+            playerSprite.translateX(2);
+            this.setTexture(character + "r");
+            this.direction = "RIGHT";
+        }
     }
 
     public void setPosition(float x, float y) {
@@ -120,5 +124,10 @@ public class Player extends Sprite {
     @Override
     public void draw(Batch batch) {
         playerSprite.draw(batch);
+    }
+
+    public void dispose() {
+        playerSprite.getTexture().dispose();
+        textureAtlas.dispose();
     }
 }
