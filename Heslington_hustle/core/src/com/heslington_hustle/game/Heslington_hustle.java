@@ -12,8 +12,10 @@ public class Heslington_hustle extends Game {
     // load the assets
     public SpriteBatch batch;
     public BitmapFont font;
+    public static float Energy;
     @Override
     public void create() {
+        Energy = 50;
         batch = new SpriteBatch();
         font = new BitmapFont();
         // For now, set the startup screen to the playing game screen

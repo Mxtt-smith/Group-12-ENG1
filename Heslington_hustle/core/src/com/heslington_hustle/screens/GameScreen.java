@@ -1,5 +1,7 @@
 package com.heslington_hustle.screens;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.heslington_hustle.game.Player;
 import com.badlogic.gdx.Gdx;
@@ -14,6 +16,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.Heslington_hustle;
 import static com.heslington_hustle.game.Player.character;
+import static com.heslington_hustle.game.Heslington_hustle.Energy;
 
 // This is the screen that will show the actual game
 public class GameScreen implements Screen {
@@ -25,12 +28,18 @@ public class GameScreen implements Screen {
     private final OrthographicCamera overviewCam;
     private final TextureAtlas atlas;
     Player player;
+    Texture blank;
+    Texture orange;
+    BitmapFont font = new BitmapFont();
 
     public GameScreen(final Heslington_hustle game) {
         this.game = game;
 
         overviewCam = new OrthographicCamera();
         //overviewCam.setToOrtho(false, 50, 50);
+
+        orange = new Texture("orange.png");
+        blank = new Texture("blank.png");
 
         // load the tiled map
         map = new TmxMapLoader().load("map1.tmx");
@@ -77,8 +86,12 @@ public class GameScreen implements Screen {
             player.stationary();
         }
 
+
         batch.begin();
         player.draw(batch);
+        batch.draw(blank,55,783,200,10);
+        batch.draw(orange,55,783,200*(Energy/100),10);
+        font.draw(batch, "Energy", 5, 795);
         batch.end();
     }
 
