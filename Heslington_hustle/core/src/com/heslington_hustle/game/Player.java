@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Player extends Sprite {
     TextureAtlas textureAtlas;
@@ -67,7 +68,7 @@ public class Player extends Sprite {
         }
 
         // Create player rectangle
-        final com.badlogic.gdx.math.Rectangle bounds = playerSprite.getBoundingRectangle();
+        final Rectangle bounds = playerSprite.getBoundingRectangle();
 
         // Create screen rectangle
         final Rectangle screenBounds = new Rectangle(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
