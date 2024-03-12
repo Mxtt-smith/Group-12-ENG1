@@ -6,7 +6,7 @@ This is a ToDo list for the Implementation section of the project, Heslington Hu
   - Pause game
   - End of day
   - Next day
-- Input (arrow keys, pause game, selecting activity done with arrow keys?)
+- ~~Input (arrow keys, pause game, selecting activity done with arrow keys?)~~
 - System
   - Energy
   - Time

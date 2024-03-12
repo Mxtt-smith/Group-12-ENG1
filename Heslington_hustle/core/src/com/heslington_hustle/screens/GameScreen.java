@@ -1,10 +1,8 @@
 package com.heslington_hustle.screens;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Rectangle;
 import com.heslington_hustle.game.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -16,10 +14,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-
-import java.util.Dictionary;
-import java.util.List;
-
 import static com.heslington_hustle.game.Player.character;
 import static com.heslington_hustle.game.Heslington_hustle.Energy;
 
@@ -44,7 +38,6 @@ public class GameScreen implements Screen {
         this.game = game;
 
         overviewCam = new OrthographicCamera();
-        //overviewCam.setToOrtho(false, 50, 50);
 
         // Energy bar
         orange = new Texture("orange.png");
@@ -72,7 +65,8 @@ public class GameScreen implements Screen {
         recreation = new Recreation();
 
         eat = new Eat();
-        eat.set(35*16, 40*16, 2*16, 1*16);
+        eat.set(35*16, 39*16, 2*16, 16);
+        System.out.println("Location of eat activity boundary: " + eat.zone.getX() + ',' + eat.zone.getY());
     }
 
     @Override
@@ -104,8 +98,11 @@ public class GameScreen implements Screen {
             player.stationary();
         }
 
+        System.out.println("Player's rectangle location: " + player.getBoundingRectangle().getX() + player.getBoundingRectangle().getY());
         // Check if player is hovering over an activity
-
+        if (player.getBoundingRectangle().overlaps(eat.zone)) {
+            System.out.println("Player wants to eat");
+        }
 
         batch.begin();
         player.draw(batch);
@@ -144,5 +141,6 @@ public class GameScreen implements Screen {
         blank.dispose();
         orange.dispose();
         batch.dispose();
+        player.dispose();
     }
 }

@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Player extends Sprite {
     TextureAtlas textureAtlas;
-    Sprite playerSprite;
     public static String character;
     private final TiledMapTileLayer collisionLayer;
     String direction;
@@ -19,20 +18,17 @@ public class Player extends Sprite {
         direction = "DOWN";
         this.collisionLayer = gameCollisionLayer;
         textureAtlas = atlas;
-        playerSprite = new Sprite(textureAtlas.findRegion(character + "sd"));
-        playerSprite.setOriginCenter();
-
+        textureAtlas.findRegion(character + "sd");
+        this.setOriginCenter();
     }
 
     public void setTexture(String textureName) {
-        playerSprite.setRegion(textureAtlas.findRegion(textureName));
+        setRegion(textureAtlas.findRegion(textureName));
     }
 
     public boolean collision(int transX, int transY) {
-        float oldX = playerSprite.getX();
-        float oldY = playerSprite.getY();
-        System.out.println("Current x:" + oldX);
-        System.out.println("Current y:" + oldY);
+        float oldX = getX();
+        float oldY = getY();
 
         float cellX = (oldX + transX) / 16;
         float cellY = (oldY + transY) / 16;
@@ -42,33 +38,27 @@ public class Player extends Sprite {
         // map is 50 x 50 cells
         try {
             cell = collisionLayer.getCell((int) Math.ceil(cellX), (int) Math.ceil(cellY));
-            System.out.println("Checking cell: " + (int) Math.ceil(cellX)+','+ (int) Math.ceil(cellY));
             // try upper bound
             if (cell.getTile().getProperties().containsKey("Collidable")) {
-                System.out.println("The upper bound tile is collidable");
                 return true;
             }
         } catch (Exception e) {
             // Catch the null exception - no tile exists there
-            System.out.println("No tile to collide into at upper bound");
         }
 
         // Check for collision for lower bound
         try {
             cell = collisionLayer.getCell((int) Math.floor(cellX), (int) Math.floor(cellY));
-            System.out.println("Checking cell: " + (int) Math.floor(cellX) + ',' + (int) Math.floor(cellY));
 
             if (cell.getTile().getProperties().containsKey("Collidable")) {
-                System.out.println("The lower bound tile is collidable");
                 return true;
             }
         } catch (Exception e) {
             // Catch the null exception - no tile exists there
-            System.out.println("No tile to collide into at lower bound");
         }
 
         // Create player rectangle
-        final Rectangle bounds = playerSprite.getBoundingRectangle();
+        final Rectangle bounds = getBoundingRectangle();
 
         // Create screen rectangle
         final Rectangle screenBounds = new Rectangle(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -87,8 +77,8 @@ public class Player extends Sprite {
         float screenRight = (float) (screenLeft + screenBounds.getWidth());
 
         // Get player position
-        float correctX = playerSprite.getX();
-        float correctY = playerSprite.getY();
+        float correctX = getX();
+        float correctY = getY();
 
         // Screen sides
         if(left < screenLeft)
@@ -111,7 +101,7 @@ public class Player extends Sprite {
         }
 
         // Set player position
-        playerSprite.setPosition(correctX, correctY);
+        setPosition(correctX, correctY);
 
         // No collision at either bound, so there is no tile
         return false;
@@ -119,38 +109,32 @@ public class Player extends Sprite {
 
     // Movement methods
     public void moveUp() {
-        if (playerSprite.getY() + 2 < 800) {
-            playerSprite.translateY(2);
+        if (getY() + 2 < 800) {
+            translateY(2);
             this.setTexture(character + "u");
             this.direction = "UP";
         }
     }
     public void moveDown() {
-        if (playerSprite.getY() - 2 > 0) {
-            playerSprite.translateY(-2);
+        if (getY() - 2 > 0) {
+            translateY(-2);
             this.setTexture(character + "d");
             this.direction = "DOWN";
         }
     }
 
     public void moveLeft() {
-        if (playerSprite.getX() - 2 > 0) {
-            playerSprite.translateX(-2);
-            this.setTexture(character + "l");
-            this.direction = "LEFT";
-        }
+        // Move sprite and bounding rectangle
+        translateX(-2);
+        this.setTexture(character + "l");
+        this.direction = "LEFT";
     }
 
     public void moveRight() {
-        if (playerSprite.getX() + 2 < 800) {
-            playerSprite.translateX(2);
-            this.setTexture(character + "r");
-            this.direction = "RIGHT";
-        }
-    }
-
-    public void setPosition(float x, float y) {
-        playerSprite.setPosition(x, y);
+        // Move sprite and bounding rectangle
+        translateX(2);
+        this.setTexture(character + "r");
+        this.direction = "RIGHT";
     }
 
     public void stationary() {
@@ -170,13 +154,8 @@ public class Player extends Sprite {
         }
     }
 
-    @Override
-    public void draw(Batch batch) {
-        playerSprite.draw(batch);
-    }
-
     public void dispose() {
-        playerSprite.getTexture().dispose();
+        getTexture().dispose();
         textureAtlas.dispose();
     }
 }
