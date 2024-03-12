@@ -12,23 +12,22 @@ This is a ToDo list for the Implementation section of the project, Heslington Hu
   - Time
   - Hunger
 - Screens
-  - Main Menu
-  - Pause
-  - Game
-  - How to play
+  - ~~Main Menu~~
+  - Pause (do we need to do this?)
+  - ~~Game~~
+  - How to play (nearly)
 ## Classes
-- **_Player_**
+- ~~Player~~
 - Coordinates
 - Velocity
 - Input (keys)
 - Sprite
-- Camera
+- ~~Camera~~
 - UI
 - Activity to select (inherits from UI)
 
 ## Activities/Collisions
-- Set player Bounds
+- ~~Set player Bounds~~
 - Collision detection for activity activation
 - Activity Selection
 - Activity Overlay (?)
-- 
