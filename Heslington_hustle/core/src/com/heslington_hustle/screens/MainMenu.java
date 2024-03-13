@@ -41,10 +41,14 @@ public class MainMenu implements Screen {
 
         //create buttons
         TextButton newGame = new TextButton("New Game", skin);
+        TextButton howToPlay = new TextButton("How to Play", skin);
         TextButton exit = new TextButton("Exit", skin);
 
         //add buttons to table
         table.add(newGame).fillX().uniformX();
+        table.row().pad(10, 0, 10, 0);
+        table.row();
+        table.add(howToPlay).fillX().uniformX();
         table.row().pad(10, 0, 10, 0);
         table.row();
         table.add(exit).fillX().uniformX();
@@ -54,6 +58,13 @@ public class MainMenu implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.exit();
+            }
+        });
+
+        howToPlay.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new HowToPlayScreen(game));
             }
         });
 

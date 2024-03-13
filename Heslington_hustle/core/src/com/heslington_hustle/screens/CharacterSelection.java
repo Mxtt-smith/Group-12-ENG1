@@ -5,7 +5,6 @@ import com.heslington_hustle.game.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.heslington_hustle.game.Heslington_hustle;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -14,10 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import static com.heslington_hustle.game.Heslington_hustle.Day;
+
 public class CharacterSelection implements Screen {
 
-    private final int w = Gdx.graphics.getWidth();
-    private final int h = Gdx.graphics.getHeight();
     private final Stage stage;
     private final Heslington_hustle game;
 
@@ -36,7 +35,7 @@ public class CharacterSelection implements Screen {
         table.setDebug(true);
         stage.addActor(table);
 
-        // temporary until we have asset manager in
+        // temporary skin
         Skin skin = new Skin(Gdx.files.internal("skin.json"));
 
         //create buttons
@@ -63,6 +62,7 @@ public class CharacterSelection implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Player.character = "char1";
+                Day = 1;
                 game.setScreen(new GameScreen(game));
             }
         });
@@ -71,6 +71,7 @@ public class CharacterSelection implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Player.character = "char2";
+                Day = 1;
                 game.setScreen(new GameScreen(game));
             }
         });
@@ -104,7 +105,7 @@ public class CharacterSelection implements Screen {
 
     @Override
     public void hide() {
-        System.out.println("Main menu hiding");
+        System.out.println("Character Selection hiding");
         Gdx.input.setInputProcessor(null);
     }
 

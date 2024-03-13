@@ -1,7 +1,9 @@
 package com.heslington_hustle.screens;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.heslington_hustle.game.Player;
+import com.heslington_hustle.game.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -12,8 +14,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.heslington_hustle.game.Heslington_hustle;
 import static com.heslington_hustle.game.Player.character;
+import static com.heslington_hustle.game.Heslington_hustle.Energy;
 
 // This is the screen that will show the actual game
 public class GameScreen implements Screen {
@@ -25,12 +27,22 @@ public class GameScreen implements Screen {
     private final OrthographicCamera overviewCam;
     private final TextureAtlas atlas;
     Player player;
+    Texture blank;
+    Texture orange;
+    BitmapFont font = new BitmapFont();
+    Study study;
+    Eat eat;
+    Sleep sleep;
+    Recreation recreation;
 
     public GameScreen(final Heslington_hustle game) {
         this.game = game;
 
         overviewCam = new OrthographicCamera();
-        //overviewCam.setToOrtho(false, 50, 50);
+
+        // Energy bar
+        orange = new Texture("orange.png");
+        blank = new Texture("blank.png");
 
         // load the tiled map
         map = new TmxMapLoader().load("map1.tmx");
@@ -41,11 +53,25 @@ public class GameScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map, 1/16f);
         renderer.setView(overviewCam);
 
+        // Generate the texture atlas for the player
         atlas = new TextureAtlas(Gdx.files.internal("characters/"+character+".atlas"));
+        // Create the player
         player = new Player(atlas, (TiledMapTileLayer)map.getLayers().get("Collisions"));
         player.setTexture(character+"sd");
         // Multiply by 16 as all assets are 16 bit
-        player.setPosition(12*16, (50-15)*16);
+        player.setPosition(400, 400);
+
+        // Create the activities on the map
+        study = new Study();
+        study.set(39*16, 4*16, 2*16, 16);
+
+        recreation = new Recreation();
+        recreation.set(11*16, 8*16, 2*16, 2*16);
+        eat = new Eat();
+        eat.set(35*16, 39*16, 2*16, 16);
+
+        sleep = new Sleep();
+        sleep.set(11*16, 35*16, 2*16, 16);
     }
 
     @Override
@@ -77,8 +103,26 @@ public class GameScreen implements Screen {
             player.stationary();
         }
 
+        // Check if player is hovering over an activity
+        if (player.getBoundingRectangle().overlaps(eat.zone)) {
+            System.out.println("Player wants to eat");
+            game.setScreen(new ActivityScreen(game));
+        } else if (player.getBoundingRectangle().overlaps(study.zone)) {
+            System.out.println("Player wants to study");
+            game.setScreen(new ActivityScreen(game));
+        } else if (player.getBoundingRectangle().overlaps(sleep.zone)) {
+            System.out.println("Player wants to sleep");
+            game.setScreen(new ActivityScreen(game));
+        } else if (player.getBoundingRectangle().overlaps(recreation.zone)) {
+            System.out.println("Player wants to feed the ducks");
+            game.setScreen(new ActivityScreen(game));
+        }
+
         batch.begin();
         player.draw(batch);
+        batch.draw(blank,55,783,200,10);
+        batch.draw(orange,55,783,200*(Energy/100),10);
+        font.draw(batch, "Energy", 5, 795);
         batch.end();
     }
 
@@ -108,6 +152,9 @@ public class GameScreen implements Screen {
         map.dispose();
         renderer.dispose();
         atlas.dispose();
+        blank.dispose();
+        orange.dispose();
         batch.dispose();
+        player.dispose();
     }
 }

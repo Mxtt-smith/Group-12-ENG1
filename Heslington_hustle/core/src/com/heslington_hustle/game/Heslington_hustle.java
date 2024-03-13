@@ -12,6 +12,9 @@ public class Heslington_hustle extends Game {
     // load the assets
     public SpriteBatch batch;
     public BitmapFont font;
+    public static float Energy;
+    public static float Time;
+    public static float Day;
     @Override
     public void create() {
         batch = new SpriteBatch();
