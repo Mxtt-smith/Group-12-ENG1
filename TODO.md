@@ -1,33 +1,39 @@
-# ToDo List:
-This is a ToDo list for the Implementation section of the project, Heslington Hustle.
-## Packages
-- UI
+# TODO List:
+This is a TODO list for the Implementation section of the project, _Heslington Hustle_.
+## UI/Screens
   - Game intro
-  - Pause game
   - End of day
   - Next day
-- ~~Input (arrow keys, pause game, selecting activity done with arrow keys?)~~
-- System
+  - **Pause Game**
+    - Should exit or resume
+  - **End Game (score screen)**
+  - How to play (Matt)
+  - Character selection
+    - Display characters on screen rather than buttons? (maybe for refactoring)
+## System
   - Energy
   - Time
+    - Show how many hours left
   - Hunger
-- Screens
-  - ~~Main Menu~~
-  - Pause (do we need to do this?)
-  - ~~Game~~
-  - How to play (nearly)
+    - Don't need to show
+    - Counter
+- Score
+  - Don't need to worry till next assessment
 ## Classes
-- ~~Player~~
-- Coordinates
-- Velocity
-- Input (keys)
-- Sprite
-- ~~Camera~~
-- UI
-- Activity to select (inherits from UI)
+- Activity (merge into one)
+- Stats (Matt did?)
 
-## Activities/Collisions
-- ~~Set player Bounds~~
-- Collision detection for activity activation
-- Activity Selection
-- Activity Overlay (?)
+## Activities
+- **Decide activities**
+- Need to work out how much energy/score each activity uses
+  - Should be enough to do 3-5 each day
+- Game conditions
+  - Sleep ends day
+  - Go past 16 hours, less energy next day
+  - Go past more, force next day ("You are tired. Sleep")
+  - Only interaction after 16 hours is to sleep
+  - **If the player doesn't study for two days in a row, END GAME**
+- Counters
+  - Activities
+  - How many meals a day
+  - Min points for game completions
