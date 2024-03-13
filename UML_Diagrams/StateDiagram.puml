@@ -50,7 +50,8 @@ StartMenu -down-> Game: StartGame
 Game -> PauseMenu: Pause
 Game <- PauseMenu: Unpause
 Game -down-> End: End of 7th day
-End -down-> [*]
+End -up->  StartMenu
+StartMenu -> [*] :exit
 PauseMenu -down-> [*] : Quit game
 
 note right of StartMenu

@@ -1,13 +1,15 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class CharacterSelection
+class CharacterSelectionScreen
 
 class GameScreen
 
 class HowToPlayScreen
 
-class MainMenu
+class MainMenuScreen
 
+class NewDayScreen
 
+class ActivityScreen
 @enduml
