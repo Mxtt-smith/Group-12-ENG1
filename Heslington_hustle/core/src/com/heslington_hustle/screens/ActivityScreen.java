@@ -5,8 +5,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.heslington_hustle.game.Activity;
-import com.heslington_hustle.game.Heslington_hustle;
+import com.heslington_hustle.game.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -24,17 +23,49 @@ public class ActivityScreen extends ScreenAdapter {
 
     private final Stage stage;
     private final Heslington_hustle game;
-    BitmapFont font = new BitmapFont();
+    BitmapFont font;
     private final SpriteBatch batch;
     Activity activity;
 
 
-    public ActivityScreen (final Heslington_hustle game, Activity activity) {
+    public ActivityScreen (final Heslington_hustle game, Eat activity) {
         this.game = game;
-        batch = new SpriteBatch();
-        /// create stage and set it as input processor
-        stage = new Stage(new ScreenViewport());
+        batch = game.batch;
+        font = game.font;
         this.activity = activity;
+
+        // create stage and set it as input processor
+        stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
+    }
+    public ActivityScreen (final Heslington_hustle game, Sleep activity) {
+        this.game = game;
+        batch = game.batch;
+        font = game.font;
+        this.activity = activity;
+
+        // create stage and set it as input processor
+        stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
+    }
+    public ActivityScreen (final Heslington_hustle game, Recreation activity) {
+        this.game = game;
+        batch = game.batch;
+        font = game.font;
+        this.activity = activity;
+
+        // create stage and set it as input processor
+        stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
+    }
+    public ActivityScreen (final Heslington_hustle game, Study activity) {
+        this.game = game;
+        batch = game.batch;
+        font = game.font;
+        this.activity = activity;
+
+        // create stage and set it as input processor
+        stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
 
