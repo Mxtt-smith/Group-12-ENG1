@@ -5,6 +5,6 @@ public class Eat extends Activity {
         super();
         type = ActivityType.EAT;
         TimeUse = 1;
-        EnergyUse = -50;
+        EnergyUse = 10;
     }
 }

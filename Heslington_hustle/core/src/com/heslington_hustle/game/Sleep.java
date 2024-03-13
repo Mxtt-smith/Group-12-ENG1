@@ -5,6 +5,6 @@ public class Sleep extends Activity{
         super();
         type = ActivityType.SLEEP;
         TimeUse = 16;
-        EnergyUse = -100;
+        EnergyUse = 0;
     }
 }

@@ -57,6 +57,7 @@ public class ActivityScreen extends ScreenAdapter {
 
         //add buttons to table
         table.add(back).fillX().uniformX();
+        table.add(yes).fillX().uniformX();
 
         // create button listeners
         back.addListener(new ChangeListener() {
@@ -90,7 +91,7 @@ public class ActivityScreen extends ScreenAdapter {
         // clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
 
-        if (activity.getType() == ActivityType.EAT) {
+        if (Activity.type == ActivityType.EAT) {
 
             // tell our stage to do actions and draw itself
             stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -99,7 +100,7 @@ public class ActivityScreen extends ScreenAdapter {
             font.draw(batch, "Do you want to eat?", 200, 600);
             batch.end();
         }
-        if (activity.getType() == ActivityType.RECREATION) {
+        if (Activity.type == ActivityType.RECREATION) {
 
             // tell our stage to do actions and draw itself
             stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -108,7 +109,7 @@ public class ActivityScreen extends ScreenAdapter {
             font.draw(batch, "Do you want to feed the ducks?", 200, 600);
             batch.end();
         }
-        if (activity.getType() == ActivityType.STUDY) {
+        if (Activity.type == ActivityType.STUDY) {
 
             // tell our stage to do actions and draw itself
             stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -117,13 +118,15 @@ public class ActivityScreen extends ScreenAdapter {
             font.draw(batch, "Do you want to Study?", 200, 600);
             batch.end();
         }
-        if (activity.getType() == ActivityType.SLEEP) {
+        if (Activity.type == ActivityType.SLEEP) {
 
             // tell our stage to do actions and draw itself
             stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
             stage.draw();
             batch.begin();
             font.draw(batch, "Do you want to Sleep?", 200, 600);
+            Day += 1;
+            game.setScreen(new NewDayScreen(game));
             batch.end();
         }
     }

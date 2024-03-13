@@ -14,7 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import static com.heslington_hustle.game.Heslington_hustle.Day;
-
+import static com.heslington_hustle.game.Heslington_hustle.Energy;
+import static com.heslington_hustle.game.Heslington_hustle.Time;
 public class CharacterSelection extends ScreenAdapter {
 
     private final Stage stage;
@@ -64,6 +65,8 @@ public class CharacterSelection extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
                 Player.character = "char1";
                 Day = 1;
+                Energy = 100;
+                Time = 16;
                 game.setScreen(new GameScreen(game));
             }
         });
@@ -73,6 +76,8 @@ public class CharacterSelection extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
                 Player.character = "char2";
                 Day = 1;
+                Energy = 100;
+                Time = 16;
                 game.setScreen(new GameScreen(game));
             }
         });
