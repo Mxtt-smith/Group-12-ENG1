@@ -1,9 +1,9 @@
 package com.heslington_hustle.screens;
 
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.Player;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.heslington_hustle.game.Heslington_hustle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import static com.heslington_hustle.game.Heslington_hustle.Day;
 
-public class CharacterSelection implements Screen {
+public class CharacterSelection extends ScreenAdapter {
 
     private final Stage stage;
     private final Heslington_hustle game;
@@ -29,6 +29,7 @@ public class CharacterSelection implements Screen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
+        System.out.println("Character selection showing");
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
         table.setFillParent(true);
@@ -54,7 +55,7 @@ public class CharacterSelection implements Screen {
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new MainMenu(game));
+                game.setScreen(new MainMenuScreen(game));
             }
         });
 
@@ -94,22 +95,8 @@ public class CharacterSelection implements Screen {
     }
 
     @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
     public void hide() {
         System.out.println("Character Selection hiding");
         Gdx.input.setInputProcessor(null);
-    }
-
-    @Override
-    public void dispose() {
     }
 }

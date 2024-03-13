@@ -1,7 +1,7 @@
 package com.heslington_hustle.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -14,18 +14,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class HowToPlayScreen implements Screen {
+public class HowToPlayScreen extends ScreenAdapter {
 
-    private final int w = Gdx.graphics.getWidth();
-    private final int h = Gdx.graphics.getHeight();
     private final Stage stage;
     private final Heslington_hustle game;
-    BitmapFont font = new BitmapFont();
-    private final SpriteBatch batch;
+    BitmapFont font;
+    SpriteBatch batch;
 
-    public HowToPlayScreen (final Heslington_hustle game) {
+    public HowToPlayScreen(final Heslington_hustle game) {
         this.game = game;
-        batch = new SpriteBatch();
+        batch = game.batch;
+        font = game.font;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -34,6 +33,7 @@ public class HowToPlayScreen implements Screen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
+        System.out.println("How to play showing");
         // Create a table that fills the screen
         Table table = new Table();
         table.setFillParent(true);
@@ -53,7 +53,7 @@ public class HowToPlayScreen implements Screen {
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new MainMenu(game));
+                game.setScreen(new MainMenuScreen(game));
             }
         });
 
@@ -81,22 +81,8 @@ public class HowToPlayScreen implements Screen {
     }
 
     @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
     public void hide() {
-        System.out.println("Main menu hiding");
+        System.out.println("How to play hiding");
         Gdx.input.setInputProcessor(null);
-    }
-
-    @Override
-    public void dispose() {
     }
 }

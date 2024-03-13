@@ -1,7 +1,7 @@
 package com.heslington_hustle.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -20,26 +20,27 @@ import static com.heslington_hustle.game.Activity.EnergyUse;
 import static com.heslington_hustle.game.Activity.TimeUse;
 import static com.heslington_hustle.game.Heslington_hustle.*;
 
-public class ActivityScreen implements Screen {
+public class ActivityScreen extends ScreenAdapter {
 
-    private final int w = Gdx.graphics.getWidth();
-    private final int h = Gdx.graphics.getHeight();
     private final Stage stage;
     private final Heslington_hustle game;
     BitmapFont font = new BitmapFont();
     private final SpriteBatch batch;
+    Activity activity;
 
 
-    public ActivityScreen (final Heslington_hustle game) {
+    public ActivityScreen (final Heslington_hustle game, Activity activity) {
         this.game = game;
         batch = new SpriteBatch();
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
+        this.activity = activity;
         Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void show() {
+        System.out.println("Show activity screen");
         Gdx.input.setInputProcessor(stage);
         // Create a table that fills the screen
         Table table = new Table();
@@ -89,7 +90,7 @@ public class ActivityScreen implements Screen {
         // clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
 
-        if (Activity.type == ActivityType.EAT) {
+        if (activity.getType() == ActivityType.EAT) {
 
             // tell our stage to do actions and draw itself
             stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -98,7 +99,7 @@ public class ActivityScreen implements Screen {
             font.draw(batch, "Do you want to eat?", 200, 600);
             batch.end();
         }
-        if (Activity.type == ActivityType.RECREATION) {
+        if (activity.getType() == ActivityType.RECREATION) {
 
             // tell our stage to do actions and draw itself
             stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -107,7 +108,7 @@ public class ActivityScreen implements Screen {
             font.draw(batch, "Do you want to feed the ducks?", 200, 600);
             batch.end();
         }
-        if (Activity.type == ActivityType.STUDY) {
+        if (activity.getType() == ActivityType.STUDY) {
 
             // tell our stage to do actions and draw itself
             stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -116,7 +117,7 @@ public class ActivityScreen implements Screen {
             font.draw(batch, "Do you want to Study?", 200, 600);
             batch.end();
         }
-        if (Activity.type == ActivityType.SLEEP) {
+        if (activity.getType() == ActivityType.SLEEP) {
 
             // tell our stage to do actions and draw itself
             stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -134,22 +135,15 @@ public class ActivityScreen implements Screen {
     }
 
     @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
     public void hide() {
-        System.out.println("Main menu hiding");
+        System.out.println("Activity screen hiding");
         Gdx.input.setInputProcessor(null);
     }
 
     @Override
     public void dispose() {
+        stage.dispose();
+        font.dispose();
+        batch.dispose();
     }
 }

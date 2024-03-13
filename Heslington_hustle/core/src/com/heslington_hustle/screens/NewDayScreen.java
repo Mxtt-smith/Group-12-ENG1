@@ -1,7 +1,7 @@
 package com.heslington_hustle.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -14,10 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class NewDayScreen implements Screen {
+public class NewDayScreen extends ScreenAdapter {
 
-    private final int w = Gdx.graphics.getWidth();
-    private final int h = Gdx.graphics.getHeight();
     private final Stage stage;
     private final Heslington_hustle game;
     BitmapFont font = new BitmapFont();
@@ -79,23 +77,9 @@ public class NewDayScreen implements Screen {
     }
 
     @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
     public void hide() {
         System.out.println("Main menu hiding");
         Gdx.input.setInputProcessor(null);
-    }
-
-    @Override
-    public void dispose() {
     }
 }
 

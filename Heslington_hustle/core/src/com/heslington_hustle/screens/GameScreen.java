@@ -1,12 +1,12 @@
 package com.heslington_hustle.screens;
 
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.heslington_hustle.game.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -18,22 +18,27 @@ import static com.heslington_hustle.game.Player.character;
 import static com.heslington_hustle.game.Heslington_hustle.Energy;
 
 // This is the screen that will show the actual game
-public class GameScreen implements Screen {
+public class GameScreen extends ScreenAdapter {
     final Heslington_hustle game;
     // fetch the assets
-    private final TiledMap map;
-    private final OrthogonalTiledMapRenderer renderer;
-    private final SpriteBatch batch;
-    private final OrthographicCamera overviewCam;
-    private final TextureAtlas atlas;
+    TiledMap map;
+    OrthogonalTiledMapRenderer renderer;
+    SpriteBatch batch;
+    OrthographicCamera overviewCam;
+    TextureAtlas atlas;
     Player player;
     Texture blank;
     Texture orange;
-    BitmapFont font = new BitmapFont();
+    BitmapFont font;
     Study study;
     Eat eat;
     Sleep sleep;
     Recreation recreation;
+    enum GameState {
+        FREE_ROAM,
+        DOING_ACTIVITY
+    }
+    GameState state;
 
     public GameScreen(final Heslington_hustle game) {
         this.game = game;
@@ -48,7 +53,8 @@ public class GameScreen implements Screen {
         map = new TmxMapLoader().load("map1.tmx");
 
         // create the spriteBatch
-        batch = new SpriteBatch();
+        batch = game.batch;
+        font = game.font;
         // create the renderer
         renderer = new OrthogonalTiledMapRenderer(map, 1/16f);
         renderer.setView(overviewCam);
@@ -67,11 +73,15 @@ public class GameScreen implements Screen {
 
         recreation = new Recreation();
         recreation.set(11*16, 8*16, 2*16, 2*16);
+
         eat = new Eat();
         eat.set(35*16, 39*16, 2*16, 16);
+        System.out.println("Activity type: " + eat.getType());
 
         sleep = new Sleep();
         sleep.set(11*16, 35*16, 2*16, 16);
+
+        state = GameState.FREE_ROAM;
     }
 
     @Override
@@ -103,19 +113,27 @@ public class GameScreen implements Screen {
             player.stationary();
         }
 
-        // Check if player is hovering over an activity
-        if (player.getBoundingRectangle().overlaps(eat.zone)) {
-            System.out.println("Player wants to eat");
-            game.setScreen(new ActivityScreen(game));
-        } else if (player.getBoundingRectangle().overlaps(study.zone)) {
-            System.out.println("Player wants to study");
-            game.setScreen(new ActivityScreen(game));
-        } else if (player.getBoundingRectangle().overlaps(sleep.zone)) {
-            System.out.println("Player wants to sleep");
-            game.setScreen(new ActivityScreen(game));
-        } else if (player.getBoundingRectangle().overlaps(recreation.zone)) {
-            System.out.println("Player wants to feed the ducks");
-            game.setScreen(new ActivityScreen(game));
+
+        if (state == GameState.FREE_ROAM) {
+            // Check if player is hovering over an activity
+            if (player.getBoundingRectangle().overlaps(eat.zone)) {
+                state = GameState.DOING_ACTIVITY;
+                System.out.println("Player wants to eat");
+                player.setPosition(400, 400);
+                game.setScreen(new ActivityScreen(game, eat));
+            } else if (player.getBoundingRectangle().overlaps(study.zone)) {
+                state = GameState.DOING_ACTIVITY;
+                System.out.println("Player wants to study");
+                game.setScreen(new ActivityScreen(game, study));
+            } else if (player.getBoundingRectangle().overlaps(sleep.zone)) {
+                state = GameState.DOING_ACTIVITY;
+                System.out.println("Player wants to sleep");
+                game.setScreen(new ActivityScreen(game, sleep));
+            } else if (player.getBoundingRectangle().overlaps(recreation.zone)) {
+                state = GameState.DOING_ACTIVITY;
+                System.out.println("Player wants to feed the ducks");
+                game.setScreen(new ActivityScreen(game, recreation));
+            }
         }
 
         batch.begin();
@@ -139,22 +157,11 @@ public class GameScreen implements Screen {
     @Override
     public void resume() {
         System.out.println("Game resuming");
+        state = GameState.FREE_ROAM;
     }
 
     @Override
     public void hide() {
         System.out.println("Game hiding");
-        dispose();
-    }
-
-    @Override
-    public void dispose() {
-        map.dispose();
-        renderer.dispose();
-        atlas.dispose();
-        blank.dispose();
-        orange.dispose();
-        batch.dispose();
-        player.dispose();
     }
 }
