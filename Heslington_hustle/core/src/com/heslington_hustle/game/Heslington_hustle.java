@@ -3,7 +3,7 @@ package com.heslington_hustle.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.heslington_hustle.screens.MainMenu;
+import com.heslington_hustle.screens.MainMenuScreen;
 
 // Our core class will extend the Game class
 // (implementing the ApplicationListener interface.)
@@ -13,13 +13,14 @@ public class Heslington_hustle extends Game {
     public SpriteBatch batch;
     public BitmapFont font;
     public static float Energy;
+    public static float Time;
+    public static float Day;
     @Override
     public void create() {
-        Energy = 50;
         batch = new SpriteBatch();
         font = new BitmapFont();
         // For now, set the startup screen to the playing game screen
-        this.setScreen(new MainMenu(this));
+        this.setScreen(new MainMenuScreen(this));
     }
 
     @Override

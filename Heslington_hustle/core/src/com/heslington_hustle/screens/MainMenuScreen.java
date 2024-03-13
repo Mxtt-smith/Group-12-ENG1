@@ -2,10 +2,9 @@ package com.heslington_hustle.screens;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.Heslington_hustle;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -14,14 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class MainMenu implements Screen {
+public class MainMenuScreen extends ScreenAdapter {
 
-    private final int w = Gdx.graphics.getWidth();
-    private final int h = Gdx.graphics.getHeight();
     private final Stage stage;
     private final Heslington_hustle game;
 
-    public MainMenu (final Heslington_hustle game) {
+    public MainMenuScreen(final Heslington_hustle game) {
         this.game = game;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
@@ -94,16 +91,6 @@ public class MainMenu implements Screen {
     }
 
     @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
     public void hide() {
         System.out.println("Main menu hiding");
         Gdx.input.setInputProcessor(null);
@@ -111,5 +98,6 @@ public class MainMenu implements Screen {
 
     @Override
     public void dispose() {
+        stage.dispose();
     }
 }

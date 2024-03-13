@@ -2,11 +2,14 @@ package com.heslington_hustle.game;
 
 import com.badlogic.gdx.math.Rectangle;
 
-abstract class Activity {
-    enum ActivityType {
+public class Activity {
+
+    public static float EnergyUse;
+    public static float TimeUse;
+    public enum ActivityType {
         SLEEP, RECREATION, EAT, STUDY
     }
-    ActivityType type;
+    public static ActivityType type;
     public Rectangle zone;
 
     public Activity() {
@@ -17,4 +20,11 @@ abstract class Activity {
     public void set(float x, float y, float width, float height) {
         zone.set(x, y, width, height);
     }
+<<<<<<< HEAD
+=======
+
+    public ActivityType getType() {
+        return type;
+    }
+>>>>>>> origin/J1.2
 }

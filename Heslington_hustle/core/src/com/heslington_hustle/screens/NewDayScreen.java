@@ -14,17 +14,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class HowToPlayScreen extends ScreenAdapter {
+public class NewDayScreen extends ScreenAdapter {
 
     private final Stage stage;
     private final Heslington_hustle game;
-    BitmapFont font;
-    SpriteBatch batch;
+    BitmapFont font = new BitmapFont();
+    private final SpriteBatch batch;
 
-    public HowToPlayScreen(final Heslington_hustle game) {
+    public NewDayScreen (final Heslington_hustle game) {
         this.game = game;
-        batch = game.batch;
-        font = game.font;
+        batch = new SpriteBatch();
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -33,7 +32,6 @@ public class HowToPlayScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        System.out.println("How to play showing");
         // Create a table that fills the screen
         Table table = new Table();
         table.setFillParent(true);
@@ -44,16 +42,16 @@ public class HowToPlayScreen extends ScreenAdapter {
         Skin skin = new Skin(Gdx.files.internal("skin.json"));
 
         //create button
-        TextButton back = new TextButton("Back", skin);
+        TextButton ok = new TextButton("Start Day!", skin);
 
         //add buttons to table
-        table.add(back).fillX().uniformX();
+        table.add(ok).fillX().uniformX();
 
         // create button listeners
-        back.addListener(new ChangeListener() {
+        ok.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new MainMenuScreen(game));
+                game.setScreen(new GameScreen(game));
             }
         });
 
@@ -68,9 +66,7 @@ public class HowToPlayScreen extends ScreenAdapter {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
         batch.begin();
-        font.draw(batch, "Use the arrow keys to move" +
-                "\nStudy once a day at the comp sci building to pass your exams!" +
-                "\nblah blah blah", 200, 600);
+        font.draw(batch, "You're Starting a new Day!", 200, 600);
         batch.end();
     }
 
@@ -82,7 +78,9 @@ public class HowToPlayScreen extends ScreenAdapter {
 
     @Override
     public void hide() {
-        System.out.println("How to play hiding");
+        System.out.println("Main menu hiding");
         Gdx.input.setInputProcessor(null);
     }
 }
+
+
