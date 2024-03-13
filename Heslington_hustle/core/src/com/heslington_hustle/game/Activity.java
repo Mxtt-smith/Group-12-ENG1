@@ -20,11 +20,8 @@ public class Activity {
     public void set(float x, float y, float width, float height) {
         zone.set(x, y, width, height);
     }
-<<<<<<< HEAD
-=======
 
     public ActivityType getType() {
         return type;
     }
->>>>>>> origin/J1.2
 }
