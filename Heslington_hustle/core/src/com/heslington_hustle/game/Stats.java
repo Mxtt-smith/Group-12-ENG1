@@ -15,19 +15,23 @@ public class Stats {
         recreation = 0;
         eat = 0;
         studiedYesterday = 1;
-        days = new ArrayList<Dictionary<String, Integer>>();
+        days = new ArrayList<>();
     }
 
     // increment an activity's counter
-    public void log(String activity) throws Exception{
-        if(Objects.equals(activity, "study")){
-            study += 1;
-        } else if (Objects.equals(activity, "recreation")) {
-            recreation += 1;
-        } else if (Objects.equals(activity, "eat")) {
-            eat += 1;
-        } else {
-            throw new Exception("The statistic you are trying to log doesn't exist");
+    public void log(Activity.ActivityType type) throws Exception{
+        switch (type) {
+            case RECREATION:
+                recreation++;
+                break;
+            case STUDY:
+                study++;
+                break;
+            case EAT:
+                eat++;
+                break;
+            default:
+                throw new Exception("The statistic you are trying to log doesn't exist");
         }
     }
 
@@ -61,10 +65,5 @@ public class Stats {
     public int getScore(){
         //Method to calculate the score
         return 0;
-    }
-
-    // Lose the game if they didn't study for two days in a row
-    public boolean lost() {
-        return studiedYesterday == study && study == 0;
     }
 }

@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.heslington_hustle.game.Activity.ActivityType;
 
-import static com.heslington_hustle.game.Activity.TimeUse;
 import static com.heslington_hustle.game.HeslingtonHustle.*;
 
 public class ActivityScreen extends ScreenAdapter {
@@ -69,27 +68,12 @@ public class ActivityScreen extends ScreenAdapter {
         yes.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (HeslingtonHustle.Energy - Activity.Energy < 0) {
+                if (HeslingtonHustle.Energy - activity.getEnergy() < 0) {
                     game.setScreen(new ErrorScreen(game));
-                } else if (hoursLeft - TimeUse < 0) {
+                } else if (hoursLeft - activity.getTimeUse() < 0) {
                     game.setScreen(new ErrorScreen(game));
                 }
-                String activity;
-                switch (Activity.type) {
-                    case STUDY:
-                        activity = "study";
-                        break;
-                    case EAT:
-                        activity = "eat";
-                        break;
-                    case RECREATION:
-                        activity = "recreation";
-                        break;
-                    default:
-                        activity = "sleep";
-                        break;
-                }
-                if (activity == "sleep") {
+                if (activity.getType() == ActivityType.SLEEP) {
                         game.stats.addDay(game.stats.getStats());
                         game.stats.newDay();
                         if (Day <= 7) {
@@ -99,11 +83,11 @@ public class ActivityScreen extends ScreenAdapter {
                             game.setScreen(new EndGameScreen(game));
                         }
                 } else {
-                    HeslingtonHustle.Energy -= Activity.Energy;
-                    hoursLeft -= TimeUse;
+                    HeslingtonHustle.Energy -= activity.getEnergy();
+                    hoursLeft -= activity.getTimeUse();
                     try {
-                        game.stats.log(activity);
-                        System.out.println("Logged " + activity);
+                        game.stats.log(activity.getType());
+                        System.out.println("Logged " + activity.getDescription());
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -119,42 +103,11 @@ public class ActivityScreen extends ScreenAdapter {
         // clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
 
-        if (Activity.type == ActivityType.EAT) {
-
-            // tell our stage to do actions and draw itself
-            stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-            stage.draw();
-            batch.begin();
-            font.draw(batch, "Do you want to eat?", 200, 600);
-            batch.end();
-        }
-        if (Activity.type == ActivityType.RECREATION) {
-
-            // tell our stage to do actions and draw itself
-            stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-            stage.draw();
-            batch.begin();
-            font.draw(batch, "Do you want to feed the ducks?", 200, 600);
-            batch.end();
-        }
-        if (Activity.type == ActivityType.STUDY) {
-
-            // tell our stage to do actions and draw itself
-            stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-            stage.draw();
-            batch.begin();
-            font.draw(batch, "Do you want to Study?", 200, 600);
-            batch.end();
-        }
-        if (Activity.type == ActivityType.SLEEP) {
-
-            // tell our stage to do actions and draw itself
-            stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-            stage.draw();
-            batch.begin();
-            font.draw(batch, "Do you want to Sleep?", 200, 600);
-            batch.end();
-        }
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        stage.draw();
+        batch.begin();
+        font.draw(batch, "Do you want to" + activity.getDescription() + "?", 200, 600);
+        batch.end();
     }
 
     @Override

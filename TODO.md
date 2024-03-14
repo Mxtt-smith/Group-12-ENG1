@@ -32,14 +32,13 @@ This is a TODO list for the Implementation section of the project, _Heslington H
   - Go past 16 hours, less energy next day
   - Go past more, force next day ("You are tired. Sleep")
   - Only interaction after 16 hours is to sleep
-  - **If the player doesn't study for two days in a row, END GAME**
 - Counters
-  - Activities
+  - ~~Activities~~
   - How many meals a day
   - Min points for game completions
 ## Refactoring
-- Make one class for all activities (the others don't actually alter anything)
-- Neaten ActivityScreen code (remove dupes)
+- ~~Make one class for all activities (the others don't actually alter anything)~~
+- ~~Neaten ActivityScreen code (remove dupes)~~
 - Try to reduce making so many screens
   - Screen manager?
   - Don't call _new_ screens

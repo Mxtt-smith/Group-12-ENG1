@@ -16,9 +16,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.Activity;
 
-import static com.heslington_hustle.game.Activity.TimeUse;
 import static com.heslington_hustle.game.Player.character;
-import static com.heslington_hustle.game.Activity.Energy;
 
 // This is the screen that will show the actual game
 public class GameScreen extends ScreenAdapter {
@@ -33,10 +31,7 @@ public class GameScreen extends ScreenAdapter {
     Texture blank;
     Texture orange;
     BitmapFont font;
-    Study study;
-    Eat eat;
-    Sleep sleep;
-    Recreation recreation;
+    Activity study, eat, sleep, recreation;
     enum GameState {
         FREE_ROAM,
         DOING_ACTIVITY,
@@ -75,16 +70,16 @@ public class GameScreen extends ScreenAdapter {
         player.setPosition(400, 400);
 
         // Create the activities on the map
-        study = new Study();
+        study = new Activity(50, 4, Activity.ActivityType.STUDY, "make flashcards");
         study.set(39*16, 4*16, 2*16, 16);
 
-        recreation = new Recreation();
+        recreation = new Activity(20, 2, Activity.ActivityType.RECREATION, "feed the ducks");
         recreation.set(11*16, 8*16, 2*16, 2*16);
 
-        eat = new Eat();
+        eat = new Activity(10, 1, Activity.ActivityType.EAT, "eat lunch");
         eat.set(35*16, 39*16, 2*16, 16);
 
-        sleep = new Sleep();
+        sleep = new Activity(0, 0, Activity.ActivityType.SLEEP, "get an early night");
         sleep.set(11*16, 35*16, 2*16, 16);
 
         // Set the game's state
@@ -120,30 +115,17 @@ public class GameScreen extends ScreenAdapter {
             player.stationary();
         }
 
-        if (player.getBoundingRectangle().overlaps(eat.zone)) {
-            Activity.type = Activity.ActivityType.EAT;
+        if (player.getBoundingRectangle().overlaps(eat.getZone())) {
             System.out.println("Player wants to eat");
-            TimeUse = 1;
-            Energy = 10;
-            player.setPosition(400, 400);
             game.setScreen(new ActivityScreen(game, eat));
-        } else if (player.getBoundingRectangle().overlaps(study.zone)) {
-            Activity.type = Activity.ActivityType.STUDY;
+        } else if (player.getBoundingRectangle().overlaps(study.getZone())) {
             System.out.println("Player wants to study");
-            TimeUse = 4;
-            Energy = 50;
             game.setScreen(new ActivityScreen(game, study));
-        } else if (player.getBoundingRectangle().overlaps(sleep.zone)) {
-            Activity.type = Activity.ActivityType.SLEEP;
+        } else if (player.getBoundingRectangle().overlaps(sleep.getZone())) {
             System.out.println("Player wants to sleep");
-            TimeUse = 0;
-            Energy = 0;
             game.setScreen(new ActivityScreen(game, sleep));
-        } else if (player.getBoundingRectangle().overlaps(recreation.zone)) {
-            Activity.type = Activity.ActivityType.RECREATION;
+        } else if (player.getBoundingRectangle().overlaps(recreation.getZone())) {
             System.out.println("Player wants to feed the ducks");
-            TimeUse = 2;
-            Energy = 20;
             game.setScreen(new ActivityScreen(game, recreation));
         }
 
