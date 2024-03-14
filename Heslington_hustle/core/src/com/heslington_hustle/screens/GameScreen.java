@@ -46,17 +46,18 @@ public class GameScreen extends ScreenAdapter {
         this.game = game;
         System.out.println("New game screen");
 
-        overviewCam = new OrthographicCamera();
-
         // Energy bar
         orange = new Texture("orange.png");
         blank = new Texture("blank.png");
+
+        overviewCam = new OrthographicCamera();
+        overviewCam.setToOrtho(false, 10, 10);
+        overviewCam.update();
 
         // load the tiled map
         map = new TmxMapLoader().load("map1.tmx");
         // create the renderer
         renderer = new OrthogonalTiledMapRenderer(map, 1/16f);
-        renderer.setView(overviewCam);
 
         // create the spriteBatch and font
         batch = game.batch;
@@ -90,14 +91,11 @@ public class GameScreen extends ScreenAdapter {
     public void show() {
         System.out.println("Game showing");
         System.out.println("Energy left: " + HeslingtonHustle.Energy);
-        renderer.setView(overviewCam);
-        renderer.render();
     }
 
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 0);
-
         overviewCam.update();
         renderer.setView(overviewCam);
         renderer.render();

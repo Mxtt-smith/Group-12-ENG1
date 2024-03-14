@@ -43,3 +43,4 @@ This is a TODO list for the Implementation section of the project, _Heslington H
 - Try to reduce making so many screens
   - Screen manager?
   - Don't call _new_ screens
+- Alter collision detection (something wrong with moving down and left when right and left moving top right corner)
