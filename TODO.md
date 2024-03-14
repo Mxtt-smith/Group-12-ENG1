@@ -37,3 +37,9 @@ This is a TODO list for the Implementation section of the project, _Heslington H
   - Activities
   - How many meals a day
   - Min points for game completions
+## Refactoring
+- Make one class for all activities (the others don't actually alter anything)
+- Neaten ActivityScreen code (remove dupes)
+- Try to reduce making so many screens
+  - Screen manager?
+  - Don't call _new_ screens

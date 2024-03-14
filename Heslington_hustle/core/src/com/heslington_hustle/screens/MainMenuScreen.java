@@ -4,7 +4,7 @@ package com.heslington_hustle.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.heslington_hustle.game.Heslington_hustle;
+import com.heslington_hustle.game.HeslingtonHustle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,9 +16,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class MainMenuScreen extends ScreenAdapter {
 
     private final Stage stage;
-    private final Heslington_hustle game;
+    private final HeslingtonHustle game;
 
-    public MainMenuScreen(final Heslington_hustle game) {
+    public MainMenuScreen(final HeslingtonHustle game) {
         this.game = game;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
@@ -68,7 +68,7 @@ public class MainMenuScreen extends ScreenAdapter {
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new CharacterSelection(game));
+                game.setScreen(new CharacterSelectionScreen(game));
             }
         });
 

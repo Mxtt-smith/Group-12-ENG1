@@ -16,15 +16,13 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.Activity;
 
-import static com.heslington_hustle.game.Activity.EnergyUse;
 import static com.heslington_hustle.game.Activity.TimeUse;
-import static com.heslington_hustle.game.Heslington_hustle.Time;
 import static com.heslington_hustle.game.Player.character;
-import static com.heslington_hustle.game.Heslington_hustle.Energy;
+import static com.heslington_hustle.game.Activity.Energy;
 
 // This is the screen that will show the actual game
 public class GameScreen extends ScreenAdapter {
-    final Heslington_hustle game;
+    final HeslingtonHustle game;
     // fetch the assets
     TiledMap map;
     OrthogonalTiledMapRenderer renderer;
@@ -41,12 +39,17 @@ public class GameScreen extends ScreenAdapter {
     Recreation recreation;
     enum GameState {
         FREE_ROAM,
-        DOING_ACTIVITY
+        DOING_ACTIVITY,
+        LOSE,
+        NEW_DAY,
+        TOO_TIRED
     }
     GameState state;
 
-    public GameScreen(final Heslington_hustle game) {
+
+    public GameScreen(final HeslingtonHustle game) {
         this.game = game;
+        System.out.println("New game screen");
 
         overviewCam = new OrthographicCamera();
 
@@ -56,17 +59,16 @@ public class GameScreen extends ScreenAdapter {
 
         // load the tiled map
         map = new TmxMapLoader().load("map1.tmx");
-
-        // create the spriteBatch
-        batch = game.batch;
-        font = game.font;
         // create the renderer
         renderer = new OrthogonalTiledMapRenderer(map, 1/16f);
         renderer.setView(overviewCam);
 
-        // Generate the texture atlas for the player
-        atlas = new TextureAtlas(Gdx.files.internal("characters/"+character+".atlas"));
+        // create the spriteBatch and font
+        batch = game.batch;
+        font = game.font;
+
         // Create the player
+        atlas = new TextureAtlas(Gdx.files.internal("characters/"+character+".atlas"));
         player = new Player(atlas, (TiledMapTileLayer)map.getLayers().get("Collisions"));
         player.setTexture(character+"sd");
         // Multiply by 16 as all assets are 16 bit
@@ -81,11 +83,11 @@ public class GameScreen extends ScreenAdapter {
 
         eat = new Eat();
         eat.set(35*16, 39*16, 2*16, 16);
-        System.out.println("Activity type: " + eat.getType());
 
         sleep = new Sleep();
         sleep.set(11*16, 35*16, 2*16, 16);
 
+        // Set the game's state
         state = GameState.FREE_ROAM;
     }
 
@@ -121,33 +123,31 @@ public class GameScreen extends ScreenAdapter {
 
         if (state == GameState.FREE_ROAM) {
             // Check if player is hovering over an activity
+            // and open a new activity screen
             if (player.getBoundingRectangle().overlaps(eat.zone)) {
                 Activity.type = Activity.ActivityType.EAT;
                 System.out.println("Player wants to eat");
                 TimeUse = 1;
-                EnergyUse = 10;
+                Energy = 10;
                 player.setPosition(400, 400);
                 game.setScreen(new ActivityScreen(game, eat));
             } else if (player.getBoundingRectangle().overlaps(study.zone)) {
                 Activity.type = Activity.ActivityType.STUDY;
                 System.out.println("Player wants to study");
                 TimeUse = 4;
-                EnergyUse = 50;
-                player.setPosition(400, 400);
+                Energy = 50;
                 game.setScreen(new ActivityScreen(game, study));
             } else if (player.getBoundingRectangle().overlaps(sleep.zone)) {
                 Activity.type = Activity.ActivityType.SLEEP;
                 System.out.println("Player wants to sleep");
                 TimeUse = 16;
-                EnergyUse = 0;
-                player.setPosition(400, 400);
+                Energy = 0;
                 game.setScreen(new ActivityScreen(game, sleep));
             } else if (player.getBoundingRectangle().overlaps(recreation.zone)) {
                 Activity.type = Activity.ActivityType.RECREATION;
                 System.out.println("Player wants to feed the ducks");
                 TimeUse = 2;
-                EnergyUse = 20;
-                player.setPosition(400, 400);
+                Energy = 20;
                 game.setScreen(new ActivityScreen(game, recreation));
             }
         }
@@ -155,9 +155,17 @@ public class GameScreen extends ScreenAdapter {
         batch.begin();
         player.draw(batch);
         batch.draw(blank,55,783,200,10);
-        batch.draw(orange,55,783,200*(Energy/100),10);
+        batch.draw(orange,55,783,200*(HeslingtonHustle.Energy/100),10);
         font.draw(batch, "Energy", 5, 795);
         batch.end();
+    }
+
+    // Getter and Setter of game's state
+    public void setState(GameState newState) {
+        state = newState;
+    }
+    public GameState getState() {
+        return state;
     }
 
     @Override

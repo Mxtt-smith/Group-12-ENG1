@@ -4,7 +4,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.Player;
 import com.badlogic.gdx.Gdx;
-import com.heslington_hustle.game.Heslington_hustle;
+import com.heslington_hustle.game.HeslingtonHustle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -13,15 +13,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import static com.heslington_hustle.game.Heslington_hustle.Day;
-import static com.heslington_hustle.game.Heslington_hustle.Energy;
-import static com.heslington_hustle.game.Heslington_hustle.Time;
-public class CharacterSelection extends ScreenAdapter {
+import static com.heslington_hustle.game.HeslingtonHustle.Day;
+import static com.heslington_hustle.game.HeslingtonHustle.Energy;
+import static com.heslington_hustle.game.HeslingtonHustle.hoursLeft;
+public class CharacterSelectionScreen extends ScreenAdapter {
 
     private final Stage stage;
-    private final Heslington_hustle game;
+    private final HeslingtonHustle game;
 
-    public CharacterSelection (final Heslington_hustle game) {
+    public CharacterSelectionScreen(final HeslingtonHustle game) {
         this.game = game;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
@@ -64,9 +64,6 @@ public class CharacterSelection extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Player.character = "char1";
-                Day = 1;
-                Energy = 100;
-                Time = 16;
                 game.setScreen(new GameScreen(game));
             }
         });
@@ -75,9 +72,6 @@ public class CharacterSelection extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Player.character = "char2";
-                Day = 1;
-                Energy = 100;
-                Time = 16;
                 game.setScreen(new GameScreen(game));
             }
         });

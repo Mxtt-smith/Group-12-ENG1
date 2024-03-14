@@ -15,50 +15,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.heslington_hustle.game.Activity.ActivityType;
 
-import static com.heslington_hustle.game.Activity.EnergyUse;
+import static com.heslington_hustle.game.Activity.Energy;
 import static com.heslington_hustle.game.Activity.TimeUse;
-import static com.heslington_hustle.game.Heslington_hustle.*;
+import static com.heslington_hustle.game.HeslingtonHustle.*;
 
 public class ActivityScreen extends ScreenAdapter {
 
     private final Stage stage;
-    private final Heslington_hustle game;
+    private final HeslingtonHustle game;
     BitmapFont font;
     private final SpriteBatch batch;
     Activity activity;
 
 
-    public ActivityScreen (final Heslington_hustle game, Eat activity) {
-        this.game = game;
-        batch = game.batch;
-        font = game.font;
-        this.activity = activity;
-
-        // create stage and set it as input processor
-        stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
-    }
-    public ActivityScreen (final Heslington_hustle game, Sleep activity) {
-        this.game = game;
-        batch = game.batch;
-        font = game.font;
-        this.activity = activity;
-
-        // create stage and set it as input processor
-        stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
-    }
-    public ActivityScreen (final Heslington_hustle game, Recreation activity) {
-        this.game = game;
-        batch = game.batch;
-        font = game.font;
-        this.activity = activity;
-
-        // create stage and set it as input processor
-        stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
-    }
-    public ActivityScreen (final Heslington_hustle game, Study activity) {
+    public ActivityScreen (final HeslingtonHustle game, Activity activity) {
         this.game = game;
         batch = game.batch;
         font = game.font;
@@ -100,17 +70,39 @@ public class ActivityScreen extends ScreenAdapter {
         yes.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (Energy - EnergyUse < 0) {
+                if (HeslingtonHustle.Energy - Activity.Energy < 0) {
                     game.setScreen(new ErrorScreen(game));
-                }
-                else if (Time - TimeUse < 0) {
-                    Day += 1;
-                    game.setScreen(new NewDayScreen(game));
-                }
-                else {
-                    Energy -= EnergyUse;
-                    Time -= TimeUse;
-                    game.setScreen(new GameScreen(game));
+                } else if (hoursLeft - TimeUse < 0) {
+                    game.setScreen(new ErrorScreen(game));
+                } else {
+                    String activity;
+                    switch (Activity.type) {
+                        case STUDY:
+                            activity = "study";
+                            break;
+                        case EAT:
+                            activity = "eat";
+                            break;
+                        case RECREATION:
+                            activity = "recreation";
+                            break;
+                        default:
+                            activity = "sleep";
+                            break;
+                    }
+                    try {
+                        game.stats.log(activity);
+                        System.out.println("Logged " + activity);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (activity == "sleep") {
+                        game.setScreen(new NewDayScreen(game));
+                    } else {
+                        HeslingtonHustle.Energy -= Activity.Energy;
+                        hoursLeft -= TimeUse;
+                        game.setScreen(new GameScreen(game));
+                    }
                 }
             }
         });
@@ -156,8 +148,6 @@ public class ActivityScreen extends ScreenAdapter {
             stage.draw();
             batch.begin();
             font.draw(batch, "Do you want to Sleep?", 200, 600);
-            Day += 1;
-            game.setScreen(new NewDayScreen(game));
             batch.end();
         }
     }

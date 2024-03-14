@@ -5,6 +5,6 @@ public class Study extends Activity{
         super();
         type = ActivityType.STUDY;
         TimeUse = 4;
-        EnergyUse = 50;
+        Energy = 50;
     }
 }

@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Activity {
 
-    public static float EnergyUse;
+    public static float Energy;
     public static float TimeUse;
     public enum ActivityType {
         SLEEP, RECREATION, EAT, STUDY

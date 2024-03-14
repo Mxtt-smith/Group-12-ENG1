@@ -5,7 +5,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.heslington_hustle.game.Heslington_hustle;
+import com.heslington_hustle.game.HeslingtonHustle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -17,13 +17,15 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class NewDayScreen extends ScreenAdapter {
 
     private final Stage stage;
-    private final Heslington_hustle game;
-    BitmapFont font = new BitmapFont();
+    private final HeslingtonHustle game;
+    BitmapFont font;
     private final SpriteBatch batch;
 
-    public NewDayScreen (final Heslington_hustle game) {
+    public NewDayScreen (final HeslingtonHustle game) {
         this.game = game;
-        batch = new SpriteBatch();
+        batch = game.batch;
+        font = game.font;
+        HeslingtonHustle.Energy = 100;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -51,6 +53,10 @@ public class NewDayScreen extends ScreenAdapter {
         ok.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                game.stats.addDay(game.stats.getStats());
+                System.out.println(game.stats.getDay(0));
+                game.stats.newDay();
+                HeslingtonHustle.Day++;
                 game.setScreen(new GameScreen(game));
             }
         });
@@ -66,7 +72,7 @@ public class NewDayScreen extends ScreenAdapter {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
         batch.begin();
-        font.draw(batch, "You're Starting a new Day!", 200, 600);
+        font.draw(batch, "Day " + HeslingtonHustle.Day, 200, 600);
         batch.end();
     }
 

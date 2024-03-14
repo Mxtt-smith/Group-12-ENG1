@@ -5,7 +5,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.heslington_hustle.game.Heslington_hustle;
+import com.heslington_hustle.game.HeslingtonHustle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,11 +16,11 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class ErrorScreen extends ScreenAdapter {
     private final Stage stage;
-    private final Heslington_hustle game;
+    private final HeslingtonHustle game;
     BitmapFont font = new BitmapFont();
     private final SpriteBatch batch;
 
-    public ErrorScreen (final Heslington_hustle game) {
+    public ErrorScreen (final HeslingtonHustle game) {
         this.game = game;
         batch = new SpriteBatch();
         /// create stage and set it as input processor

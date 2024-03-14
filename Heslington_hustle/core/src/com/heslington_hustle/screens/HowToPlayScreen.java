@@ -5,7 +5,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.heslington_hustle.game.Heslington_hustle;
+import com.heslington_hustle.game.HeslingtonHustle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -17,11 +17,11 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class HowToPlayScreen extends ScreenAdapter {
 
     private final Stage stage;
-    private final Heslington_hustle game;
+    private final HeslingtonHustle game;
     BitmapFont font;
     SpriteBatch batch;
 
-    public HowToPlayScreen(final Heslington_hustle game) {
+    public HowToPlayScreen(final HeslingtonHustle game) {
         this.game = game;
         batch = game.batch;
         font = game.font;

@@ -5,6 +5,6 @@ public class Recreation extends Activity{
         super();
         type = ActivityType.RECREATION;
         TimeUse = 2;
-        EnergyUse = 20;
+        Energy = 20;
     }
 }
