@@ -89,6 +89,7 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void show() {
         System.out.println("Game showing");
+        System.out.println("Energy left: " + HeslingtonHustle.Energy);
         renderer.setView(overviewCam);
         renderer.render();
     }
@@ -132,17 +133,9 @@ public class GameScreen extends ScreenAdapter {
         batch.begin();
         player.draw(batch);
         batch.draw(blank,55,783,200,10);
-        batch.draw(orange,55,783,200*(HeslingtonHustle.Energy/100),10);
+        if (HeslingtonHustle.Energy > 0) batch.draw(orange,55,783,200*(HeslingtonHustle.Energy/100),10);
         font.draw(batch, "Energy", 5, 795);
         batch.end();
-    }
-
-    // Getter and Setter of game's state
-    public void setState(GameState newState) {
-        state = newState;
-    }
-    public GameState getState() {
-        return state;
     }
 
     @Override

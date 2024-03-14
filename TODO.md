@@ -1,15 +1,16 @@
 # TODO List:
 This is a TODO list for the Implementation section of the project, _Heslington Hustle_.
 ## UI/Screens
-  - Game intro
-  - End of day
-  - Next day
-  - **Pause Game**
-    - Should exit or resume
-  - **End Game (score screen)**
-  - How to play (Matt)
-  - Character selection
-    - Display characters on screen rather than buttons? (maybe for refactoring)
+- Add hours left in game
+- Game intro
+- End of day
+- Next day
+- **Pause Game**
+  - Should exit or resume
+- **End Game (score screen)**
+- How to play (Matt)
+- Character selection
+  - Display characters on screen rather than buttons? (maybe for refactoring)
 ## System
   - Energy
   - Time

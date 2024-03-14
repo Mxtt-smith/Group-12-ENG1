@@ -68,12 +68,13 @@ public class ActivityScreen extends ScreenAdapter {
         yes.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (HeslingtonHustle.Energy - activity.getEnergy() < 0) {
+                // Check if player has enough energy
+                if ((HeslingtonHustle.Energy - activity.getEnergy()) < 0) {
                     game.setScreen(new ErrorScreen(game));
                 } else if (hoursLeft - activity.getTimeUse() < 0) {
                     game.setScreen(new ErrorScreen(game));
-                }
-                if (activity.getType() == ActivityType.SLEEP) {
+                } else {
+                    if (activity.getType() == ActivityType.SLEEP) {
                         game.stats.addDay(game.stats.getStats());
                         game.stats.newDay();
                         if (Day <= 7) {
@@ -82,16 +83,17 @@ public class ActivityScreen extends ScreenAdapter {
                             // End the game
                             game.setScreen(new EndGameScreen(game));
                         }
-                } else {
-                    HeslingtonHustle.Energy -= activity.getEnergy();
-                    hoursLeft -= activity.getTimeUse();
-                    try {
-                        game.stats.log(activity.getType());
-                        System.out.println("Logged " + activity.getDescription());
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
+                    } else {
+                        HeslingtonHustle.Energy -= activity.getEnergy();
+                        hoursLeft -= activity.getTimeUse();
+                        try {
+                            game.stats.log(activity.getType());
+                            System.out.println("Logged " + activity.getDescription());
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                        game.setScreen(new GameScreen(game));
                     }
-                    game.setScreen(new GameScreen(game));
                 }
             }
         });
@@ -106,7 +108,7 @@ public class ActivityScreen extends ScreenAdapter {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
         batch.begin();
-        font.draw(batch, "Do you want to" + activity.getDescription() + "?", 200, 600);
+        font.draw(batch, "Do you want to " + activity.getDescription() + "?", 200, 600);
         batch.end();
     }
 

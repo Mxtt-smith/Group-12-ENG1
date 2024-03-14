@@ -31,6 +31,7 @@ public class ErrorScreen extends ScreenAdapter {
 
     @Override
     public void show() {
+        System.out.println("Error screen showing");
         Gdx.input.setInputProcessor(stage);
         // Create a table that fills the screen
         Table table = new Table();

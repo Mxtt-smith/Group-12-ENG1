@@ -5,7 +5,8 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/Heslington_hustle" />
-        <option name="gradleJvm" value="liberica-full-11" />
+        <option name="gradleHome" value="C:/Apps/gradle-8.3" />
+        <option name="gradleJvm" value="liberica-11" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/Heslington_hustle" />
