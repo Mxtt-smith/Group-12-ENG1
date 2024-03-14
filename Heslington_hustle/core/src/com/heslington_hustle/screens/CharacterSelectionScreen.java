@@ -64,7 +64,7 @@ public class CharacterSelectionScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Player.character = "char1";
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new NewDayScreen(game));
             }
         });
 

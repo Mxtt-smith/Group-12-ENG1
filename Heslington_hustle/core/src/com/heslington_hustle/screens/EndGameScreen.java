@@ -4,28 +4,24 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.heslington_hustle.game.HeslingtonHustle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.heslington_hustle.game.HeslingtonHustle;
 
-public class NewDayScreen extends ScreenAdapter {
-
+public class EndGameScreen extends ScreenAdapter {
     private final Stage stage;
-    private final HeslingtonHustle game;
     BitmapFont font;
     private final SpriteBatch batch;
 
-    public NewDayScreen (final HeslingtonHustle game) {
-        this.game = game;
+    public EndGameScreen (final HeslingtonHustle game) {
         batch = game.batch;
         font = game.font;
-        HeslingtonHustle.Energy = 100;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -40,20 +36,20 @@ public class NewDayScreen extends ScreenAdapter {
         table.setDebug(true);
         stage.addActor(table);
 
-        // assign skin to the menu
+        // assign skin to the exit
         Skin skin = new Skin(Gdx.files.internal("skin.json"));
 
         //create button
-        TextButton ok = new TextButton("Start Day!", skin);
+        TextButton exit = new TextButton("Quit", skin);
 
         //add buttons to table
-        table.add(ok).fillX().uniformX();
+        table.add(exit).fillX().uniformX();
 
         // create button listeners
-        ok.addListener(new ChangeListener() {
+        exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new GameScreen(game));
+                Gdx.app.exit();
             }
         });
 
@@ -68,7 +64,7 @@ public class NewDayScreen extends ScreenAdapter {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
         batch.begin();
-        font.draw(batch, "Day " + HeslingtonHustle.Day, 200, 600);
+        font.draw(batch, "End Game:", 200, 600);
         batch.end();
     }
 
@@ -80,9 +76,7 @@ public class NewDayScreen extends ScreenAdapter {
 
     @Override
     public void hide() {
-        System.out.println("Main menu hiding");
+        System.out.println("End game hiding");
         Gdx.input.setInputProcessor(null);
     }
 }
-
-

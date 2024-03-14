@@ -120,36 +120,31 @@ public class GameScreen extends ScreenAdapter {
             player.stationary();
         }
 
-
-        if (state == GameState.FREE_ROAM) {
-            // Check if player is hovering over an activity
-            // and open a new activity screen
-            if (player.getBoundingRectangle().overlaps(eat.zone)) {
-                Activity.type = Activity.ActivityType.EAT;
-                System.out.println("Player wants to eat");
-                TimeUse = 1;
-                Energy = 10;
-                player.setPosition(400, 400);
-                game.setScreen(new ActivityScreen(game, eat));
-            } else if (player.getBoundingRectangle().overlaps(study.zone)) {
-                Activity.type = Activity.ActivityType.STUDY;
-                System.out.println("Player wants to study");
-                TimeUse = 4;
-                Energy = 50;
-                game.setScreen(new ActivityScreen(game, study));
-            } else if (player.getBoundingRectangle().overlaps(sleep.zone)) {
-                Activity.type = Activity.ActivityType.SLEEP;
-                System.out.println("Player wants to sleep");
-                TimeUse = 16;
-                Energy = 0;
-                game.setScreen(new ActivityScreen(game, sleep));
-            } else if (player.getBoundingRectangle().overlaps(recreation.zone)) {
-                Activity.type = Activity.ActivityType.RECREATION;
-                System.out.println("Player wants to feed the ducks");
-                TimeUse = 2;
-                Energy = 20;
-                game.setScreen(new ActivityScreen(game, recreation));
-            }
+        if (player.getBoundingRectangle().overlaps(eat.zone)) {
+            Activity.type = Activity.ActivityType.EAT;
+            System.out.println("Player wants to eat");
+            TimeUse = 1;
+            Energy = 10;
+            player.setPosition(400, 400);
+            game.setScreen(new ActivityScreen(game, eat));
+        } else if (player.getBoundingRectangle().overlaps(study.zone)) {
+            Activity.type = Activity.ActivityType.STUDY;
+            System.out.println("Player wants to study");
+            TimeUse = 4;
+            Energy = 50;
+            game.setScreen(new ActivityScreen(game, study));
+        } else if (player.getBoundingRectangle().overlaps(sleep.zone)) {
+            Activity.type = Activity.ActivityType.SLEEP;
+            System.out.println("Player wants to sleep");
+            TimeUse = 0;
+            Energy = 0;
+            game.setScreen(new ActivityScreen(game, sleep));
+        } else if (player.getBoundingRectangle().overlaps(recreation.zone)) {
+            Activity.type = Activity.ActivityType.RECREATION;
+            System.out.println("Player wants to feed the ducks");
+            TimeUse = 2;
+            Energy = 20;
+            game.setScreen(new ActivityScreen(game, recreation));
         }
 
         batch.begin();

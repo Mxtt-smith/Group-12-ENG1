@@ -14,7 +14,7 @@ public class Stats {
         study = 0;
         recreation = 0;
         eat = 0;
-        studiedYesterday = 0;
+        studiedYesterday = 1;
         days = new ArrayList<Dictionary<String, Integer>>();
     }
 
@@ -51,6 +51,7 @@ public class Stats {
         eat = 0;
         studiedYesterday = study;
         study = 0;
+        HeslingtonHustle.Day++;
     }
 
     public Dictionary<String, Integer> getDay (int index) {
@@ -60,5 +61,10 @@ public class Stats {
     public int getScore(){
         //Method to calculate the score
         return 0;
+    }
+
+    // Lose the game if they didn't study for two days in a row
+    public boolean lost() {
+        return studiedYesterday == study && study == 0;
     }
 }

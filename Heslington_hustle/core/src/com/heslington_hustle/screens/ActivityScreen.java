@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.heslington_hustle.game.Activity.ActivityType;
 
-import static com.heslington_hustle.game.Activity.Energy;
 import static com.heslington_hustle.game.Activity.TimeUse;
 import static com.heslington_hustle.game.HeslingtonHustle.*;
 
@@ -74,35 +73,41 @@ public class ActivityScreen extends ScreenAdapter {
                     game.setScreen(new ErrorScreen(game));
                 } else if (hoursLeft - TimeUse < 0) {
                     game.setScreen(new ErrorScreen(game));
+                }
+                String activity;
+                switch (Activity.type) {
+                    case STUDY:
+                        activity = "study";
+                        break;
+                    case EAT:
+                        activity = "eat";
+                        break;
+                    case RECREATION:
+                        activity = "recreation";
+                        break;
+                    default:
+                        activity = "sleep";
+                        break;
+                }
+                if (activity == "sleep") {
+                        game.stats.addDay(game.stats.getStats());
+                        game.stats.newDay();
+                        if (Day <= 7) {
+                            game.setScreen(new NewDayScreen(game));
+                        } else {
+                            // End the game
+                            game.setScreen(new EndGameScreen(game));
+                        }
                 } else {
-                    String activity;
-                    switch (Activity.type) {
-                        case STUDY:
-                            activity = "study";
-                            break;
-                        case EAT:
-                            activity = "eat";
-                            break;
-                        case RECREATION:
-                            activity = "recreation";
-                            break;
-                        default:
-                            activity = "sleep";
-                            break;
-                    }
+                    HeslingtonHustle.Energy -= Activity.Energy;
+                    hoursLeft -= TimeUse;
                     try {
                         game.stats.log(activity);
                         System.out.println("Logged " + activity);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
-                    if (activity == "sleep") {
-                        game.setScreen(new NewDayScreen(game));
-                    } else {
-                        HeslingtonHustle.Energy -= Activity.Energy;
-                        hoursLeft -= TimeUse;
-                        game.setScreen(new GameScreen(game));
-                    }
+                    game.setScreen(new GameScreen(game));
                 }
             }
         });

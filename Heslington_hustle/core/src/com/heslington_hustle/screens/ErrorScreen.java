@@ -17,12 +17,13 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class ErrorScreen extends ScreenAdapter {
     private final Stage stage;
     private final HeslingtonHustle game;
-    BitmapFont font = new BitmapFont();
+    BitmapFont font;
     private final SpriteBatch batch;
 
     public ErrorScreen (final HeslingtonHustle game) {
         this.game = game;
-        batch = new SpriteBatch();
+        batch = game.batch;
+        font = game.font;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -77,7 +78,7 @@ public class ErrorScreen extends ScreenAdapter {
 
     @Override
     public void hide() {
-        System.out.println("Main menu hiding");
+        System.out.println("Error screen hiding");
         Gdx.input.setInputProcessor(null);
     }
 }
