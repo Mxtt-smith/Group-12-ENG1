@@ -48,7 +48,7 @@ public class ActivityScreen extends ScreenAdapter {
         stage.addActor(table);
 
         // assign skin to the menu
-        Skin skin = new Skin(Gdx.files.internal("skin.json"));
+        Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         //create button
         TextButton yes = new TextButton("Yes", skin);

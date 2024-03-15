@@ -43,7 +43,7 @@ public class GameScreen extends ScreenAdapter {
     GameState state;
 
 
-    public GameScreen(final HeslingtonHustle game) {
+    public GameScreen(HeslingtonHustle game) {
         this.game = game;
         System.out.println("New game screen");
 

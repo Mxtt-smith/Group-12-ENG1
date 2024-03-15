@@ -38,7 +38,7 @@ public class CharacterSelectionScreen extends ScreenAdapter {
         stage.addActor(table);
 
         // temporary skin
-        Skin skin = new Skin(Gdx.files.internal("skin.json"));
+        Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         //create buttons
         TextButton Char1 = new TextButton("Character 1", skin);

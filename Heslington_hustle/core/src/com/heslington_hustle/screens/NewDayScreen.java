@@ -41,7 +41,7 @@ public class NewDayScreen extends ScreenAdapter {
         stage.addActor(table);
 
         // assign skin to the menu
-        Skin skin = new Skin(Gdx.files.internal("skin.json"));
+        Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         //create button
         TextButton ok = new TextButton("Start Day!", skin);

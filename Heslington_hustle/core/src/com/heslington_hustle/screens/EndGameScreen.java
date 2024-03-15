@@ -39,7 +39,7 @@ public class EndGameScreen extends ScreenAdapter {
         stage.addActor(table);
 
         // assign skin to the exit
-        Skin skin = new Skin(Gdx.files.internal("skin.json"));
+        Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         //create button
         TextButton exit = new TextButton("Quit", skin);

@@ -1,8 +1,8 @@
 package com.heslington_hustle.screens;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.HeslingtonHustle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -14,19 +14,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MainMenuScreen extends ScreenAdapter {
-
     private final Stage stage;
+    private Skin skin;
     private final HeslingtonHustle game;
 
-    public MainMenuScreen(final HeslingtonHustle game) {
+    public MainMenuScreen(HeslingtonHustle game) {
         this.game = game;
-        /// create stage and set it as input processor
+        // create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
     @Override
-        public void show() {
+    public void show() {
         Gdx.input.setInputProcessor(stage);
+
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
         table.setFillParent(true);
@@ -34,21 +35,24 @@ public class MainMenuScreen extends ScreenAdapter {
         stage.addActor(table);
 
         // temporary until we have asset manager in
-        Skin skin = new Skin(Gdx.files.internal("skin.json"));
+        skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
+
+        // Game title
+        Label titleLabel = new Label("Heslington Hustle", skin);
 
         //create buttons
         TextButton newGame = new TextButton("New Game", skin);
         TextButton howToPlay = new TextButton("How to Play", skin);
         TextButton exit = new TextButton("Exit", skin);
 
-        //add buttons to table
-        table.add(newGame).fillX().uniformX();
-        table.row().pad(10, 0, 10, 0);
+        //Format table
+        table.add(titleLabel).fillX().center();
         table.row();
-        table.add(howToPlay).fillX().uniformX();
+        table.add(newGame);
         table.row().pad(10, 0, 10, 0);
+        table.add(howToPlay);
         table.row();
-        table.add(exit).fillX().uniformX();
+        table.add(exit);
 
         // create button listeners
         exit.addListener(new ChangeListener() {
@@ -61,14 +65,14 @@ public class MainMenuScreen extends ScreenAdapter {
         howToPlay.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new HowToPlayScreen(game));
+                game.changeScreen(HeslingtonHustle.HOWTOPLAY);
             }
         });
 
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new CharacterSelectionScreen(game));
+                game.changeScreen(HeslingtonHustle.GAME);
             }
         });
 
@@ -80,7 +84,7 @@ public class MainMenuScreen extends ScreenAdapter {
         ScreenUtils.clear(0, 0, 0, 0);
 
         // tell our stage to do actions and draw itself
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        stage.act();
         stage.draw();
     }
 
@@ -99,5 +103,6 @@ public class MainMenuScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         stage.dispose();
+        skin.dispose();
     }
 }
