@@ -53,7 +53,7 @@ public class NewDayScreen extends ScreenAdapter {
         ok.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new GameScreen(game));
+                game.changeScreen(HeslingtonHustle.GAME);
             }
         });
 

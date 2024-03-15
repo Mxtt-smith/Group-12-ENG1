@@ -5,6 +5,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
 import com.heslington_hustle.game.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -16,6 +17,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.Activity;
+
+import java.awt.*;
 
 import static com.heslington_hustle.game.Player.character;
 
@@ -35,7 +38,7 @@ public class GameScreen extends ScreenAdapter {
     Activity study, eat, sleep, recreation;
     enum GameState {
         FREE_ROAM,
-        DOING_ACTIVITY,
+        ACTIVITY,
         LOSE,
         NEW_DAY,
         TOO_TIRED
@@ -113,20 +116,25 @@ public class GameScreen extends ScreenAdapter {
             player.stationary();
         }
 
-        if (player.getBoundingRectangle().overlaps(eat.getZone())) {
-            game.setScreen(new ActivityScreen(game, eat));
-        } else if (player.getBoundingRectangle().overlaps(study.getZone())) {
-            game.setScreen(new ActivityScreen(game, study));
-        } else if (player.getBoundingRectangle().overlaps(sleep.getZone())) {
-            game.setScreen(new ActivityScreen(game, sleep));
-        } else if (player.getBoundingRectangle().overlaps(recreation.getZone())) {
-            game.setScreen(new ActivityScreen(game, recreation));
+        Rectangle playerRect = player.getBoundingRectangle();
+        if (playerRect.overlaps(eat.getZone()) || playerRect.overlaps(sleep.getZone()) || playerRect.overlaps(study.getZone()) || playerRect.overlaps(recreation.getZone())) {
+            state = GameState.ACTIVITY;
+        } else state = GameState.FREE_ROAM;
+
+        if (state == GameState.ACTIVITY) {
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+                if (playerRect.overlaps(eat.getZone())) game.setScreen(new ActivityScreen(game, eat));
+                else if (playerRect.overlaps(recreation.getZone())) game.setScreen(new ActivityScreen(game, recreation));
+                else if (playerRect.overlaps(study.getZone())) game.setScreen(new ActivityScreen(game, study));
+                else if (playerRect.overlaps(sleep.getZone())) game.setScreen(new ActivityScreen(game, sleep));
+            }
         }
 
         batch.begin();
         player.draw(batch);
         batch.draw(blank,55,783,200,10);
         if (HeslingtonHustle.Energy > 0) batch.draw(orange,55,783,200*(HeslingtonHustle.Energy/100),10);
+        if (state == GameState.ACTIVITY) font.draw(batch, "Press SPACE for activity", 0, 0);
         font.draw(batch, "Energy", 5, 795);
         font.draw(batch, HeslingtonHustle.Time.toString(), 750, 795);
         batch.end();

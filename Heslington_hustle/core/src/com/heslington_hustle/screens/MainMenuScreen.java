@@ -2,6 +2,7 @@ package com.heslington_hustle.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.HeslingtonHustle;
@@ -38,7 +39,7 @@ public class MainMenuScreen extends ScreenAdapter {
         skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         // Game title
-        Label titleLabel = new Label("Heslington Hustle", skin);
+        Label titleLabel = new Label("Heslington Hustle", skin, "title", Color.WHITE);
 
         //create buttons
         TextButton newGame = new TextButton("New Game", skin);
@@ -47,7 +48,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
         //Format table
         table.add(titleLabel).fillX().center();
-        table.row();
+        table.row().pad(10, 0, 0, 0);
         table.add(newGame);
         table.row().pad(10, 0, 10, 0);
         table.add(howToPlay);
@@ -72,7 +73,7 @@ public class MainMenuScreen extends ScreenAdapter {
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.changeScreen(HeslingtonHustle.GAME);
+                game.changeScreen(HeslingtonHustle.CHARACTER);
             }
         });
 

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
@@ -5,6 +6,7 @@
   </component>
   <component name="LibGDXSkins">
     <file url="file://$PROJECT_DIR$/Heslington_hustle/assets/skin.json" />
+    <file url="file://$PROJECT_DIR$/Heslington_hustle/assets/skin/cloud-form-ui.json" />
   </component>
   <component name="PWA">
     <option name="enabled" value="true" />

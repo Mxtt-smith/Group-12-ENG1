@@ -94,6 +94,7 @@ public class ActivityScreen extends ScreenAdapter {
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
+                        dispose();
                         game.setScreen(new GameScreen(game));
                     }
                 }
@@ -128,6 +129,7 @@ public class ActivityScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
+        System.out.println("Activity Screen disposed");
         stage.dispose();
         font.dispose();
         batch.dispose();

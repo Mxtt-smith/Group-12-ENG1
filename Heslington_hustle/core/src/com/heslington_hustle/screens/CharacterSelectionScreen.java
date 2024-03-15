@@ -1,15 +1,16 @@
 package com.heslington_hustle.screens;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.Player;
 import com.badlogic.gdx.Gdx;
 import com.heslington_hustle.game.HeslingtonHustle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -37,20 +38,33 @@ public class CharacterSelectionScreen extends ScreenAdapter {
         table.setDebug(true);
         stage.addActor(table);
 
-        // temporary skin
         Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
+
+        Label title = new Label("Choose your character:", skin, "title", Color.WHITE);
 
         //create buttons
         TextButton Char1 = new TextButton("Character 1", skin);
         TextButton Char2 = new TextButton("Character 2", skin);
         TextButton back = new TextButton("Back", skin);
 
-        //add buttons to table
-        table.add(Char1).fillX().uniformX();
+        Texture char1Text = new Texture(Gdx.files.internal("characters/char1/char1sd.png"));
+        Texture char2Text = new Texture(Gdx.files.internal("characters/char2/char2sd.png"));
+        Image char1Image = new Image(char1Text);
+        char1Image.setScale(3f);
+        Image char2Image = new Image(char2Text);
+        char2Image.setScale(3f);
+
+        // Arrange table
+        table.add(title).fillX().center().colspan(2);
+        table.row().pad(30, 0, 0, 0);
+        table.add(char1Image).center();
+        table.add(char2Image).center();
         table.row().pad(10, 0, 10, 0);
-        table.add(Char2).fillX().uniformX();
+        table.add(Char1).uniformX();
+        table.add(Char2).uniformX();
+        table.row().pad(10, 0, 0, 0);
         table.row();
-        table.add(back).fillX().uniformX();
+        table.add(back).uniformX().colspan(2);
 
         // create button listeners
         back.addListener(new ChangeListener() {
@@ -72,7 +86,7 @@ public class CharacterSelectionScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Player.character = "char2";
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new NewDayScreen(game));
             }
         });
     }
