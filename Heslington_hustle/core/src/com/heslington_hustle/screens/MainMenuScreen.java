@@ -1,9 +1,8 @@
 package com.heslington_hustle.screens;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.HeslingtonHustle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -14,46 +13,62 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class HowToPlayScreen extends ScreenAdapter {
+public class MainMenuScreen extends ScreenAdapter {
 
     private final Stage stage;
     private final HeslingtonHustle game;
-    BitmapFont font;
-    SpriteBatch batch;
 
-    public HowToPlayScreen(final HeslingtonHustle game) {
+    public MainMenuScreen(final HeslingtonHustle game) {
         this.game = game;
-        batch = game.batch;
-        font = game.font;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
-
     @Override
-    public void show() {
+        public void show() {
         Gdx.input.setInputProcessor(stage);
-        System.out.println("How to play showing");
-        // Create a table that fills the screen
+        // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
         stage.addActor(table);
 
-        // assign skin to the menu
+        // temporary until we have asset manager in
         Skin skin = new Skin(Gdx.files.internal("skin.json"));
 
-        //create button
-        TextButton back = new TextButton("Back", skin);
+        //create buttons
+        TextButton newGame = new TextButton("New Game", skin);
+        TextButton howToPlay = new TextButton("How to Play", skin);
+        TextButton exit = new TextButton("Exit", skin);
 
         //add buttons to table
-        table.add(back).fillX().uniformX();
+        table.add(newGame).fillX().uniformX();
+        table.row().pad(10, 0, 10, 0);
+        table.row();
+        table.add(howToPlay).fillX().uniformX();
+        table.row().pad(10, 0, 10, 0);
+        table.row();
+        table.add(exit).fillX().uniformX();
 
         // create button listeners
-        back.addListener(new ChangeListener() {
+        exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new MainMenuScreen(game));
+                Gdx.app.exit();
+            }
+        });
+
+        howToPlay.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new HowToPlayScreen(game));
+            }
+        });
+
+        newGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new CharacterSelectionScreen(game));
             }
         });
 
@@ -67,11 +82,6 @@ public class HowToPlayScreen extends ScreenAdapter {
         // tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
-        batch.begin();
-        font.draw(batch, "Use the arrow keys to move" +
-                "\nStudy once a day at the comp sci building to pass your exams!" +
-                "\nblah blah blah", 200, 600);
-        batch.end();
     }
 
     @Override
@@ -82,7 +92,12 @@ public class HowToPlayScreen extends ScreenAdapter {
 
     @Override
     public void hide() {
-        System.out.println("How to play hiding");
+        System.out.println("Main menu hiding");
         Gdx.input.setInputProcessor(null);
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
     }
 }

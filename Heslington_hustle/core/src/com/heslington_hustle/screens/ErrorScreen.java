@@ -14,17 +14,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class HowToPlayScreen extends ScreenAdapter {
-
+public class ErrorScreen extends ScreenAdapter {
     private final Stage stage;
     private final HeslingtonHustle game;
     BitmapFont font;
-    SpriteBatch batch;
+    private final SpriteBatch batch;
+    String errorType;
 
-    public HowToPlayScreen(final HeslingtonHustle game) {
+
+    public ErrorScreen (final HeslingtonHustle game, String errorType) {
         this.game = game;
         batch = game.batch;
         font = game.font;
+        this.errorType = errorType;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -32,8 +34,8 @@ public class HowToPlayScreen extends ScreenAdapter {
 
     @Override
     public void show() {
+        System.out.println("Error screen showing");
         Gdx.input.setInputProcessor(stage);
-        System.out.println("How to play showing");
         // Create a table that fills the screen
         Table table = new Table();
         table.setFillParent(true);
@@ -53,7 +55,7 @@ public class HowToPlayScreen extends ScreenAdapter {
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new MainMenuScreen(game));
+                game.setScreen(new GameScreen(game));
             }
         });
 
@@ -63,14 +65,17 @@ public class HowToPlayScreen extends ScreenAdapter {
     public void render(float delta) {
         // clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
-
+        String message = "";
+        if (this.errorType == "time") {
+            message = "It's getting late, you should go to bed.";
+        } else {
+            message = "You're too tired to do that!";
+        }
         // tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
         batch.begin();
-        font.draw(batch, "Use the arrow keys to move" +
-                "\nStudy once a day at the comp sci building to pass your exams!" +
-                "\nblah blah blah", 200, 600);
+        font.draw(batch, message, 200, 600);
         batch.end();
     }
 
@@ -82,7 +87,8 @@ public class HowToPlayScreen extends ScreenAdapter {
 
     @Override
     public void hide() {
-        System.out.println("How to play hiding");
+        System.out.println("Error screen hiding");
         Gdx.input.setInputProcessor(null);
     }
 }
+

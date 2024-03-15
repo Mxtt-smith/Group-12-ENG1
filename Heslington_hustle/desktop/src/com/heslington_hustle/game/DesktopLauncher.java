@@ -10,7 +10,8 @@ public class DesktopLauncher {
 		//config.setForegroundFPS(60);
 		config.setTitle("Heslington Hustle");
 		config.setWindowedMode(800, 800);
+		config.setForegroundFPS(60);
 		config.setResizable(false);
-		new Lwjgl3Application(new Heslington_hustle(), config);
+		new Lwjgl3Application(new HeslingtonHustle(), config);
 	}
 }
