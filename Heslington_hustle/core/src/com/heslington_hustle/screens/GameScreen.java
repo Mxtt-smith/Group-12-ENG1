@@ -1,5 +1,6 @@
 package com.heslington_hustle.screens;
 
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -46,12 +47,7 @@ public class GameScreen extends ScreenAdapter {
         this.game = game;
         System.out.println("New game screen");
 
-        // Energy bar
-        orange = new Texture("orange.png");
-        blank = new Texture("blank.png");
-
         overviewCam = new OrthographicCamera();
-        overviewCam.setToOrtho(false, 10, 10);
         overviewCam.update();
 
         // load the tiled map
@@ -69,6 +65,10 @@ public class GameScreen extends ScreenAdapter {
         player.setTexture(character+"sd");
         // Multiply by 16 as all assets are 16 bit
         player.setPosition(400, 400);
+
+        // Energy bar
+        orange = new Texture("orange.png");
+        blank = new Texture("blank.png");
 
         // Create the activities on the map
         study = new Activity(50, 4, Activity.ActivityType.STUDY, "make flashcards");

@@ -1,7 +1,7 @@
 # TODO List:
 This is a TODO list for the Implementation section of the project, _Heslington Hustle_.
 ## UI/Screens
-- Add hours left in game
+- ~~Add hours left in game~~
 - ~~Game intro~~
 - ~~End of day~~
 - ~~Next day~~
@@ -13,18 +13,18 @@ This is a TODO list for the Implementation section of the project, _Heslington H
   - Display characters on screen rather than buttons? (maybe for refactoring)
 ## System
   - ~~Energy~~
-  - Time
+  - ~~Time~~
     - Show how many hours left
     - Or time in general
-    - 7:30 AM + 16 hours = 11:30
+    - **7:30 AM + 16 hours = 23:30**
   - Hunger
     - Don't need to show
-    - Counter
+    - ~~Counter~~
 - Score
   - Don't need to worry till next assessment
 ## Classes
 - ~~Activity (merge into one)~~
-- Stats (Matt did?)
+- ~~Stats (Matt did?)~~
 
 ## Activities
 - **Decide activities**
@@ -45,6 +45,6 @@ This is a TODO list for the Implementation section of the project, _Heslington H
 - ~~Make one class for all activities (the others don't actually alter anything)~~
 - ~~Neaten ActivityScreen code (remove dupes)~~
 - Try to reduce making so many screens
-  - Screen manager?
+  - **Screen manager?**
   - Don't call _new_ screens
 - Alter collision detection (something wrong with moving down and left when right and left moving top right corner)

@@ -70,9 +70,9 @@ public class ActivityScreen extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
                 // Check if player has enough energy
                 if ((HeslingtonHustle.Energy - activity.getEnergy()) < 0) {
-                    game.setScreen(new ErrorScreen(game));
+                    game.setScreen(new ErrorScreen(game, "energy"));
                 } else if (hoursLeft - activity.getTimeUse() < 0) {
-                    game.setScreen(new ErrorScreen(game));
+                    game.setScreen(new ErrorScreen(game, "time"));
                 } else {
                     if (activity.getType() == ActivityType.SLEEP) {
                         // Add the day's stats either way

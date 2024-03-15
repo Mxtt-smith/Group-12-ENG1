@@ -19,11 +19,14 @@ public class ErrorScreen extends ScreenAdapter {
     private final HeslingtonHustle game;
     BitmapFont font;
     private final SpriteBatch batch;
+    String errorType;
 
-    public ErrorScreen (final HeslingtonHustle game) {
+
+    public ErrorScreen (final HeslingtonHustle game, String errorType) {
         this.game = game;
         batch = game.batch;
         font = game.font;
+        this.errorType = errorType;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -62,12 +65,17 @@ public class ErrorScreen extends ScreenAdapter {
     public void render(float delta) {
         // clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
-
+        String message = "";
+        if (this.errorType == "time") {
+            message = "It's getting late, you should go to bed.";
+        } else {
+            message = "You're too tired to do that!";
+        }
         // tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
         batch.begin();
-        font.draw(batch, "You can't do that!", 200, 600);
+        font.draw(batch, message, 200, 600);
         batch.end();
     }
 
