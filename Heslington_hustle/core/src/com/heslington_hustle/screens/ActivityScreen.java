@@ -75,6 +75,7 @@ public class ActivityScreen extends ScreenAdapter {
                     game.setScreen(new ErrorScreen(game));
                 } else {
                     if (activity.getType() == ActivityType.SLEEP) {
+                        // Add the day's stats either way
                         game.stats.addDay(game.stats.getStats());
                         game.stats.newDay();
                         if (Day <= 7) {
@@ -86,6 +87,7 @@ public class ActivityScreen extends ScreenAdapter {
                     } else {
                         HeslingtonHustle.Energy -= activity.getEnergy();
                         hoursLeft -= activity.getTimeUse();
+                        Time = Time.plusHours((long)activity.getTimeUse());
                         try {
                             game.stats.log(activity.getType());
                             System.out.println("Logged " + activity.getDescription());

@@ -90,7 +90,6 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void show() {
         System.out.println("Game showing");
-        System.out.println("Energy left: " + HeslingtonHustle.Energy);
     }
 
     @Override
@@ -115,16 +114,12 @@ public class GameScreen extends ScreenAdapter {
         }
 
         if (player.getBoundingRectangle().overlaps(eat.getZone())) {
-            System.out.println("Player wants to eat");
             game.setScreen(new ActivityScreen(game, eat));
         } else if (player.getBoundingRectangle().overlaps(study.getZone())) {
-            System.out.println("Player wants to study");
             game.setScreen(new ActivityScreen(game, study));
         } else if (player.getBoundingRectangle().overlaps(sleep.getZone())) {
-            System.out.println("Player wants to sleep");
             game.setScreen(new ActivityScreen(game, sleep));
         } else if (player.getBoundingRectangle().overlaps(recreation.getZone())) {
-            System.out.println("Player wants to feed the ducks");
             game.setScreen(new ActivityScreen(game, recreation));
         }
 
@@ -133,6 +128,7 @@ public class GameScreen extends ScreenAdapter {
         batch.draw(blank,55,783,200,10);
         if (HeslingtonHustle.Energy > 0) batch.draw(orange,55,783,200*(HeslingtonHustle.Energy/100),10);
         font.draw(batch, "Energy", 5, 795);
+        font.draw(batch, HeslingtonHustle.Time.toString(), 750, 795);
         batch.end();
     }
 

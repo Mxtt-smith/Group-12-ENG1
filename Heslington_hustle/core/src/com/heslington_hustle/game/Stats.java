@@ -1,5 +1,6 @@
 package com.heslington_hustle.game;
 
+import java.time.LocalTime;
 import java.util.*;
 
 // This is to keep a count of how many activities they have completed
@@ -25,6 +26,7 @@ public class Stats {
                 recreation++;
                 break;
             case STUDY:
+                System.out.println("Study incremented");
                 study++;
                 break;
             case EAT:
@@ -35,13 +37,11 @@ public class Stats {
         }
     }
 
-    //
     public Dictionary<String, Integer> getStats(){
         Dictionary<String, Integer> statistics = new Hashtable<>();
-        statistics.put("study", eat);
+        statistics.put("study", study);
         statistics.put("recreation",recreation);
         statistics.put("eat",eat);
-        statistics.put("score", getScore());
         statistics.put("studiedYesterday", studiedYesterday);
         return statistics;
     }
@@ -51,19 +51,30 @@ public class Stats {
     }
 
     public void newDay() {
+        studiedYesterday = study;
         recreation = 0;
         eat = 0;
-        studiedYesterday = study;
         study = 0;
         HeslingtonHustle.Day++;
+        HeslingtonHustle.Energy = 100;
+        HeslingtonHustle.hoursLeft = 16;
+        HeslingtonHustle.Time = LocalTime.of(7, 30);
     }
 
     public Dictionary<String, Integer> getDay (int index) {
         return days.get(index);
     }
 
-    public int getScore(){
-        //Method to calculate the score
-        return 0;
+    public int[] getTally(){
+        int totalStudy = 0;
+        int totalRecreation = 0;
+        int totalEat = 0;
+        for (int i = 0; i < days.size(); i++) {
+            Dictionary<String, Integer> day = getDay(i);
+            totalStudy += day.get("study");
+            totalRecreation += day.get("recreation");
+            totalEat += day.get("eat");
+        }
+        return new int[] {totalStudy, totalRecreation, totalEat};
     }
 }

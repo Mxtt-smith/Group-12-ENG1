@@ -25,8 +25,8 @@ public class NewDayScreen extends ScreenAdapter {
         this.game = game;
         batch = game.batch;
         font = game.font;
-        HeslingtonHustle.Energy = 100;
-        /// create stage and set it as input processor
+
+        // create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
@@ -69,6 +69,13 @@ public class NewDayScreen extends ScreenAdapter {
         stage.draw();
         batch.begin();
         font.draw(batch, "Day " + HeslingtonHustle.Day, 200, 600);
+        if (HeslingtonHustle.Day != 1) {
+            // {study, recreation, eat}
+            int[] stats = game.stats.getTally();
+            font.draw(batch, "Studied " + stats[0] + " times", 200, 550);
+            font.draw(batch, "Performed " + stats[1] + " recreation activities", 200, 500);
+            font.draw(batch, "Eaten " + stats[2] + " times", 200, 450);
+        }
         batch.end();
     }
 

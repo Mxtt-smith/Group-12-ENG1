@@ -2,9 +2,9 @@
 This is a TODO list for the Implementation section of the project, _Heslington Hustle_.
 ## UI/Screens
 - Add hours left in game
-- Game intro
-- End of day
-- Next day
+- ~~Game intro~~
+- ~~End of day~~
+- ~~Next day~~
 - **Pause Game**
   - Should exit or resume
 - **End Game (score screen)**
@@ -12,27 +12,31 @@ This is a TODO list for the Implementation section of the project, _Heslington H
 - Character selection
   - Display characters on screen rather than buttons? (maybe for refactoring)
 ## System
-  - Energy
+  - ~~Energy~~
   - Time
     - Show how many hours left
+    - Or time in general
+    - 7:30 AM + 16 hours = 11:30
   - Hunger
     - Don't need to show
     - Counter
 - Score
   - Don't need to worry till next assessment
 ## Classes
-- Activity (merge into one)
+- ~~Activity (merge into one)~~
 - Stats (Matt did?)
 
 ## Activities
 - **Decide activities**
 - Need to work out how much energy/score each activity uses
   - Should be enough to do 3-5 each day
+  - It is the first assessment, so it's not going to be the full game time as we only have 1 activity each
+  - Don't need to determine score for assessment 1
 - Game conditions
-  - Sleep ends day
-  - Go past 16 hours, less energy next day
-  - Go past more, force next day ("You are tired. Sleep")
-  - Only interaction after 16 hours is to sleep
+  - ~~Sleep ends day~~
+  - **_Don't need to do more than 16 hours, project brief says "each day contains 16 hours", hard set_**
+  - Attempt to go past more, force next day ("You are tired. Sleep")
+  - **Only interaction after 16 hours is to sleep**
 - Counters
   - ~~Activities~~
   - How many meals a day

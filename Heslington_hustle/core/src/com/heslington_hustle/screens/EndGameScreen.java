@@ -15,11 +15,13 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.heslington_hustle.game.HeslingtonHustle;
 
 public class EndGameScreen extends ScreenAdapter {
+    HeslingtonHustle game;
     private final Stage stage;
     BitmapFont font;
     private final SpriteBatch batch;
 
     public EndGameScreen (final HeslingtonHustle game) {
+        this.game = game;
         batch = game.batch;
         font = game.font;
         /// create stage and set it as input processor
@@ -65,6 +67,10 @@ public class EndGameScreen extends ScreenAdapter {
         stage.draw();
         batch.begin();
         font.draw(batch, "End Game:", 200, 600);
+        int[] stats = game.stats.getTally();
+        font.draw(batch, "Studied " + stats[0] + " times", 200, 550);
+        font.draw(batch, "Performed " + stats[1] + " recreation activities", 200, 500);
+        font.draw(batch, "Eaten " + stats[2] + " times", 200, 450);
         batch.end();
     }
 
