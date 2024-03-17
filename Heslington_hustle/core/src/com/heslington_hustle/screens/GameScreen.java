@@ -130,6 +130,10 @@ public class GameScreen extends ScreenAdapter {
             }
         }
 
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            game.setScreen(new PauseScreen(game));
+        }
+
         batch.begin();
         player.draw(batch);
         batch.draw(blank,55,783,200,10);
