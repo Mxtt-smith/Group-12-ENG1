@@ -11,6 +11,7 @@ public class Stats {
     int studiedYesterday;
     List<Dictionary<String, Integer>> days;
 
+    //Contructor that intilises the variables
     public Stats(){
         study = 0;
         recreation = 0;
@@ -19,7 +20,7 @@ public class Stats {
         days = new ArrayList<>();
     }
 
-    // increment an activity's counter
+    // Increments a given activity's counter
     public void log(Activity.ActivityType type) throws Exception{
         switch (type) {
             case RECREATION:
@@ -37,6 +38,7 @@ public class Stats {
         }
     }
 
+    //Adds the current stats to a dictonary and returns it
     public Dictionary<String, Integer> getStats(){
         Dictionary<String, Integer> statistics = new Hashtable<>();
         statistics.put("study", study);
@@ -46,11 +48,14 @@ public class Stats {
         return statistics;
     }
 
+    //Stores the given days stats in the list containing stats for the whole game
     public void addDay(Dictionary<String, Integer> day) {
         days.add(day);
     }
 
+    //Resets stats for the start of a new day
     public void newDay() {
+        
         studiedYesterday = study;
         recreation = 0;
         eat = 0;
@@ -61,10 +66,12 @@ public class Stats {
         HeslingtonHustle.Time = LocalTime.of(7, 30);
     }
 
+    //Returns the dictionary containing stats for a given day
     public Dictionary<String, Integer> getDay (int index) {
         return days.get(index);
     }
 
+    //Returns total stats for the whole game
     public int[] getTally(){
         int totalStudy = 0;
         int totalRecreation = 0;
