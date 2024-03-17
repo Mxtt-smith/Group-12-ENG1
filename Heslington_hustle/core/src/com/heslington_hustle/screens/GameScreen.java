@@ -138,7 +138,7 @@ public class GameScreen extends ScreenAdapter {
         player.draw(batch);
         batch.draw(blank,55,783,200,10);
         if (HeslingtonHustle.Energy > 0) batch.draw(orange,55,783,200*(HeslingtonHustle.Energy/100),10);
-        if (state == GameState.ACTIVITY) font.draw(batch, "Press SPACE for activity", 0, 0);
+        if (state == GameState.ACTIVITY) font.draw(batch, "Press SPACE for activity", 330, 50);
         font.draw(batch, "Energy", 5, 795);
         font.draw(batch, HeslingtonHustle.Time.toString(), 750, 795);
         batch.end();

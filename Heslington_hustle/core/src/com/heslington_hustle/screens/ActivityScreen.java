@@ -130,8 +130,8 @@ public class ActivityScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         System.out.println("Activity Screen disposed");
-        stage.dispose();
-        font.dispose();
-        batch.dispose();
+        //stage.dispose();
+        //font.dispose();
+        //batch.dispose();
     }
 }

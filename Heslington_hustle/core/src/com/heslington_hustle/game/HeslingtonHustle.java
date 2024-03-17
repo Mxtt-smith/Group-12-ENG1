@@ -116,8 +116,8 @@ public class HeslingtonHustle extends Game {
 
     @Override
     public void dispose() {
-        batch.dispose();
-        font.dispose();
-        super.dispose();
+        //batch.dispose();
+        //font.dispose();
+        //super.dispose();
     }
 }
