@@ -68,9 +68,12 @@ public class HowToPlayScreen extends ScreenAdapter {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
         batch.begin();
-        font.draw(batch, "Use the arrow keys to move" +
-                "\nStudy once a day at the comp sci building to pass your exams!" +
-                "\nblah blah blah", 200, 600);
+        font.draw(batch, "Welcome to Heslington Hustle" +
+                "\nNavigate around the map with your WASD or arrow keys" +
+                "\nYou'll find different buildings scattered around the map!" +
+                "\nPress the space bar to interact with them to see what they do." +
+                "\nYou have 7 days in game to do what it takes to pass your exams," +
+                "\nStrategise and manage your time wisely but most importantly, enjoy!", 200, 600);
         batch.end();
     }
 
