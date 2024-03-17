@@ -35,7 +35,6 @@ public class EndGameScreen extends ScreenAdapter {
         // Create a table that fills the screen
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
         stage.addActor(table);
 
         // assign skin to the exit

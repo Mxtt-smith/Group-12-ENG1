@@ -2,8 +2,10 @@ package com.heslington_hustle.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.HeslingtonHustle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -37,17 +39,43 @@ public class NewDayScreen extends ScreenAdapter {
         // Create a table that fills the screen
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
         stage.addActor(table);
 
         // assign skin to the menu
         Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
-        //create button
+        // Title
+        Label label = new Label("Day " + HeslingtonHustle.Day, skin, "title", Color.WHITE);
+        // Create button
         TextButton ok = new TextButton("Start Day!", skin);
 
-        //add buttons to table
-        table.add(ok).fillX().uniformX();
+        // Format table layout of UI
+        table.defaults().uniformX().center();
+        table.add(label).colspan(2);
+        table.row().pad(30, 0, 0, 0);
+        if (HeslingtonHustle.Day != 1) {
+            // Make labels for the counters
+            // {study, recreation, eat}
+            int[] stats = game.stats.getTally();
+            Label studiedTitle = new Label("Studied:", skin, "font", Color.WHITE);
+            Label recreationTitle = new Label("Recreational activities:", skin, "font", Color.WHITE);
+            Label eatTitle = new Label("Ate:", skin, "font", Color.WHITE);
+            Label studyCount = new Label(String.valueOf(stats[0]), skin, "font", Color.WHITE);
+            Label recCount = new Label(String.valueOf(stats[0]), skin, "font", Color.WHITE);
+            Label eatCount = new Label(String.valueOf(stats[0]), skin, "font", Color.WHITE);
+
+            // Add to the table
+            table.add(studiedTitle);
+            table.add(studyCount);
+            table.row();
+            table.add(recreationTitle);
+            table.add(recCount);
+            table.row();
+            table.add(eatTitle);
+            table.add(eatCount);
+            table.row().pad(30, 0, 0, 0);
+        }
+        table.add(ok).colspan(2);
 
         // create button listeners
         ok.addListener(new ChangeListener() {
@@ -67,16 +95,6 @@ public class NewDayScreen extends ScreenAdapter {
         // tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
-        batch.begin();
-        font.draw(batch, "Day " + HeslingtonHustle.Day, 200, 600);
-        if (HeslingtonHustle.Day != 1) {
-            // {study, recreation, eat}
-            int[] stats = game.stats.getTally();
-            font.draw(batch, "Studied " + stats[0] + " times", 200, 550);
-            font.draw(batch, "Performed " + stats[1] + " recreation activities", 200, 500);
-            font.draw(batch, "Eaten " + stats[2] + " times", 200, 450);
-        }
-        batch.end();
     }
 
     @Override

@@ -2,8 +2,10 @@ package com.heslington_hustle.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -44,19 +46,24 @@ public class ActivityScreen extends ScreenAdapter {
         // Create a table that fills the screen
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
         stage.addActor(table);
 
         // assign skin to the menu
         Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
-        //create button
+        // Create label
+        Label label = new Label("Do you want to " + activity.getDescription() + "?", skin, "title", Color.WHITE);
+        label.setFontScale(1.2f);
+
+        // Create button
         TextButton yes = new TextButton("Yes", skin);
         TextButton back = new TextButton("Back", skin);
 
-        //add buttons to table
-        table.add(back).fillX().uniformX();
-        table.add(yes).fillX().uniformX();
+        // Format table layout
+        table.add(label).center().colspan(2);
+        table.row().pad(50, 0, 0, 0);
+        table.add(back).uniformX().padRight(10).right();
+        table.add(yes).uniformX().left();
 
         // create button listeners
         back.addListener(new ChangeListener() {
@@ -110,9 +117,6 @@ public class ActivityScreen extends ScreenAdapter {
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
-        batch.begin();
-        font.draw(batch, "Do you want to " + activity.getDescription() + "?", 200, 600);
-        batch.end();
     }
 
     @Override
@@ -130,8 +134,6 @@ public class ActivityScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         System.out.println("Activity Screen disposed");
-        //stage.dispose();
-        //font.dispose();
-        //batch.dispose();
+        stage.dispose();
     }
 }

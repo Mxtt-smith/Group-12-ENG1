@@ -2,8 +2,10 @@ package com.heslington_hustle.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.HeslingtonHustle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -13,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+
+import java.util.Objects;
 
 public class ErrorScreen extends ScreenAdapter {
     private final Stage stage;
@@ -39,7 +43,6 @@ public class ErrorScreen extends ScreenAdapter {
         // Create a table that fills the screen
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
         stage.addActor(table);
 
         // assign skin to the menu
@@ -48,8 +51,17 @@ public class ErrorScreen extends ScreenAdapter {
         //create button
         TextButton back = new TextButton("Back", skin);
 
-        //add buttons to table
-        table.add(back).fillX().uniformX();
+        String message = "";
+        if (Objects.equals(this.errorType, "time")) {
+            message = "It's getting late, you should go to bed.";
+        } else {
+            message = "You're too tired to do that!";
+        }
+        Label error = new Label(message, skin, "title", Color.WHITE);
+
+        table.add(error).center();
+        table.row().pad(50, 0, 0, 0);
+        table.add(back);
 
         // create button listeners
         back.addListener(new ChangeListener() {
@@ -65,18 +77,10 @@ public class ErrorScreen extends ScreenAdapter {
     public void render(float delta) {
         // clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
-        String message = "";
-        if (this.errorType == "time") {
-            message = "It's getting late, you should go to bed.";
-        } else {
-            message = "You're too tired to do that!";
-        }
+
         // tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
-        batch.begin();
-        font.draw(batch, message, 200, 600);
-        batch.end();
     }
 
     @Override

@@ -2,8 +2,10 @@ package com.heslington_hustle.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.HeslingtonHustle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -37,7 +39,6 @@ public class PauseScreen extends ScreenAdapter {
         // Create a table that fills the screen
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
         stage.addActor(table);
 
         // assign skin to the menu
@@ -46,8 +47,11 @@ public class PauseScreen extends ScreenAdapter {
         //create button
         TextButton resume = new TextButton("Resume", skin);
 
-        //add buttons to table
-        table.add(resume).fillX().uniformX();
+        Label label = new Label("Paused", skin, "title", Color.WHITE);
+
+        table.add(label).center();
+        table.row().pad(50, 0, 0, 0);
+        table.add(resume).center();
 
         // create button listeners
         resume.addListener(new ChangeListener() {
@@ -67,9 +71,6 @@ public class PauseScreen extends ScreenAdapter {
         // tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
-        batch.begin();
-        font.draw(batch, "Game is Paused", 200, 600);
-        batch.end();
     }
 
     @Override
