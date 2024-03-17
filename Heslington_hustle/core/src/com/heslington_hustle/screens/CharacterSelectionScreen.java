@@ -50,15 +50,13 @@ public class CharacterSelectionScreen extends ScreenAdapter {
         Texture char1Text = new Texture(Gdx.files.internal("characters/char1/char1sd.png"));
         Texture char2Text = new Texture(Gdx.files.internal("characters/char2/char2sd.png"));
         Image char1Image = new Image(char1Text);
-        char1Image.setScale(3f);
         Image char2Image = new Image(char2Text);
-        char2Image.setScale(3f);
 
         // Arrange table
         table.add(title).fillX().center().colspan(2);
-        table.row().pad(30, 0, 0, 0);
-        table.add(char1Image).center();
-        table.add(char2Image).center();
+        table.row().pad(30, 0, 0, 0).height(80);
+        table.add(char1Image).fill().center();
+        table.add(char2Image).fill().center();
         table.row().pad(10, 0, 10, 0);
         table.add(Char1).uniformX();
         table.add(Char2).uniformX();
