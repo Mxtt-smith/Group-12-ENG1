@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
 /'
-we thought that an opbect component architecture may be good
+we thought that an object component architecture may be good
 '/
 
 class Coordinates
@@ -14,6 +14,10 @@ class Building
 
 class Map
 class Game
+
+Player o-- Coordinates
+Building o-- Coordinates
+Player o--
 
 
 @enduml

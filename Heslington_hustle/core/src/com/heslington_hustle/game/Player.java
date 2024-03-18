@@ -1,7 +1,6 @@
 package com.heslington_hustle.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -155,7 +154,7 @@ public class Player extends Sprite {
     }
 
     public void dispose() {
-        //getTexture().dispose();
-        //textureAtlas.dispose();
+        textureAtlas.dispose();
+        getTexture().dispose();
     }
 }
