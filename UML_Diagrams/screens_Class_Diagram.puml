@@ -1,15 +1,16 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class CharacterSelectionScreen
-
-class GameScreen
-
-class HowToPlayScreen
-
-class MainMenuScreen
-
-class NewDayScreen
-
-class ActivityScreen
+package screens {
+class ActivityScreen extends ScreenAdapter
+class CharacterSelectionScreen extends ScreenAdapter
+class EndGameScreen extends ScreenAdapter
+class ErrorScreen extends ScreenAdapter
+class GameScreen extends ScreenAdapter
+class HowToPlayScreen extends ScreenAdapter
+class MainMenuScreen extends ScreenAdapter
+class NewDayScreen extends ScreenAdapter
+class PauseScreen extends ScreenAdapter
+}
+}
 @enduml

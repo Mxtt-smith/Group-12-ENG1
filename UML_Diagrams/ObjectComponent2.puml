@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/class-diagram
+/'
+we thought that an opbect component architecture may be good
+'/
+
+class Coordinates
+class Collider
+class Input
+
+
+class Player
+class Building
+
+class Map
+class Game
+
+
+@enduml

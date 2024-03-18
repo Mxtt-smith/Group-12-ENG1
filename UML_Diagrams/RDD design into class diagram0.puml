@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Game{
+Integer Time
+UpdateTime(int)
+}
+class Map{
+
+
+}
+class Building{
+Integer EnergyConsumed
+Integer TimeConsumed
+String Message
+collision_handler()
+}
+class Inputs{
+KeyboardListener()
+MouseListener()
+}
+class Player{
+Integer Energy
+Integer[] Coordinates
+UpdateEnergy(int energyChange)
+
+
+}
+class Sprite{
+Image Texture
+
+}
+
+
+Map *-- Building
+Graphics *-- Sprite
+Game *-- Map
+Game --> Graphics
+Inputs -->Game
+Game *-- Player
+Building -->Game
+Building --> Player
+
+
+@enduml
