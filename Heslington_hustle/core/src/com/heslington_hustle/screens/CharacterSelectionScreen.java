@@ -14,12 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import static com.heslington_hustle.game.HeslingtonHustle.Day;
-import static com.heslington_hustle.game.HeslingtonHustle.Energy;
-import static com.heslington_hustle.game.HeslingtonHustle.hoursLeft;
+import static com.heslington_hustle.game.HeslingtonHustle.*;
+
 public class CharacterSelectionScreen extends ScreenAdapter {
 
     private final Stage stage;
+    Skin skin;
     private final HeslingtonHustle game;
 
     public CharacterSelectionScreen(final HeslingtonHustle game) {
@@ -31,13 +31,12 @@ public class CharacterSelectionScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        System.out.println("Character selection showing");
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
 
-        Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
+        skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         Label title = new Label("Choose your character:", skin, "title", Color.WHITE);
 
@@ -67,7 +66,7 @@ public class CharacterSelectionScreen extends ScreenAdapter {
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new MainMenuScreen(game));
+                game.changeScreen(MENU);
             }
         });
 
@@ -75,7 +74,7 @@ public class CharacterSelectionScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Player.character = "char1";
-                game.setScreen(new NewDayScreen(game));
+                game.changeScreen(NEWDAY);
             }
         });
 
@@ -83,7 +82,7 @@ public class CharacterSelectionScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Player.character = "char2";
-                game.setScreen(new NewDayScreen(game));
+                game.changeScreen(NEWDAY);
             }
         });
     }
@@ -105,8 +104,13 @@ public class CharacterSelectionScreen extends ScreenAdapter {
     }
 
     @Override
+    public void dispose() {
+        stage.dispose();
+        skin.dispose();
+        super.dispose();
+    }
+    @Override
     public void hide() {
-        System.out.println("Character Selection hiding");
         Gdx.input.setInputProcessor(null);
     }
 }

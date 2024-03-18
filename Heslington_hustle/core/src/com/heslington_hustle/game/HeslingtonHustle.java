@@ -8,7 +8,6 @@ import com.heslington_hustle.screens.*;
 import java.time.LocalTime;
 
 // Our core class will extend the Game class
-// (implementing the ApplicationListener interface.)
 // This is easier to use when setting up different screens (Startup, pause, etc.)
 public class HeslingtonHustle extends Game {
     public SpriteBatch batch;
@@ -27,17 +26,15 @@ public class HeslingtonHustle extends Game {
     HowToPlayScreen howToPlayScreen;
     GameScreen gameScreen;
     NewDayScreen newDayScreen;
-    ActivityScreen activityScreen;
-    ErrorScreen errorScreen;
     EndGameScreen endScreen;
+    PauseScreen pauseScreen;
     public final static int MENU = 0;
     public final static int CHARACTER = 1;
     public final static int HOWTOPLAY = 2;
     public final static int GAME = 3;
     public final static int NEWDAY = 4;
-    public final static int ACTIVITY = 5;
-    public final static int ERROR = 6;
-    public final static int END = 7;
+    public final static int END = 5;
+    public final static int PAUSE = 6;
 
 
     @Override
@@ -97,27 +94,21 @@ public class HeslingtonHustle extends Game {
                 if (newDayScreen == null) newDayScreen = new NewDayScreen(this);
                 this.setScreen(newDayScreen);
                 break;
-            // May not need to do activity as it depends on the passed activity
-//            case ACTIVITY:
-//                if (activityScreen == null) activityScreen = new ActivityScreen(this);
-//                this.setScreen(activityScreen);
-//                break;
-            // Same with error
-//            case ERROR:
-//                if (menuScreen == null) menuScreen = new MainMenuScreen(this);
-//                this.setScreen(menuScreen);
-//                break;
             case END:
-                if (menuScreen == null) menuScreen = new MainMenuScreen(this);
-                this.setScreen(menuScreen);
+                if (endScreen == null) endScreen = new EndGameScreen(this);
+                this.setScreen(endScreen);
+                break;
+            case PAUSE:
+                if (pauseScreen == null) pauseScreen = new PauseScreen(this);
+                this.setScreen(pauseScreen);
                 break;
         }
     }
 
     @Override
     public void dispose() {
-        //batch.dispose();
-        //font.dispose();
-        //super.dispose();
+        batch.dispose();
+        font.dispose();
+        super.dispose();
     }
 }

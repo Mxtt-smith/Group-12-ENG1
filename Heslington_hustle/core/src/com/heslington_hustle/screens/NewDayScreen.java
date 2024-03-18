@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class NewDayScreen extends ScreenAdapter {
 
     private final Stage stage;
+    Skin skin;
     private final HeslingtonHustle game;
     BitmapFont font;
     private final SpriteBatch batch;
@@ -42,7 +43,7 @@ public class NewDayScreen extends ScreenAdapter {
         stage.addActor(table);
 
         // assign skin to the menu
-        Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
+        skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         // Title
         Label label = new Label("Day " + HeslingtonHustle.Day, skin, "title", Color.WHITE);
@@ -53,28 +54,6 @@ public class NewDayScreen extends ScreenAdapter {
         table.defaults().uniformX().center();
         table.add(label).colspan(2);
         table.row().pad(30, 0, 0, 0);
-        if (HeslingtonHustle.Day != 1) {
-            // Make labels for the counters
-            // {study, recreation, eat}
-            int[] stats = game.stats.getTally();
-            Label studiedTitle = new Label("Studied:", skin, "font", Color.WHITE);
-            Label recreationTitle = new Label("Recreational activities:", skin, "font", Color.WHITE);
-            Label eatTitle = new Label("Ate:", skin, "font", Color.WHITE);
-            Label studyCount = new Label(String.valueOf(stats[0]), skin, "font", Color.WHITE);
-            Label recCount = new Label(String.valueOf(stats[0]), skin, "font", Color.WHITE);
-            Label eatCount = new Label(String.valueOf(stats[0]), skin, "font", Color.WHITE);
-
-            // Add to the table
-            table.add(studiedTitle);
-            table.add(studyCount);
-            table.row();
-            table.add(recreationTitle);
-            table.add(recCount);
-            table.row();
-            table.add(eatTitle);
-            table.add(eatCount);
-            table.row().pad(30, 0, 0, 0);
-        }
         table.add(ok).colspan(2);
 
         // create button listeners
@@ -82,6 +61,7 @@ public class NewDayScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.changeScreen(HeslingtonHustle.GAME);
+                dispose();
             }
         });
 
@@ -105,8 +85,14 @@ public class NewDayScreen extends ScreenAdapter {
 
     @Override
     public void hide() {
-        System.out.println("Main menu hiding");
         Gdx.input.setInputProcessor(null);
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+        skin.dispose();
+        super.dispose();
     }
 }
 

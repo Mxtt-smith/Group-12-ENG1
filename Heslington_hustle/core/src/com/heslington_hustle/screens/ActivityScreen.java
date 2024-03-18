@@ -26,6 +26,7 @@ public class ActivityScreen extends ScreenAdapter {
     BitmapFont font;
     private final SpriteBatch batch;
     Activity activity;
+    Skin skin;
 
 
     public ActivityScreen (final HeslingtonHustle game, Activity activity) {
@@ -41,7 +42,6 @@ public class ActivityScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        System.out.println("Show activity screen");
         Gdx.input.setInputProcessor(stage);
         // Create a table that fills the screen
         Table table = new Table();
@@ -49,7 +49,7 @@ public class ActivityScreen extends ScreenAdapter {
         stage.addActor(table);
 
         // assign skin to the menu
-        Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
+        skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         // Create label
         Label label = new Label("Do you want to " + activity.getDescription() + "?", skin, "title", Color.WHITE);
@@ -69,7 +69,8 @@ public class ActivityScreen extends ScreenAdapter {
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new GameScreen(game));
+                game.changeScreen(GAME);
+                dispose();
             }
         });
         yes.addListener(new ChangeListener() {
@@ -78,8 +79,10 @@ public class ActivityScreen extends ScreenAdapter {
                 // Check if player has enough energy
                 if ((HeslingtonHustle.Energy - activity.getEnergy()) < 0) {
                     game.setScreen(new ErrorScreen(game, "energy"));
+                    dispose();
                 } else if (hoursLeft - activity.getTimeUse() < 0) {
                     game.setScreen(new ErrorScreen(game, "time"));
+                    dispose();
                 } else {
                     if (activity.getType() == ActivityType.SLEEP) {
                         // Add the day's stats either way
@@ -89,8 +92,9 @@ public class ActivityScreen extends ScreenAdapter {
                             game.setScreen(new NewDayScreen(game));
                         } else {
                             // End the game
-                            game.setScreen(new EndGameScreen(game));
+                            game.changeScreen(END);
                         }
+                        dispose();
                     } else {
                         HeslingtonHustle.Energy -= activity.getEnergy();
                         hoursLeft -= activity.getTimeUse();
@@ -101,8 +105,8 @@ public class ActivityScreen extends ScreenAdapter {
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
+                        game.changeScreen(GAME);
                         dispose();
-                        game.setScreen(new GameScreen(game));
                     }
                 }
             }
@@ -127,13 +131,13 @@ public class ActivityScreen extends ScreenAdapter {
 
     @Override
     public void hide() {
-        System.out.println("Activity screen hiding");
         Gdx.input.setInputProcessor(null);
     }
 
     @Override
     public void dispose() {
-        System.out.println("Activity Screen disposed");
         stage.dispose();
+        skin.dispose();
+        super.dispose();
     }
 }

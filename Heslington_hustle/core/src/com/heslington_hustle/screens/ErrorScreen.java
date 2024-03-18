@@ -20,6 +20,7 @@ import java.util.Objects;
 
 public class ErrorScreen extends ScreenAdapter {
     private final Stage stage;
+    Skin skin;
     private final HeslingtonHustle game;
     BitmapFont font;
     private final SpriteBatch batch;
@@ -38,7 +39,6 @@ public class ErrorScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        System.out.println("Error screen showing");
         Gdx.input.setInputProcessor(stage);
         // Create a table that fills the screen
         Table table = new Table();
@@ -46,7 +46,7 @@ public class ErrorScreen extends ScreenAdapter {
         stage.addActor(table);
 
         // assign skin to the menu
-        Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
+        skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         //create button
         TextButton back = new TextButton("Back", skin);
@@ -67,7 +67,8 @@ public class ErrorScreen extends ScreenAdapter {
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new GameScreen(game));
+                game.changeScreen(HeslingtonHustle.GAME);
+                dispose();
             }
         });
 
@@ -90,8 +91,14 @@ public class ErrorScreen extends ScreenAdapter {
     }
 
     @Override
+    public void dispose() {
+        stage.dispose();
+        skin.dispose();
+        super.dispose();
+    }
+
+    @Override
     public void hide() {
-        System.out.println("Error screen hiding");
         Gdx.input.setInputProcessor(null);
     }
 }

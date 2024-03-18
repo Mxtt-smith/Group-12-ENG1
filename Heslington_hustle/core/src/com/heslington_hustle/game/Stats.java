@@ -24,6 +24,7 @@ public class Stats {
     public void log(Activity.ActivityType type) throws Exception{
         switch (type) {
             case RECREATION:
+                System.out.println("Recreation incremented");
                 recreation++;
                 break;
             case STUDY:
@@ -31,6 +32,7 @@ public class Stats {
                 study++;
                 break;
             case EAT:
+                System.out.println("Eat incremented");
                 eat++;
                 break;
             default:
@@ -38,7 +40,7 @@ public class Stats {
         }
     }
 
-    //Adds the current stats to a dictonary and returns it
+    //Adds the current stats to a dictionary and returns it
     public Dictionary<String, Integer> getStats(){
         Dictionary<String, Integer> statistics = new Hashtable<>();
         statistics.put("study", study);
@@ -55,7 +57,6 @@ public class Stats {
 
     //Resets stats for the start of a new day
     public void newDay() {
-        
         studiedYesterday = study;
         recreation = 0;
         eat = 0;

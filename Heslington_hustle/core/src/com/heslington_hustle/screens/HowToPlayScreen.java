@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class HowToPlayScreen extends ScreenAdapter {
 
     private final Stage stage;
+    Skin skin;
     private final HeslingtonHustle game;
     BitmapFont font;
     SpriteBatch batch;
@@ -33,14 +34,13 @@ public class HowToPlayScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        System.out.println("How to play showing");
         // Create a table that fills the screen
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
 
         // assign skin to the menu
-        Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
+        skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         //create button
         TextButton back = new TextButton("Back", skin);
@@ -52,7 +52,7 @@ public class HowToPlayScreen extends ScreenAdapter {
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new MainMenuScreen(game));
+                game.changeScreen(HeslingtonHustle.MENU);
             }
         });
 
@@ -83,8 +83,14 @@ public class HowToPlayScreen extends ScreenAdapter {
     }
 
     @Override
+    public void dispose() {
+        stage.dispose();
+        skin.dispose();
+        super.dispose();
+    }
+
+    @Override
     public void hide() {
-        System.out.println("How to play hiding");
         Gdx.input.setInputProcessor(null);
     }
 }

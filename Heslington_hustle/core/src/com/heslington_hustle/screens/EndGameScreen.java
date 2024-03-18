@@ -17,6 +17,7 @@ import com.heslington_hustle.game.HeslingtonHustle;
 public class EndGameScreen extends ScreenAdapter {
     HeslingtonHustle game;
     private final Stage stage;
+    Skin skin;
     BitmapFont font;
     private final SpriteBatch batch;
 
@@ -38,10 +39,10 @@ public class EndGameScreen extends ScreenAdapter {
         stage.addActor(table);
 
         // assign skin to the exit
-        Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
+        skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         //create button
-        TextButton exit = new TextButton("Quit", skin);
+        TextButton exit = new TextButton("Menu", skin);
 
         //add buttons to table
         table.add(exit).fillX().uniformX();
@@ -50,7 +51,8 @@ public class EndGameScreen extends ScreenAdapter {
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.exit();
+                game.changeScreen(HeslingtonHustle.GAME);
+                dispose();
             }
         });
 
@@ -80,8 +82,14 @@ public class EndGameScreen extends ScreenAdapter {
     }
 
     @Override
+    public void dispose() {
+        stage.dispose();
+        skin.dispose();
+        super.dispose();
+    }
+
+    @Override
     public void hide() {
-        System.out.println("End game hiding");
         Gdx.input.setInputProcessor(null);
     }
 }

@@ -81,7 +81,6 @@ public class PauseScreen extends ScreenAdapter {
 
     @Override
     public void hide() {
-        System.out.println("Main menu hiding");
         Gdx.input.setInputProcessor(null);
     }
 }

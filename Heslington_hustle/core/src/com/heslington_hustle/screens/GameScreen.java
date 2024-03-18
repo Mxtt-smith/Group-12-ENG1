@@ -48,7 +48,6 @@ public class GameScreen extends ScreenAdapter {
 
     public GameScreen(HeslingtonHustle game) {
         this.game = game;
-        System.out.println("New game screen");
 
         overviewCam = new OrthographicCamera();
         overviewCam.update();
@@ -91,11 +90,6 @@ public class GameScreen extends ScreenAdapter {
     }
 
     @Override
-    public void show() {
-        System.out.println("Game showing");
-    }
-
-    @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 0);
         overviewCam.update();
@@ -131,7 +125,7 @@ public class GameScreen extends ScreenAdapter {
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            game.setScreen(new PauseScreen(game));
+            game.changeScreen(HeslingtonHustle.PAUSE);
         }
 
         batch.begin();
@@ -150,18 +144,16 @@ public class GameScreen extends ScreenAdapter {
     }
 
     @Override
-    public void pause() {
-        System.out.println("Game paused");
-    }
-
-    @Override
     public void resume() {
-        System.out.println("Game resuming");
         state = GameState.FREE_ROAM;
     }
 
     @Override
-    public void hide() {
-        System.out.println("Game hiding");
+    public void dispose() {
+        blank.dispose();
+        orange.dispose();
+        map.dispose();
+        renderer.dispose();
+        super.dispose();
     }
 }
