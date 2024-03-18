@@ -51,7 +51,7 @@ public class EndGameScreen extends ScreenAdapter {
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.changeScreen(HeslingtonHustle.GAME);
+                game.changeScreen(HeslingtonHustle.MENU);
                 dispose();
             }
         });
