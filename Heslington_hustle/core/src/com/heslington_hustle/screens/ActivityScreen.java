@@ -97,7 +97,6 @@ public class ActivityScreen extends ScreenAdapter {
                         Time = Time.plusHours((long)activity.getTimeUse());
                         try {
                             game.stats.log(activity.getType());
-                            System.out.println("Logged " + activity.getDescription());
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }

@@ -56,6 +56,30 @@ public class NewDayScreen extends ScreenAdapter {
         table.defaults().uniformX().center();
         table.add(label).colspan(2);
         table.row().pad(30, 0, 0, 0);
+
+        // Show how many activities of each have been completed so far
+        if (HeslingtonHustle.Day != 1) {
+            // Make labels for the counters
+            // {study, recreation, eat}
+            int[] stats = game.stats.getTally();
+            Label studiedTitle = new Label("Studied:", skin, "font", Color.WHITE);
+            Label recreationTitle = new Label("Recreational activities:", skin, "font", Color.WHITE);
+            Label eatTitle = new Label("Ate:", skin, "font", Color.WHITE);
+            Label studyCount = new Label(String.valueOf(stats[0]), skin, "font", Color.WHITE);
+            Label recCount = new Label(String.valueOf(stats[1]), skin, "font", Color.WHITE);
+            Label eatCount = new Label(String.valueOf(stats[2]), skin, "font", Color.WHITE);
+
+            // Add to the table
+            table.add(studiedTitle);
+            table.add(studyCount);
+            table.row();
+            table.add(recreationTitle);
+            table.add(recCount);
+            table.row();
+            table.add(eatTitle);
+            table.add(eatCount);
+            table.row().pad(30, 0, 0, 0);
+        }
         table.add(ok).colspan(2);
 
         // create button listeners

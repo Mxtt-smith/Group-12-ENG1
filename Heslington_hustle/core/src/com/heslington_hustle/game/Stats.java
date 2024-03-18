@@ -24,15 +24,12 @@ public class Stats {
     public void log(Activity.ActivityType type) throws Exception{
         switch (type) {
             case RECREATION:
-                System.out.println("Recreation incremented");
                 recreation++;
                 break;
             case STUDY:
-                System.out.println("Study incremented");
                 study++;
                 break;
             case EAT:
-                System.out.println("Eat incremented");
                 eat++;
                 break;
             default:
@@ -88,10 +85,11 @@ public class Stats {
 
     // Method to reset the stats instance
     public void reset() {
-        studiedYesterday = study;
+        studiedYesterday = 1;
         recreation = 0;
         eat = 0;
         study = 0;
+        days.clear();
         HeslingtonHustle.Day = 1;
         HeslingtonHustle.Energy = 100;
         HeslingtonHustle.hoursLeft = 16;
