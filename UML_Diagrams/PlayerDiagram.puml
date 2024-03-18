@@ -1,5 +1,9 @@
 @startuml
 'https://plantuml.com/class-diagram
+/'
+a deeper look at the functionality and relationships of the player class
+'/
+
 package gdx {
 class Gdx {
 + {abstract} int : getWidth()
@@ -15,30 +19,6 @@ class TextureAtlas
 
 package game{
 
-class Activity{
-    String description;
-    float energy;
-    float timeUse;
-    Rectangle zone;
-}
-
-enum ActivityType {
-    EAT
-    RECREATION
-    SLEEP
-    STUDY
-}
-Activity o-- ActivityType
-
-class HeslingtonHustle {
-    + {static} float Energy;
-    + {static} float hoursLeft;
-    + {static} int Day;
-    + {static} LocalTime Time;
-
-    +create()
-    +changeScreen(int Screen)
-}
 
 class Player extends graphics.g2d.Sprite {
 - TextureAtlas : textureAtlas

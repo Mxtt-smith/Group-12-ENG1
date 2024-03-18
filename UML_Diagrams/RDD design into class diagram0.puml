@@ -3,6 +3,7 @@
 
 class Game{
 Integer Time
+
 UpdateTime(int)
 }
 class Map{

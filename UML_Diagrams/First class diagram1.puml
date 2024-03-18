@@ -1,6 +1,10 @@
 @startuml
 'https://plantuml.com/class-diagram
+/'
+overall class diagram for when our activitues were split up
+into separate classes
 
+'/
 abstract class Activity{
 }
 enum ActivityType

@@ -1,7 +1,8 @@
 @startuml
 'https://plantuml.com/class-diagram
 /'
-we thought that an object component architecture may be good
+we thought that an object component architecture may be useful
+expand on what methods are in which component and what they store
 '/
 
 class Coordinates
