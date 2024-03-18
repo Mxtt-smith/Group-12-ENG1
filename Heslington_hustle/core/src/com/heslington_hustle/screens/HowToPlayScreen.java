@@ -86,7 +86,6 @@ public class HowToPlayScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
         skin.dispose();
-        super.dispose();
     }
 
     @Override

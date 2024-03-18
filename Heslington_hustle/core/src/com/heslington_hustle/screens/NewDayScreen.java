@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import static com.heslington_hustle.game.HeslingtonHustle.Day;
+
 public class NewDayScreen extends ScreenAdapter {
 
     private final Stage stage;
@@ -46,7 +48,7 @@ public class NewDayScreen extends ScreenAdapter {
         skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         // Title
-        Label label = new Label("Day " + HeslingtonHustle.Day, skin, "title", Color.WHITE);
+        Label label = new Label("Day " + Day, skin, "title", Color.WHITE);
         // Create button
         TextButton ok = new TextButton("Start Day!", skin);
 
@@ -60,8 +62,7 @@ public class NewDayScreen extends ScreenAdapter {
         ok.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.changeScreen(HeslingtonHustle.GAME);
-                dispose();
+                    game.changeScreen(HeslingtonHustle.GAME);
             }
         });
 
@@ -92,7 +93,6 @@ public class NewDayScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
         skin.dispose();
-        super.dispose();
     }
 }
 

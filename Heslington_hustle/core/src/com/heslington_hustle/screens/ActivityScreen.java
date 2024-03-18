@@ -70,7 +70,6 @@ public class ActivityScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.changeScreen(GAME);
-                dispose();
             }
         });
         yes.addListener(new ChangeListener() {
@@ -79,10 +78,8 @@ public class ActivityScreen extends ScreenAdapter {
                 // Check if player has enough energy
                 if ((HeslingtonHustle.Energy - activity.getEnergy()) < 0) {
                     game.setScreen(new ErrorScreen(game, "energy"));
-                    dispose();
                 } else if (hoursLeft - activity.getTimeUse() < 0) {
                     game.setScreen(new ErrorScreen(game, "time"));
-                    dispose();
                 } else {
                     if (activity.getType() == ActivityType.SLEEP) {
                         // Add the day's stats either way
@@ -92,9 +89,8 @@ public class ActivityScreen extends ScreenAdapter {
                             game.setScreen(new NewDayScreen(game));
                         } else {
                             // End the game
-                            game.changeScreen(END);
+                            game.setScreen(new EndGameScreen(game));
                         }
-                        dispose();
                     } else {
                         HeslingtonHustle.Energy -= activity.getEnergy();
                         hoursLeft -= activity.getTimeUse();
@@ -106,9 +102,9 @@ public class ActivityScreen extends ScreenAdapter {
                             throw new RuntimeException(e);
                         }
                         game.changeScreen(GAME);
-                        dispose();
                     }
                 }
+                dispose();
             }
         });
 
@@ -138,6 +134,5 @@ public class ActivityScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
         skin.dispose();
-        super.dispose();
     }
 }

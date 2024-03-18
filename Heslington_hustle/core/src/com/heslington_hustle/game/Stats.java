@@ -11,7 +11,7 @@ public class Stats {
     int studiedYesterday;
     List<Dictionary<String, Integer>> days;
 
-    //Contructor that intilises the variables
+    //Constructor that initialises the variables
     public Stats(){
         study = 0;
         recreation = 0;
@@ -84,5 +84,17 @@ public class Stats {
             totalEat += day.get("eat");
         }
         return new int[] {totalStudy, totalRecreation, totalEat};
+    }
+
+    // Method to reset the stats instance
+    public void reset() {
+        studiedYesterday = study;
+        recreation = 0;
+        eat = 0;
+        study = 0;
+        HeslingtonHustle.Day = 1;
+        HeslingtonHustle.Energy = 100;
+        HeslingtonHustle.hoursLeft = 16;
+        HeslingtonHustle.Time = LocalTime.of(7, 30);
     }
 }

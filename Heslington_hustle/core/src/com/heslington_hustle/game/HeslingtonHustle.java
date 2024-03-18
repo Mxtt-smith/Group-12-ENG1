@@ -1,6 +1,7 @@
 package com.heslington_hustle.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.heslington_hustle.screens.*;
@@ -36,12 +37,31 @@ public class HeslingtonHustle extends Game {
     public final static int END = 5;
     public final static int PAUSE = 6;
 
+    // Reset the whole game
+    public void reset() {
+        // Remove game screen
+        gameScreen.dispose();
+        gameScreen = null;
+
+        state = GameState.MENU;
+        stats.reset();
+    }
+
+    public enum GameState {
+        MENU,
+        FREE_ROAM,
+        ACTIVITY,
+        END
+    }
+    GameState state;
+
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont();
 
+        state = GameState.MENU;
         Energy = 100;
         hoursLeft = 16;
         Day = 1;
@@ -88,6 +108,10 @@ public class HeslingtonHustle extends Game {
                 break;
             case GAME:
                 if (gameScreen == null) gameScreen = new GameScreen(this);
+                else if (getState() == GameState.END) {
+                    gameScreen.dispose();
+                    gameScreen = new GameScreen(this);
+                }
                 this.setScreen(gameScreen);
                 break;
             case NEWDAY:
@@ -105,10 +129,17 @@ public class HeslingtonHustle extends Game {
         }
     }
 
+    public void setState(GameState state) {
+        this.state = state;
+    }
+
+    public GameState getState() {
+        return state;
+    }
+
     @Override
     public void dispose() {
         batch.dispose();
         font.dispose();
-        super.dispose();
     }
 }

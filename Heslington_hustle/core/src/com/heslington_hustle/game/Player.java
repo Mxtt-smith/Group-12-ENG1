@@ -155,7 +155,6 @@ public class Player extends Sprite {
     }
 
     public void dispose() {
-        //getTexture().dispose();
-        //textureAtlas.dispose();
+        textureAtlas.dispose();
     }
 }

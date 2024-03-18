@@ -103,6 +103,5 @@ public class MainMenuScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
         skin.dispose();
-        super.dispose();
     }
 }

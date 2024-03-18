@@ -28,6 +28,7 @@ public class EndGameScreen extends ScreenAdapter {
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
+        game.setState(HeslingtonHustle.GameState.END);
     }
 
     @Override
@@ -51,6 +52,7 @@ public class EndGameScreen extends ScreenAdapter {
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                game.reset();
                 game.changeScreen(HeslingtonHustle.MENU);
                 dispose();
             }
@@ -85,7 +87,6 @@ public class EndGameScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
         skin.dispose();
-        super.dispose();
     }
 
     @Override

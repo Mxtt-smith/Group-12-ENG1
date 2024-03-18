@@ -68,7 +68,6 @@ public class ErrorScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.changeScreen(HeslingtonHustle.GAME);
-                dispose();
             }
         });
 
@@ -94,7 +93,6 @@ public class ErrorScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
         skin.dispose();
-        super.dispose();
     }
 
     @Override
