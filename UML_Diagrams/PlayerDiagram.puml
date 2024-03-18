@@ -13,12 +13,17 @@ class Gdx {
 
 package graphics.g2d {
 class Sprite {
++ void : setOriginCenter()
++ void : setRegion(TextureRegion : region)
++ Rectangle : getBoundingRectangle()
 }
-class TextureAtlas
+class TextureAtlas {
++ Array<AtlasRegion> : getRegion()
++ AtlasRegion : findRegion(String : name)
+}
 }
 
 package game{
-
 
 class Player extends graphics.g2d.Sprite {
 - TextureAtlas : textureAtlas
@@ -40,9 +45,10 @@ class Player extends graphics.g2d.Sprite {
 package screens{
 class CharacterSelectionScreen
 class GameScreen
+
 }
 
-textureAtlas --- Player
+TextureAtlas --o Player
 Gdx --- Player
 GameScreen o-- Player
 CharacterSelectionScreen "2" o-- Player
