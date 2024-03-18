@@ -4,17 +4,33 @@
 more detail about the functionality of the classes in the screens package
 '/
 
+package com.badlogic.gdx {
+class ScreenAdapter
+}
 
 package screens {
-class ActivityScreen extends ScreenAdapter
-class CharacterSelectionScreen extends ScreenAdapter
-class EndGameScreen extends ScreenAdapter
-class ErrorScreen extends ScreenAdapter
-class GameScreen extends ScreenAdapter
-class HowToPlayScreen extends ScreenAdapter
-class MainMenuScreen extends ScreenAdapter
-class NewDayScreen extends ScreenAdapter
-class PauseScreen extends ScreenAdapter
+
+class ActivityScreen
+class CharacterSelectionScreen
+class EndGameScreen
+class ErrorScreen
+class GameScreen
+class HowToPlayScreen
+class MainMenuScreen
+class NewDayScreen
+class PauseScreen
+
+ActivityScreen <|-- ScreenAdapter
+CharacterSelectionScreen <|-- ScreenAdapter
+EndGameScreen <|-- ScreenAdapter
+ErrorScreen <|-- ScreenAdapter
+GameScreen <|-- ScreenAdapter
+HowToPlayScreen <|-- ScreenAdapter
+MainMenuScreen <|-- ScreenAdapter
+NewDayScreen <|-- ScreenAdapter
+PauseScreen <|-- ScreenAdapter
 }
 }
+
+
 @enduml
