@@ -1,10 +1,12 @@
 @startuml
 top to bottom direction
 skinparam linetype ortho
-
+package game {
 class Activity
-class ActivityScreen
 enum ActivityType << enumeration >>
+
+}
+class ActivityScreen
 class CharacterSelectionScreen
 class EndGameScreen
 class ErrorScreen
