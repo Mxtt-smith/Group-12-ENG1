@@ -22,10 +22,12 @@ public class Player extends Sprite {
         this.setOriginCenter();
     }
 
+    // This set's the players's texture
     public void setTexture(String textureName) {
         setRegion(textureAtlas.findRegion(textureName));
     }
 
+    // Determines whether the player will collide into a building/boundary
     public boolean collision(int transX, int transY) {
         float oldX = getX();
         float oldY = getY();
@@ -155,7 +157,6 @@ public class Player extends Sprite {
     }
 
     public void dispose() {
-        //getTexture().dispose();
-        //textureAtlas.dispose();
+        textureAtlas.dispose();
     }
 }

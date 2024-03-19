@@ -41,10 +41,10 @@ public class PauseScreen extends ScreenAdapter {
         table.setFillParent(true);
         stage.addActor(table);
 
-        // assign skin to the menu
+        // Assign skin to the menu
         Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
-        //create button
+        // Create button
         TextButton resume = new TextButton("Resume", skin);
 
         Label label = new Label("Paused", skin, "title", Color.WHITE);
@@ -53,7 +53,7 @@ public class PauseScreen extends ScreenAdapter {
         table.row().pad(50, 0, 0, 0);
         table.add(resume).center();
 
-        // create button listeners
+        // Create button listeners
         resume.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -65,17 +65,17 @@ public class PauseScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        // clear the screen ready for next set of images to be drawn
+        // Clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
 
-        // tell our stage to do actions and draw itself
+        // Tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-        // change the stage's viewport when the screen size is changed
+        // Change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 

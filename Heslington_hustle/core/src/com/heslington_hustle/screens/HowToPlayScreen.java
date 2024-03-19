@@ -2,8 +2,10 @@ package com.heslington_hustle.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.HeslingtonHustle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -26,7 +28,7 @@ public class HowToPlayScreen extends ScreenAdapter {
         this.game = game;
         batch = game.batch;
         font = game.font;
-        /// create stage and set it as input processor
+        // create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
@@ -39,16 +41,28 @@ public class HowToPlayScreen extends ScreenAdapter {
         table.setFillParent(true);
         stage.addActor(table);
 
-        // assign skin to the menu
+        // Assign skin to the menu
         skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
+        Label title = new Label("How to play!", skin, "title", Color.WHITE);
+
+        Label description = new Label("Welcome to Heslington Hustle" +
+                "\nNavigate around the map with your WASD or arrow keys" +
+                "\nYou'll find different buildings scattered around the map!" +
+                "\nPress the space bar to interact with them to see what they do." +
+                "\nYou have 7 days in game to do what it takes to pass your exams," +
+                "\nStrategise and manage your time wisely but most importantly, enjoy!", skin, "font", Color.WHITE);
         //create button
         TextButton back = new TextButton("Back", skin);
 
-        //add buttons to table
-        table.add(back).fillX().uniformX();
+        // Format the table
+        table.add(title).center();
+        table.row().pad(10, 0, 0, 0);
+        table.add(description);
+        table.row().pad(10, 0, 0, 0);
+        table.add(back).uniformX();
 
-        // create button listeners
+        // Create button listeners
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -60,25 +74,17 @@ public class HowToPlayScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        // clear the screen ready for next set of images to be drawn
+        // Clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
 
-        // tell our stage to do actions and draw itself
+        // Tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
-        batch.begin();
-        font.draw(batch, "Welcome to Heslington Hustle" +
-                "\nNavigate around the map with your WASD or arrow keys" +
-                "\nYou'll find different buildings scattered around the map!" +
-                "\nPress the space bar to interact with them to see what they do." +
-                "\nYou have 7 days in game to do what it takes to pass your exams," +
-                "\nStrategise and manage your time wisely but most importantly, enjoy!", 200, 600);
-        batch.end();
     }
 
     @Override
     public void resize(int width, int height) {
-        // change the stage's viewport when the screen size is changed
+        // Change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 
@@ -86,7 +92,6 @@ public class HowToPlayScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
         skin.dispose();
-        super.dispose();
     }
 
     @Override

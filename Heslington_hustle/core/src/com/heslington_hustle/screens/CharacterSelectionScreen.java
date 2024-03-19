@@ -4,7 +4,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.heslington_hustle.game.Player;
 import com.badlogic.gdx.Gdx;
@@ -40,11 +39,12 @@ public class CharacterSelectionScreen extends ScreenAdapter {
 
         Label title = new Label("Choose your character:", skin, "title", Color.WHITE);
 
-        //create buttons
+        // Create buttons
         TextButton Char1 = new TextButton("Character 1", skin);
         TextButton Char2 = new TextButton("Character 2", skin);
         TextButton back = new TextButton("Back", skin);
 
+        // Show the characters
         Texture char1Text = new Texture(Gdx.files.internal("characters/char1/char1sd.png"));
         Texture char2Text = new Texture(Gdx.files.internal("characters/char2/char2sd.png"));
         Image char1Image = new Image(char1Text);
@@ -107,7 +107,6 @@ public class CharacterSelectionScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
         skin.dispose();
-        super.dispose();
     }
     @Override
     public void hide() {

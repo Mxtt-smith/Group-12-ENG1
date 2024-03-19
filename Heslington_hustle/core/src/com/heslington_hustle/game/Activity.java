@@ -18,6 +18,7 @@ public class Activity {
         this.description = description;
     }
 
+    // Set the zone for which the player can perform the activity
     public void set(float x, float y, float width, float height) {
         zone.set(x, y, width, height);
     }

@@ -11,7 +11,7 @@ public class Stats {
     int studiedYesterday;
     List<Dictionary<String, Integer>> days;
 
-    //Contructor that intilises the variables
+    //Constructor that initialises the variables
     public Stats(){
         study = 0;
         recreation = 0;
@@ -24,15 +24,12 @@ public class Stats {
     public void log(Activity.ActivityType type) throws Exception{
         switch (type) {
             case RECREATION:
-                System.out.println("Recreation incremented");
                 recreation++;
                 break;
             case STUDY:
-                System.out.println("Study incremented");
                 study++;
                 break;
             case EAT:
-                System.out.println("Eat incremented");
                 eat++;
                 break;
             default:
@@ -40,7 +37,7 @@ public class Stats {
         }
     }
 
-    //Adds the current stats to a dictionary and returns it
+    // Adds the current stats to a dictionary and returns it
     public Dictionary<String, Integer> getStats(){
         Dictionary<String, Integer> statistics = new Hashtable<>();
         statistics.put("study", study);
@@ -50,12 +47,12 @@ public class Stats {
         return statistics;
     }
 
-    //Stores the given days stats in the list containing stats for the whole game
+    // Stores the given days stats in the list containing stats for the whole game
     public void addDay(Dictionary<String, Integer> day) {
         days.add(day);
     }
 
-    //Resets stats for the start of a new day
+    // Resets stats for the start of a new day
     public void newDay() {
         studiedYesterday = study;
         recreation = 0;
@@ -72,7 +69,7 @@ public class Stats {
         return days.get(index);
     }
 
-    //Returns total stats for the whole game
+    // Returns total stats for the whole game
     public int[] getTally(){
         int totalStudy = 0;
         int totalRecreation = 0;
@@ -84,5 +81,18 @@ public class Stats {
             totalEat += day.get("eat");
         }
         return new int[] {totalStudy, totalRecreation, totalEat};
+    }
+
+    // Method to reset the stats instance
+    public void reset() {
+        studiedYesterday = 1;
+        recreation = 0;
+        eat = 0;
+        study = 0;
+        days.clear();
+        HeslingtonHustle.Day = 1;
+        HeslingtonHustle.Energy = 100;
+        HeslingtonHustle.hoursLeft = 16;
+        HeslingtonHustle.Time = LocalTime.of(7, 30);
     }
 }

@@ -45,10 +45,10 @@ public class ErrorScreen extends ScreenAdapter {
         table.setFillParent(true);
         stage.addActor(table);
 
-        // assign skin to the menu
+        // Assign skin to the menu
         skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
-        //create button
+        // Create back button
         TextButton back = new TextButton("Back", skin);
 
         String message = "";
@@ -63,12 +63,11 @@ public class ErrorScreen extends ScreenAdapter {
         table.row().pad(50, 0, 0, 0);
         table.add(back);
 
-        // create button listeners
+        // Create button listeners
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.changeScreen(HeslingtonHustle.GAME);
-                dispose();
             }
         });
 
@@ -94,7 +93,6 @@ public class ErrorScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
         skin.dispose();
-        super.dispose();
     }
 
     @Override

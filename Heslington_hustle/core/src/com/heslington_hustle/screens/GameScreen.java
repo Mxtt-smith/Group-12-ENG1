@@ -36,15 +36,6 @@ public class GameScreen extends ScreenAdapter {
     Texture orange;
     BitmapFont font;
     Activity study, eat, sleep, recreation;
-    enum GameState {
-        FREE_ROAM,
-        ACTIVITY,
-        LOSE,
-        NEW_DAY,
-        TOO_TIRED
-    }
-    GameState state;
-
 
     public GameScreen(HeslingtonHustle game) {
         this.game = game;
@@ -86,7 +77,7 @@ public class GameScreen extends ScreenAdapter {
         sleep.set(11*16, 35*16, 2*16, 16);
 
         // Set the game's state
-        state = GameState.FREE_ROAM;
+        this.game.setState(HeslingtonHustle.GameState.FREE_ROAM);
     }
 
     @Override
@@ -110,12 +101,14 @@ public class GameScreen extends ScreenAdapter {
             player.stationary();
         }
 
+        // Activity detection
         Rectangle playerRect = player.getBoundingRectangle();
         if (playerRect.overlaps(eat.getZone()) || playerRect.overlaps(sleep.getZone()) || playerRect.overlaps(study.getZone()) || playerRect.overlaps(recreation.getZone())) {
-            state = GameState.ACTIVITY;
-        } else state = GameState.FREE_ROAM;
+            game.setState(HeslingtonHustle.GameState.ACTIVITY);
+        } else game.setState(HeslingtonHustle.GameState.FREE_ROAM);
 
-        if (state == GameState.ACTIVITY) {
+        // If a player wishes to do an activity
+        if (game.getState() == HeslingtonHustle.GameState.ACTIVITY) {
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
                 if (playerRect.overlaps(eat.getZone())) game.setScreen(new ActivityScreen(game, eat));
                 else if (playerRect.overlaps(recreation.getZone())) game.setScreen(new ActivityScreen(game, recreation));
@@ -124,6 +117,7 @@ public class GameScreen extends ScreenAdapter {
             }
         }
 
+        // Pause game
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             game.changeScreen(HeslingtonHustle.PAUSE);
         }
@@ -131,10 +125,13 @@ public class GameScreen extends ScreenAdapter {
         batch.begin();
         player.draw(batch);
         batch.draw(blank,55,783,200,10);
+
+        // Show the player's energy and time
         if (HeslingtonHustle.Energy > 0) batch.draw(orange,55,783,200*(HeslingtonHustle.Energy/100),10);
-        if (state == GameState.ACTIVITY) font.draw(batch, "Press SPACE for activity", 330, 50);
+        if (game.getState() == HeslingtonHustle.GameState.ACTIVITY) font.draw(batch, "Press SPACE for activity", 330, 50);
         font.draw(batch, "Energy", 5, 795);
         font.draw(batch, HeslingtonHustle.Time.toString(), 750, 795);
+
         batch.end();
     }
 
@@ -145,7 +142,7 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void resume() {
-        state = GameState.FREE_ROAM;
+        game.setState(HeslingtonHustle.GameState.FREE_ROAM);
     }
 
     @Override
@@ -154,6 +151,5 @@ public class GameScreen extends ScreenAdapter {
         orange.dispose();
         map.dispose();
         renderer.dispose();
-        super.dispose();
     }
 }

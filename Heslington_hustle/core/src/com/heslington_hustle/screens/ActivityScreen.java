@@ -65,12 +65,11 @@ public class ActivityScreen extends ScreenAdapter {
         table.add(back).uniformX().padRight(10).right();
         table.add(yes).uniformX().left();
 
-        // create button listeners
+        // Create button listeners
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.changeScreen(GAME);
-                dispose();
             }
         });
         yes.addListener(new ChangeListener() {
@@ -79,10 +78,9 @@ public class ActivityScreen extends ScreenAdapter {
                 // Check if player has enough energy
                 if ((HeslingtonHustle.Energy - activity.getEnergy()) < 0) {
                     game.setScreen(new ErrorScreen(game, "energy"));
-                    dispose();
+                    // Check if they have enough time
                 } else if (hoursLeft - activity.getTimeUse() < 0) {
                     game.setScreen(new ErrorScreen(game, "time"));
-                    dispose();
                 } else {
                     if (activity.getType() == ActivityType.SLEEP) {
                         // Add the day's stats either way
@@ -92,23 +90,23 @@ public class ActivityScreen extends ScreenAdapter {
                             game.setScreen(new NewDayScreen(game));
                         } else {
                             // End the game
-                            game.changeScreen(END);
+                            game.setScreen(new EndGameScreen(game));
                         }
-                        dispose();
                     } else {
+                        // Change the energy and time left after the activity
                         HeslingtonHustle.Energy -= activity.getEnergy();
                         hoursLeft -= activity.getTimeUse();
                         Time = Time.plusHours((long)activity.getTimeUse());
                         try {
+                            // Try to log the activity
                             game.stats.log(activity.getType());
-                            System.out.println("Logged " + activity.getDescription());
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
                         game.changeScreen(GAME);
-                        dispose();
                     }
                 }
+                dispose();
             }
         });
 
@@ -138,6 +136,5 @@ public class ActivityScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
         skin.dispose();
-        super.dispose();
     }
 }
