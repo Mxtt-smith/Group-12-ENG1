@@ -19,8 +19,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import java.util.Objects;
 
 /**
- * This class represents an error screen displayed when the player encounters certain errors during gameplay,
- * such as running out of time or energy.
+ * This class extends the {@link ScreenAdapter} class and represents an error screen displayed
+ * when the player encounters certain errors during gameplay, such as running out of time or energy.
  */
 public class ErrorScreen extends ScreenAdapter {
 
@@ -33,7 +33,7 @@ public class ErrorScreen extends ScreenAdapter {
     /** The game instance. */
     private final HeslingtonHustle game;
 
-    /** // The font for text rendering. */
+    /** The font for text rendering. */
     BitmapFont font;
 
     /** The sprite batch for rendering. */
@@ -54,7 +54,6 @@ public class ErrorScreen extends ScreenAdapter {
         batch = game.batch;
         font = game.font;
         this.errorType = errorType;
-        /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
@@ -66,15 +65,12 @@ public class ErrorScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        // Create a table that fills the screen
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
 
-        // Assign skin to the menu
         skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
-        // Create back button
         TextButton back = new TextButton("Back", skin);
 
         String message = "";
@@ -89,7 +85,6 @@ public class ErrorScreen extends ScreenAdapter {
         table.row().pad(50, 0, 0, 0);
         table.add(back);
 
-        // Create button listeners
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -106,10 +101,8 @@ public class ErrorScreen extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
-        // clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
 
-        // tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
@@ -122,7 +115,6 @@ public class ErrorScreen extends ScreenAdapter {
      */
     @Override
     public void resize(int width, int height) {
-        // change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 

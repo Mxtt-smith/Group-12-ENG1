@@ -20,7 +20,8 @@ import com.heslington_hustle.game.Activity.ActivityType;
 import static com.heslington_hustle.game.HeslingtonHustle.*;
 
 /**
- * The ActivityScreen class represents the screen where the player decides whether to perform a specific activity.
+ * The ActivityScreen class extends the {@link ScreenAdapter} class and is displayed if the player wishes
+ * to perform a specific activity.
  * It displays a message with the activity description and provides options to confirm or go back.
  */
 public class ActivityScreen extends ScreenAdapter {
@@ -55,7 +56,6 @@ public class ActivityScreen extends ScreenAdapter {
         font = game.font;
         this.activity = activity;
 
-        // create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
@@ -67,19 +67,15 @@ public class ActivityScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        // Create a table that fills the screen
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
 
-        // assign skin to the menu
         skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
-        // Create label
         Label label = new Label("Do you want to " + activity.getDescription() + "?", skin, "title", Color.WHITE);
         label.setFontScale(1.2f);
 
-        // Create button
         TextButton yes = new TextButton("Yes", skin);
         TextButton back = new TextButton("Back", skin);
 
@@ -89,7 +85,6 @@ public class ActivityScreen extends ScreenAdapter {
         table.add(back).uniformX().padRight(10).right();
         table.add(yes).uniformX().left();
 
-        // Create button listeners
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -102,27 +97,23 @@ public class ActivityScreen extends ScreenAdapter {
                 // Check if player has enough energy
                 if ((HeslingtonHustle.Energy - activity.getEnergy()) < 0) {
                     game.setScreen(new ErrorScreen(game, "energy"));
-                    // Check if they have enough time
+                // Check if they have enough time
                 } else if (hoursLeft - activity.getTimeUse() < 0) {
                     game.setScreen(new ErrorScreen(game, "time"));
                 } else {
                     if (activity.getType() == ActivityType.SLEEP) {
-                        // Add the day's stats either way
                         game.stats.addDay(game.stats.getStats());
                         game.stats.newDay();
                         if (Day <= 7) {
                             game.setScreen(new NewDayScreen(game));
                         } else {
-                            // End the game
                             game.setScreen(new EndGameScreen(game));
                         }
                     } else {
-                        // Change the energy and time left after the activity
                         HeslingtonHustle.Energy -= activity.getEnergy();
                         hoursLeft -= activity.getTimeUse();
                         Time = Time.plusHours((long)activity.getTimeUse());
                         try {
-                            // Try to log the activity
                             game.stats.log(activity.getType());
                         } catch (Exception e) {
                             throw new RuntimeException(e);
@@ -143,7 +134,6 @@ public class ActivityScreen extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
-        // clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -158,7 +148,6 @@ public class ActivityScreen extends ScreenAdapter {
      */
     @Override
     public void resize(int width, int height) {
-        // change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 

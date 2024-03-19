@@ -1,14 +1,13 @@
 package com.heslington_hustle.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
- * The Player class represents the player character in the game. It extends the Sprite class
+ * The Player class represents the player character in the game. It extends the {@link Sprite} class
  * and includes methods for handling player movement, collision detection, and texture management.
  */
 public class Player extends Sprite {
@@ -63,12 +62,12 @@ public class Player extends Sprite {
         float cellX = (oldX + transX) / 16;
         float cellY = (oldY + transY) / 16;
         TiledMapTileLayer.Cell cell;
-        // Check upper bound collision
-        // convert the coordinates into cell number, bottom left is 0, 0
-        // map is 50 x 50 cells
+
+        // Convert the coordinates into cell number, bottom left is 0, 0
+        // Map is 50 x 50 cells
+        // Try upper bound
         try {
             cell = collisionLayer.getCell((int) Math.ceil(cellX), (int) Math.ceil(cellY));
-            // try upper bound
             if (cell.getTile().getProperties().containsKey("Collidable")) {
                 return true;
             }
@@ -87,10 +86,7 @@ public class Player extends Sprite {
             // Catch the null exception - no tile exists there
         }
 
-        // Create player rectangle
         final Rectangle bounds = getBoundingRectangle();
-
-        // Create screen rectangle
         final Rectangle screenBounds = new Rectangle(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         // Set the values of the player rectangle
@@ -111,24 +107,12 @@ public class Player extends Sprite {
         float correctY = getY();
 
         // Screen sides
-        if(left < screenLeft)
-        {
-            correctX = screenLeft;
-        }
-        else if(right > screenRight)
-        {
-            correctX = screenRight - 16;
-        }
+        if(left < screenLeft) correctX = screenLeft;
+        else if(right > screenRight) correctX = screenRight - 16;
 
         // Top and bottom
-        if(bottom < screenBottom)
-        {
-            correctY = screenBottom;
-        }
-        else if(top > screenTop)
-        {
-            correctY = screenTop - 16;
-        }
+        if(bottom < screenBottom) correctY = screenBottom;
+        else if(top > screenTop) correctY = screenTop - 16;
 
         // Set player position
         setPosition(correctX, correctY);
@@ -136,8 +120,6 @@ public class Player extends Sprite {
         // No collision at either bound, so there is no tile
         return false;
     }
-
-    // Movement methods
 
     /**
      * Moves the player character up.

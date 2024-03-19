@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 /**
- * This class represents the screen that provides instructions on how to play the game.
+ * This class extends the {@link ScreenAdapter} class, representing the screen that provides instructions to play the game.
  * It explains the basic controls and objectives to the player.
  */
 public class HowToPlayScreen extends ScreenAdapter {
@@ -70,10 +70,10 @@ public class HowToPlayScreen extends ScreenAdapter {
         Label description = new Label("Welcome to Heslington Hustle" +
                 "\nNavigate around the map with your WASD or arrow keys" +
                 "\nYou'll find different buildings scattered around the map!" +
-                "\nPress the space bar to interact with them to see what they do." +
+                "\nPress the [SPACE] to interact with them to see what they do." +
                 "\nYou have 7 days in game to do what it takes to pass your exams," +
                 "\nStrategise and manage your time wisely but most importantly, enjoy!", skin, "font", Color.WHITE);
-        //create button
+
         TextButton back = new TextButton("Back", skin);
 
         // Format the table
@@ -83,7 +83,6 @@ public class HowToPlayScreen extends ScreenAdapter {
         table.row().pad(10, 0, 0, 0);
         table.add(back).uniformX();
 
-        // Create button listeners
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -100,10 +99,8 @@ public class HowToPlayScreen extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
-        // Clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
 
-        // Tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
@@ -116,7 +113,6 @@ public class HowToPlayScreen extends ScreenAdapter {
      */
     @Override
     public void resize(int width, int height) {
-        // Change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 

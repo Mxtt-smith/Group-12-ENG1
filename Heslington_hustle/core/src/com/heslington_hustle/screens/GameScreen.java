@@ -23,8 +23,9 @@ import java.awt.*;
 import static com.heslington_hustle.game.Player.character;
 
 /**
- * This class represents the main game screen where the player can freely roam around the map,
- * interact with activities, and manage their character's energy and time.
+ * GameScreen extends the {@link ScreenAdapter} class, representing the main game screen
+ * where the player can freely roam around the map, interact with activities,
+ * and manage their character's energy and time.
  */
 public class GameScreen extends ScreenAdapter {
 
@@ -72,20 +73,16 @@ public class GameScreen extends ScreenAdapter {
         overviewCam = new OrthographicCamera();
         overviewCam.update();
 
-        // load the tiled map
         map = new TmxMapLoader().load("map1.tmx");
-        // create the renderer
         renderer = new OrthogonalTiledMapRenderer(map, 1/16f);
 
-        // create the spriteBatch and font
         batch = game.batch;
         font = game.font;
 
-        // Create the player
         atlas = new TextureAtlas(Gdx.files.internal("characters/"+character+".atlas"));
         player = new Player(atlas, (TiledMapTileLayer)map.getLayers().get("Collisions"));
         player.setTexture(character+"sd");
-        // Multiply by 16 as all assets are 16 bit
+
         player.setPosition(400, 400);
 
         // Energy bar
@@ -93,6 +90,7 @@ public class GameScreen extends ScreenAdapter {
         blank = new Texture("blank.png");
 
         // Create the activities on the map
+        // Multiplied by 16 as the map is split into 16-bit cells
         study = new Activity(50, 4, Activity.ActivityType.STUDY, "make flashcards");
         study.set(39*16, 4*16, 2*16, 16);
 
@@ -105,7 +103,6 @@ public class GameScreen extends ScreenAdapter {
         sleep = new Activity(0, 0, Activity.ActivityType.SLEEP, "get an early night");
         sleep.set(11*16, 35*16, 2*16, 16);
 
-        // Set the game's state
         this.game.setState(HeslingtonHustle.GameState.FREE_ROAM);
     }
 
@@ -121,7 +118,6 @@ public class GameScreen extends ScreenAdapter {
         renderer.setView(overviewCam);
         renderer.render();
 
-        // Player movement
         // Collision detection first
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && !player.collision(-2, 0)) {
             player.moveLeft();

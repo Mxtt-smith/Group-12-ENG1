@@ -37,7 +37,7 @@ public class Stats {
     }
 
     /**
-     * Increments the counter for a given activity type.
+     * Increments a counter for a given activity type.
      *
      * @param type the type of activity to log
      * @throws Exception if the specified activity type is invalid
@@ -59,7 +59,7 @@ public class Stats {
     }
 
     /**
-     * Retrieves the current statistics as a dictionary.
+     * Retrieves the statistics of the current day.
      *
      * @return a dictionary containing the current statistics
      */
@@ -99,7 +99,7 @@ public class Stats {
      * Retrieves the statistics for a given day.
      *
      * @param index the index of the day
-     * @return the statistics for the specified day
+     * @return {} the statistics for the specified day
      */
     public Dictionary<String, Integer> getDay (int index) {
         return days.get(index);

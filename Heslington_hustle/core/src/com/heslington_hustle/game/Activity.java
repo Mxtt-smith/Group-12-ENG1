@@ -41,8 +41,8 @@ public class Activity {
     /**
      * Sets the zone where the player can perform the activity.
      *
-     * @param x the x-coordinate of the zone
-     * @param y the y-coordinate of the zone
+     * @param x the x-coordinate of the zone (bottom left)
+     * @param y the y-coordinate of the zone (bottom left)
      * @param width the width of the zone
      * @param height the height of the zone
      */
@@ -51,7 +51,7 @@ public class Activity {
     }
 
     /**
-     * Returns the type of the activity.
+     * Get the activity type associated with each instance
      *
      * @return the type of the activity
      */
@@ -114,7 +114,7 @@ public class Activity {
     }
 
     /**
-     * Returns the zone where the activity can be performed.
+     * Get the zone where the activity can be performed.
      *
      * @return the zone where the activity can be performed
      */

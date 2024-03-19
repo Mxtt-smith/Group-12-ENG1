@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import static com.heslington_hustle.game.HeslingtonHustle.*;
 
 /**
- * This class represents the screen where the player selects their character.
+ * This class extends the {@link ScreenAdapter} class, representing the screen where the player selects their character.
  * It displays options for different characters and allows the player to choose one.
  */
 public class CharacterSelectionScreen extends ScreenAdapter {
@@ -38,7 +38,6 @@ public class CharacterSelectionScreen extends ScreenAdapter {
      */
     public CharacterSelectionScreen(final HeslingtonHustle game) {
         this.game = game;
-        /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
@@ -50,7 +49,6 @@ public class CharacterSelectionScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
@@ -59,12 +57,10 @@ public class CharacterSelectionScreen extends ScreenAdapter {
 
         Label title = new Label("Choose your character:", skin, "title", Color.WHITE);
 
-        // Create buttons
         TextButton Char1 = new TextButton("Character 1", skin);
         TextButton Char2 = new TextButton("Character 2", skin);
         TextButton back = new TextButton("Back", skin);
 
-        // Show the characters
         Texture char1Text = new Texture(Gdx.files.internal("characters/char1/char1sd.png"));
         Texture char2Text = new Texture(Gdx.files.internal("characters/char2/char2sd.png"));
         Image char1Image = new Image(char1Text);
@@ -82,7 +78,6 @@ public class CharacterSelectionScreen extends ScreenAdapter {
         table.row();
         table.add(back).uniformX().colspan(2);
 
-        // create button listeners
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -114,10 +109,8 @@ public class CharacterSelectionScreen extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
-        // clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
 
-        // tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
@@ -130,7 +123,6 @@ public class CharacterSelectionScreen extends ScreenAdapter {
      */
     @Override
     public void resize(int width, int height) {
-        // change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 

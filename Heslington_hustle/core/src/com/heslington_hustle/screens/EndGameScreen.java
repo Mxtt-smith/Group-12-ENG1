@@ -16,7 +16,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.heslington_hustle.game.HeslingtonHustle;
 
 /**
- * This class represents the end game screen displayed when the player completes the game.
+ * This class extends the {@link ScreenAdapter} class and represents the end game screen displayed
+ * when the player completes the game.
  * It shows the player's overall statistics for the game and provides an option to return to the main menu.
  */
 public class EndGameScreen extends ScreenAdapter {
@@ -54,17 +55,14 @@ public class EndGameScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        // Create a table that fills the screen
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
 
-        // assign skin to the exit
         skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         Label title = new Label("You made it through the week!", skin, "title", Color.WHITE);
 
-        //create button
         TextButton exit = new TextButton("Menu", skin);
 
         // Get the players overall game counters
@@ -91,7 +89,6 @@ public class EndGameScreen extends ScreenAdapter {
         table.row().pad(30, 0, 0, 0);
         table.add(exit).colspan(2);
 
-        // create button listeners
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -110,10 +107,8 @@ public class EndGameScreen extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
-        // clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
 
-        // tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
@@ -126,7 +121,6 @@ public class EndGameScreen extends ScreenAdapter {
      */
     @Override
     public void resize(int width, int height) {
-        // change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 

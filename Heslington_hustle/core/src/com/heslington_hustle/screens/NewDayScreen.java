@@ -49,7 +49,6 @@ public class NewDayScreen extends ScreenAdapter {
         batch = game.batch;
         font = game.font;
 
-        // Create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
@@ -61,17 +60,14 @@ public class NewDayScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        // Create a table that fills the screen
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
 
-        // Assign skin to the menu
         skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
-        // Title
         Label label = new Label("Day " + Day, skin, "title", Color.WHITE);
-        // Create button
+
         TextButton ok = new TextButton("Start Day!", skin);
 
         // Format table layout of UI
@@ -81,8 +77,7 @@ public class NewDayScreen extends ScreenAdapter {
 
         // Show how many activities of each have been completed so far
         if (HeslingtonHustle.Day != 1) {
-            // Make labels for the counters
-            // {study, recreation, eat}
+            // stats = {study, recreation, eat}
             int[] stats = game.stats.getTally();
             Label studiedTitle = new Label("Studied:", skin, "font", Color.WHITE);
             Label recreationTitle = new Label("Recreational activities:", skin, "font", Color.WHITE);
@@ -104,7 +99,6 @@ public class NewDayScreen extends ScreenAdapter {
         }
         table.add(ok).colspan(2);
 
-        // Create button listeners
         ok.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -121,10 +115,8 @@ public class NewDayScreen extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
-        // Clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
 
-        // Tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
@@ -137,7 +129,6 @@ public class NewDayScreen extends ScreenAdapter {
      */
     @Override
     public void resize(int width, int height) {
-        // Change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 

@@ -1,7 +1,6 @@
 package com.heslington_hustle.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.heslington_hustle.screens.*;
@@ -10,7 +9,7 @@ import java.time.LocalTime;
 
 /**
  * The HeslingtonHustle class represents the main game class for the Heslington Hustle game.
- * It extends the Game class and manages the game's core components, screens, and state.
+ * It extends the {@link com.badlogic.gdx.Game} class and manages the game's core components, screens, and state.
  */
 public class HeslingtonHustle extends Game {
 
@@ -148,7 +147,7 @@ public class HeslingtonHustle extends Game {
 
     /**
      * Changes the current screen of the game based on the provided screen identifier.
-     * If the screen is null it creates a new one.
+     * If the screen is null it will create a new instance.
      *
      * @param screen the identifier of the screen to be changed to
      */

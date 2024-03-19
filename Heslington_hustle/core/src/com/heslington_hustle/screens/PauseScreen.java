@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 /**
- * PauseScreen class represents the screen displayed when the game is paused.
+ * PauseScreen extends the {@link ScreenAdapter} class and represents the screen displayed when the game is paused.
  * It allows players to resume the game from the pause state.
  */
 public class PauseScreen extends ScreenAdapter {
@@ -44,7 +44,6 @@ public class PauseScreen extends ScreenAdapter {
         batch = game.batch;
         font = game.font;
 
-        // create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
@@ -56,15 +55,12 @@ public class PauseScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        // Create a table that fills the screen
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
 
-        // Assign skin to the menu
         Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
-        // Create button
         TextButton resume = new TextButton("Resume", skin);
 
         Label label = new Label("Paused", skin, "title", Color.WHITE);
@@ -73,7 +69,6 @@ public class PauseScreen extends ScreenAdapter {
         table.row().pad(50, 0, 0, 0);
         table.add(resume).center();
 
-        // Create button listeners
         resume.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -90,10 +85,8 @@ public class PauseScreen extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
-        // Clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
 
-        // Tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
@@ -106,7 +99,6 @@ public class PauseScreen extends ScreenAdapter {
      */
     @Override
     public void resize(int width, int height) {
-        // Change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 
