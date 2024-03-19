@@ -14,17 +14,38 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+/**
+ * The MainMenuScreen class represents the main menu screen of the game.
+ * It allows users to navigate to different sections of the game, such as starting a new game,
+ * accessing the "How to Play" section, or exiting the game.
+ */
 public class MainMenuScreen extends ScreenAdapter {
+
+    /** The stage for displaying UI components. */
     private final Stage stage;
+
+    /** The skin for styling UI elements. */
     private Skin skin;
+
+    /** The game instance. */
     private final HeslingtonHustle game;
 
+    /**
+     * Constructs a MainMenuScreen object with the specified game instance.
+     *
+     * @param game The HeslingtonHustle game instance.
+     */
     public MainMenuScreen(HeslingtonHustle game) {
         this.game = game;
         // create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
+
+    /**
+     * Called when this screen becomes the current screen for the Game.
+     * Sets up the UI elements for displaying the main menu and buttons to character selection, how to play and exit.
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -77,6 +98,11 @@ public class MainMenuScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Renders the screen.
+     *
+     * @param delta the time in seconds since the last render
+     */
     @Override
     public void render(float delta) {
         // Clear the screen ready for next set of images to be drawn
@@ -87,17 +113,29 @@ public class MainMenuScreen extends ScreenAdapter {
         stage.draw();
     }
 
+    /**
+     * Called when the screen is resized. Updates the stage's viewport accordingly.
+     *
+     * @param width  the new width of the screen
+     * @param height the new height of the screen
+     */
     @Override
     public void resize(int width, int height) {
         // change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 
+    /**
+     * Called when the screen is hidden. Sets the input processor to null.
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
     }
 
+    /**
+     * Disposes of resources used by the screen.
+     */
     @Override
     public void dispose() {
         stage.dispose();

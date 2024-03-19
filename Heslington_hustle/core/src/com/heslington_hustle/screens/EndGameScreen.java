@@ -15,12 +15,29 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.heslington_hustle.game.HeslingtonHustle;
 
+/**
+ * This class represents the end game screen displayed when the player completes the game.
+ * It shows the player's overall statistics for the game and provides an option to return to the main menu.
+ */
 public class EndGameScreen extends ScreenAdapter {
+
+    /** The game instance. */
     HeslingtonHustle game;
+
+    /** The stage for managing UI elements. */
     private final Stage stage;
+
+    /** The skin for styling UI elements. */
     Skin skin;
+
+    /** The font for text rendering. */
     BitmapFont font;
 
+    /**
+     * Constructs a new EndGameScreen with the specified game instance.
+     *
+     * @param game The game instance
+     */
     public EndGameScreen (final HeslingtonHustle game) {
         this.game = game;
         font = game.font;
@@ -30,6 +47,10 @@ public class EndGameScreen extends ScreenAdapter {
         game.setState(HeslingtonHustle.GameState.END);
     }
 
+    /**
+     * Called when this screen becomes the current screen for the Game.
+     * Sets up the UI elements for displaying end game information and return button.
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -82,6 +103,11 @@ public class EndGameScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Renders the end game screen by clearing the screen and drawing the stage.
+     *
+     * @param delta the time in seconds since the last render
+     */
     @Override
     public void render(float delta) {
         // clear the screen ready for next set of images to be drawn
@@ -92,18 +118,31 @@ public class EndGameScreen extends ScreenAdapter {
         stage.draw();
     }
 
+    /**
+     * Called when the screen is resized. Updates the stage's viewport accordingly.
+     *
+     * @param width  the new width of the screen
+     * @param height the new height of the screen
+     */
     @Override
     public void resize(int width, int height) {
         // change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 
+    /**
+     * Disposes of resources used by the end game screen, such as the stage and skin.
+     * This method is called when the screen is no longer needed.
+     */
     @Override
     public void dispose() {
         stage.dispose();
         skin.dispose();
     }
 
+    /**
+     * Called when the screen is hidden. Sets the input processor to null.
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);

@@ -3,15 +3,31 @@ package com.heslington_hustle.game;
 import java.time.LocalTime;
 import java.util.*;
 
-// This is to keep a count of how many activities they have completed
+/**
+ * The Stats class represents the statistics of the game, including activities performed, study sessions,
+ * and daily progress. It provides methods to log activity, retrieve statistics, manage daily progress,
+ * and reset statistics.
+ */
 public class Stats {
+
+    /** Counter for study sessions. */
     int study;
+
+    /** Counter for recreation activities. */
     int recreation;
+
+    /** Counter for eating activities. */
     int eat;
+
+    /** Number of study sessions completed on the previous day. */
     int studiedYesterday;
+
+    /** List containing statistics for each day. */
     List<Dictionary<String, Integer>> days;
 
-    //Constructor that initialises the variables
+    /**
+     * Constructs a Stats object and initializes its variables.
+     */
     public Stats(){
         study = 0;
         recreation = 0;
@@ -20,7 +36,12 @@ public class Stats {
         days = new ArrayList<>();
     }
 
-    // Increments a given activity's counter
+    /**
+     * Increments the counter for a given activity type.
+     *
+     * @param type the type of activity to log
+     * @throws Exception if the specified activity type is invalid
+     */
     public void log(Activity.ActivityType type) throws Exception{
         switch (type) {
             case RECREATION:
@@ -37,7 +58,11 @@ public class Stats {
         }
     }
 
-    // Adds the current stats to a dictionary and returns it
+    /**
+     * Retrieves the current statistics as a dictionary.
+     *
+     * @return a dictionary containing the current statistics
+     */
     public Dictionary<String, Integer> getStats(){
         Dictionary<String, Integer> statistics = new Hashtable<>();
         statistics.put("study", study);
@@ -47,12 +72,18 @@ public class Stats {
         return statistics;
     }
 
-    // Stores the given days stats in the list containing stats for the whole game
+    /**
+     * Adds the statistics for the current day to the list of daily statistics.
+     *
+     * @param day the statistics for the current day
+     */
     public void addDay(Dictionary<String, Integer> day) {
         days.add(day);
     }
 
-    // Resets stats for the start of a new day
+    /**
+     * Resets the statistics for the start of a new day.
+     */
     public void newDay() {
         studiedYesterday = study;
         recreation = 0;
@@ -64,12 +95,21 @@ public class Stats {
         HeslingtonHustle.Time = LocalTime.of(7, 30);
     }
 
-    //Returns the dictionary containing stats for a given day
+    /**
+     * Retrieves the statistics for a given day.
+     *
+     * @param index the index of the day
+     * @return the statistics for the specified day
+     */
     public Dictionary<String, Integer> getDay (int index) {
         return days.get(index);
     }
 
-    // Returns total stats for the whole game
+    /**
+     * Retrieves the total statistics for the entire game.
+     *
+     * @return an array containing the total study, recreation, and eating activities
+     */
     public int[] getTally(){
         int totalStudy = 0;
         int totalRecreation = 0;
@@ -83,7 +123,9 @@ public class Stats {
         return new int[] {totalStudy, totalRecreation, totalEat};
     }
 
-    // Method to reset the stats instance
+    /**
+     * Resets the Stats instance to its initial state.
+     */
     public void reset() {
         studiedYesterday = 1;
         recreation = 0;

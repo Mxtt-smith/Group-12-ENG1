@@ -22,21 +22,50 @@ import java.awt.*;
 
 import static com.heslington_hustle.game.Player.character;
 
-// This is the screen that will show the actual game
+/**
+ * This class represents the main game screen where the player can freely roam around the map,
+ * interact with activities, and manage their character's energy and time.
+ */
 public class GameScreen extends ScreenAdapter {
+
+    /** The game instance. */
     final HeslingtonHustle game;
-    // fetch the assets
+
+    /** The tiled map for the game world. */
     TiledMap map;
+
+    /** The renderer for the tiled map. */
     OrthogonalTiledMapRenderer renderer;
+
+    /** The sprite batch for rendering. */
     SpriteBatch batch;
+
+    /** The camera for the game overview. */
     OrthographicCamera overviewCam;
+
+    /** The texture atlas containing character textures. */
     TextureAtlas atlas;
+
+    /** The player character. */
     Player player;
+
+    /** Texture for energy bar. */
     Texture blank;
+
+    /** Texture for energy bar fill. */
     Texture orange;
+
+    /** The font for text rendering. */
     BitmapFont font;
+
+    /** Activities available on the map. */
     Activity study, eat, sleep, recreation;
 
+    /**
+     * Constructs a new GameScreen with the specified game instance.
+     *
+     * @param game The game instance
+     */
     public GameScreen(HeslingtonHustle game) {
         this.game = game;
 
@@ -80,6 +109,11 @@ public class GameScreen extends ScreenAdapter {
         this.game.setState(HeslingtonHustle.GameState.FREE_ROAM);
     }
 
+    /**
+     * Renders the game screen including the tiled map, player character, energy bar, and other UI elements.
+     *
+     * @param delta the time in seconds since the last render
+     */
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 0);
@@ -135,16 +169,28 @@ public class GameScreen extends ScreenAdapter {
         batch.end();
     }
 
+    /**
+     * Called when the screen is resized. Updates the overview camera's viewport accordingly.
+     *
+     * @param width  the new width of the screen
+     * @param height the new height of the screen
+     */
     @Override
     public void resize(int width, int height) {
         overviewCam.setToOrtho(false, width/16f, height/16f);
     }
 
+    /**
+     * Resumes the game state when the screen is resumed.
+     */
     @Override
     public void resume() {
         game.setState(HeslingtonHustle.GameState.FREE_ROAM);
     }
 
+    /**
+     * Disposes of resources used by the game screen.
+     */
     @Override
     public void dispose() {
         blank.dispose();

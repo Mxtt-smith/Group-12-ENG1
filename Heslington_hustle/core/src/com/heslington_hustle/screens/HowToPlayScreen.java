@@ -16,14 +16,32 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+/**
+ * This class represents the screen that provides instructions on how to play the game.
+ * It explains the basic controls and objectives to the player.
+ */
 public class HowToPlayScreen extends ScreenAdapter {
 
+    /** The stage for displaying UI components. */
     private final Stage stage;
+
+    /** The skin for styling UI elements. */
     Skin skin;
+
+    /** The game instance. */
     private final HeslingtonHustle game;
+
+    /** The font for text rendering. */
     BitmapFont font;
+
+    /** The sprite batch for rendering. */
     SpriteBatch batch;
 
+    /**
+     * Constructs a new HowToPlayScreen with the specified game instance.
+     *
+     * @param game The game instance
+     */
     public HowToPlayScreen(final HeslingtonHustle game) {
         this.game = game;
         batch = game.batch;
@@ -33,6 +51,9 @@ public class HowToPlayScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Sets up the screen with instructions on how to play the game.
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -72,6 +93,11 @@ public class HowToPlayScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Renders the screen.
+     *
+     * @param delta the time in seconds since the last render
+     */
     @Override
     public void render(float delta) {
         // Clear the screen ready for next set of images to be drawn
@@ -82,18 +108,30 @@ public class HowToPlayScreen extends ScreenAdapter {
         stage.draw();
     }
 
+    /**
+     * Called when the screen is resized. Updates the stage's viewport accordingly.
+     *
+     * @param width  the new width of the screen
+     * @param height the new height of the screen
+     */
     @Override
     public void resize(int width, int height) {
         // Change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 
+    /**
+     * Disposes of resources used by the screen.
+     */
     @Override
     public void dispose() {
         stage.dispose();
         skin.dispose();
     }
 
+    /**
+     * Called when the screen is hidden. Sets the input processor to null.
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);

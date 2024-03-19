@@ -18,15 +18,37 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import java.util.Objects;
 
+/**
+ * This class represents an error screen displayed when the player encounters certain errors during gameplay,
+ * such as running out of time or energy.
+ */
 public class ErrorScreen extends ScreenAdapter {
+
+    /** The stage for displaying UI components. */
     private final Stage stage;
+
+    /** The skin for styling UI elements. */
     Skin skin;
+
+    /** The game instance. */
     private final HeslingtonHustle game;
+
+    /** // The font for text rendering. */
     BitmapFont font;
+
+    /** The sprite batch for rendering. */
     private final SpriteBatch batch;
+
+    /** The type of error encountered. */
     String errorType;
 
 
+    /**
+     * Constructs a new ErrorScreen with the specified game instance and error type.
+     *
+     * @param game      The game instance
+     * @param errorType The type of error encountered
+     */
     public ErrorScreen (final HeslingtonHustle game, String errorType) {
         this.game = game;
         batch = game.batch;
@@ -37,6 +59,10 @@ public class ErrorScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Called when this screen becomes the current screen for the Game.
+     * Sets up the UI elements for displaying the error message and a back button.
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -73,6 +99,11 @@ public class ErrorScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Renders the error screen by clearing the screen and drawing the stage.
+     *
+     * @param delta the time in seconds since the last render
+     */
     @Override
     public void render(float delta) {
         // clear the screen ready for next set of images to be drawn
@@ -83,18 +114,31 @@ public class ErrorScreen extends ScreenAdapter {
         stage.draw();
     }
 
+    /**
+     * Called when the screen is resized. Updates the stage's viewport accordingly.
+     *
+     * @param width  the new width of the screen
+     * @param height the new height of the screen
+     */
     @Override
     public void resize(int width, int height) {
         // change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 
+    /**
+     * Disposes of resources used by the error screen, such as the stage and skin.
+     * This method is called when the screen is no longer needed.
+     */
     @Override
     public void dispose() {
         stage.dispose();
         skin.dispose();
     }
 
+    /**
+     * Called when the screen is hidden. Sets the input processor to null.
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);

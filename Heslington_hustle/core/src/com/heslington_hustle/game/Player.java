@@ -7,12 +7,30 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 
+/**
+ * The Player class represents the player character in the game. It extends the Sprite class
+ * and includes methods for handling player movement, collision detection, and texture management.
+ */
 public class Player extends Sprite {
+
+    /** Texture atlas containing the player character's textures. */
     TextureAtlas textureAtlas;
+
+    /** Name of the character. */
     public static String character;
+
+    /** Direction the player is facing. */
     private final TiledMapTileLayer collisionLayer;
+
+    /** Collision layer for detecting collisions with map boundaries. */
     String direction;
 
+    /**
+     * Constructs a player character with the given texture atlas and collision layer.
+     *
+     * @param atlas the texture atlas containing the player character's textures
+     * @param gameCollisionLayer the collision layer for detecting collisions with map boundaries
+     */
     public Player(TextureAtlas atlas, TiledMapTileLayer gameCollisionLayer) {
         super(atlas.getRegions().get(0));
         direction = "DOWN";
@@ -22,12 +40,22 @@ public class Player extends Sprite {
         this.setOriginCenter();
     }
 
-    // This set's the players's texture
+    /**
+     * Sets the texture of the player character.
+     *
+     * @param textureName the name of the texture to set
+     */
     public void setTexture(String textureName) {
         setRegion(textureAtlas.findRegion(textureName));
     }
 
-    // Determines whether the player will collide into a building/boundary
+    /**
+     * Determines whether the player character will collide into a building or boundary.
+     *
+     * @param transX the amount to translate the player character on the x-axis
+     * @param transY the amount to translate the player character on the y-axis
+     * @return true if collision occurs, false otherwise
+     */
     public boolean collision(int transX, int transY) {
         float oldX = getX();
         float oldY = getY();
@@ -110,6 +138,10 @@ public class Player extends Sprite {
     }
 
     // Movement methods
+
+    /**
+     * Moves the player character up.
+     */
     public void moveUp() {
         if (getY() + 2 < 800) {
             translateY(2);
@@ -117,6 +149,10 @@ public class Player extends Sprite {
             this.direction = "UP";
         }
     }
+
+    /**
+     * Moves the player character down.
+     */
     public void moveDown() {
         if (getY() - 2 > 0) {
             translateY(-2);
@@ -125,6 +161,9 @@ public class Player extends Sprite {
         }
     }
 
+    /**
+     * Moves the player character left.
+     */
     public void moveLeft() {
         // Move sprite and bounding rectangle
         translateX(-2);
@@ -132,6 +171,9 @@ public class Player extends Sprite {
         this.direction = "LEFT";
     }
 
+    /**
+     * Moves the player character right.
+     */
     public void moveRight() {
         // Move sprite and bounding rectangle
         translateX(2);
@@ -139,6 +181,9 @@ public class Player extends Sprite {
         this.direction = "RIGHT";
     }
 
+    /**
+     * Sets the player character to a stationary state.
+     */
     public void stationary() {
         switch (this.direction) {
             case "DOWN":
@@ -156,6 +201,9 @@ public class Player extends Sprite {
         }
     }
 
+    /**
+     * Disposes of resources used by the player character.
+     */
     public void dispose() {
         textureAtlas.dispose();
     }

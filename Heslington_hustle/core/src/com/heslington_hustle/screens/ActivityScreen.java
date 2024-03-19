@@ -19,16 +19,36 @@ import com.heslington_hustle.game.Activity.ActivityType;
 
 import static com.heslington_hustle.game.HeslingtonHustle.*;
 
+/**
+ * The ActivityScreen class represents the screen where the player decides whether to perform a specific activity.
+ * It displays a message with the activity description and provides options to confirm or go back.
+ */
 public class ActivityScreen extends ScreenAdapter {
 
+    /** The stage for displaying UI components. */
     private final Stage stage;
+
+    /** The game instance. */
     private final HeslingtonHustle game;
+
+    /** The font used for text rendering. */
     BitmapFont font;
+
+    /** The sprite batch for rendering. */
     private final SpriteBatch batch;
+
+    /** The activity to be performed. */
     Activity activity;
+
+    /** The skin for UI elements. */
     Skin skin;
 
-
+    /**
+     * Constructs an ActivityScreen with the given game instance and activity.
+     *
+     * @param game the game instance
+     * @param activity the activity to be performed
+     */
     public ActivityScreen (final HeslingtonHustle game, Activity activity) {
         this.game = game;
         batch = game.batch;
@@ -40,6 +60,10 @@ public class ActivityScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Called when this screen becomes the current screen for the Game.
+     * Sets up the UI elements for displaying activity information and accept or reject buttons.
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -112,6 +136,11 @@ public class ActivityScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Renders the activity screen by clearing the screen and drawing the stage.
+     *
+     * @param delta the time in seconds since the last render
+     */
     @Override
     public void render(float delta) {
         // clear the screen ready for next set of images to be drawn
@@ -121,17 +150,30 @@ public class ActivityScreen extends ScreenAdapter {
         stage.draw();
     }
 
+    /**
+     * Called when the screen is resized. Updates the stage's viewport accordingly.
+     *
+     * @param width  the new width of the screen
+     * @param height the new height of the screen
+     */
     @Override
     public void resize(int width, int height) {
         // change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 
+    /**
+     * Called when the screen is hidden. Sets the input processor to null.
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
     }
 
+    /**
+     * Disposes of resources used by the activity screen, such as the stage and skin.
+     * This method is called when the screen is no longer needed.
+     */
     @Override
     public void dispose() {
         stage.dispose();

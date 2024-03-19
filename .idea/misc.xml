@@ -4,6 +4,10 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/Heslington_hustle" />
   </component>
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/Heslington_hustle/JavaDoc" />
+    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="true" />
+  </component>
   <component name="LibGDXSkins">
     <file url="file://$PROJECT_DIR$/Heslington_hustle/assets/skin.json" />
     <file url="file://$PROJECT_DIR$/Heslington_hustle/assets/skin/cloud-form-ui.json" />

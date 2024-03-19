@@ -15,18 +15,38 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import static com.heslington_hustle.game.HeslingtonHustle.*;
 
+/**
+ * This class represents the screen where the player selects their character.
+ * It displays options for different characters and allows the player to choose one.
+ */
 public class CharacterSelectionScreen extends ScreenAdapter {
 
+    /** The stage for managing UI elements. */
     private final Stage stage;
+
+
+    /** The skin for UI elements. */
     Skin skin;
+
+    /** The game instance. */
     private final HeslingtonHustle game;
 
+    /**
+     * Constructs a new CharacterSelectionScreen with the specified game instance.
+     *
+     * @param game The game instance
+     */
     public CharacterSelectionScreen(final HeslingtonHustle game) {
         this.game = game;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
+
+    /**
+     * Called when this screen becomes the current screen for a Game.
+     * Sets up the UI elements for character selection, including buttons and character images.
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -87,6 +107,11 @@ public class CharacterSelectionScreen extends ScreenAdapter {
         });
     }
 
+    /**
+     * Renders the character selection screen by clearing the screen and drawing the stage.
+     *
+     * @param delta the time in seconds since the last render
+     */
     @Override
     public void render(float delta) {
         // clear the screen ready for next set of images to be drawn
@@ -97,17 +122,31 @@ public class CharacterSelectionScreen extends ScreenAdapter {
         stage.draw();
     }
 
+    /**
+     * Called when the screen is resized. Updates the stage's viewport accordingly.
+     *
+     * @param width  the new width of the screen
+     * @param height the new height of the screen
+     */
     @Override
     public void resize(int width, int height) {
         // change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 
+    /**
+     * Disposes of resources used by the character selection screen, such as the stage and skin.
+     * This method is called when the screen is no longer needed.
+     */
     @Override
     public void dispose() {
         stage.dispose();
         skin.dispose();
     }
+
+    /**
+     * Called when the screen is hidden. Sets the input processor to null.
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);

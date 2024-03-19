@@ -18,14 +18,32 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import static com.heslington_hustle.game.HeslingtonHustle.Day;
 
+/**
+ * NewDayScreen class represents the screen displayed at the beginning of a new day in the game.
+ * It allows players to start the day and proceed to the game screen.
+ */
 public class NewDayScreen extends ScreenAdapter {
 
+    /** The stage for displaying UI components. */
     private final Stage stage;
+
+    /** The skin for styling UI elements. */
     Skin skin;
+
+    /** The game instance. */
     private final HeslingtonHustle game;
+
+    /** The font for text rendering. */
     BitmapFont font;
+
+    /** The sprite batch for rendering. */
     private final SpriteBatch batch;
 
+    /**
+     * Constructs a NewDayScreen object with the specified game instance.
+     *
+     * @param game The HeslingtonHustle game instance.
+     */
     public NewDayScreen (final HeslingtonHustle game) {
         this.game = game;
         batch = game.batch;
@@ -36,6 +54,10 @@ public class NewDayScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Called when this screen becomes the current screen for the Game.
+     * Sets up the UI elements for displaying the new day message and an accept button.
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -92,6 +114,11 @@ public class NewDayScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Renders the screen.
+     *
+     * @param delta the time in seconds since the last render
+     */
     @Override
     public void render(float delta) {
         // Clear the screen ready for next set of images to be drawn
@@ -102,17 +129,29 @@ public class NewDayScreen extends ScreenAdapter {
         stage.draw();
     }
 
+    /**
+     * Called when the screen is resized. Updates the stage's viewport accordingly.
+     *
+     * @param width  the new width of the screen
+     * @param height the new height of the screen
+     */
     @Override
     public void resize(int width, int height) {
         // Change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 
+    /**
+     * Called when the screen is hidden. Sets the input processor to null.
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
     }
 
+    /**
+     * Disposes of resources used by the screen.
+     */
     @Override
     public void dispose() {
         stage.dispose();

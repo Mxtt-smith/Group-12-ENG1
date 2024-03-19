@@ -16,13 +16,29 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+/**
+ * PauseScreen class represents the screen displayed when the game is paused.
+ * It allows players to resume the game from the pause state.
+ */
 public class PauseScreen extends ScreenAdapter {
 
+    /** The stage for displaying UI components. */
     private final Stage stage;
+
+    /** The game instance. */
     private final HeslingtonHustle game;
+
+    /** The font for text rendering. */
     BitmapFont font;
+
+    /** The sprite batch for rendering. */
     private final SpriteBatch batch;
 
+    /**
+     * Constructs a PauseScreen object with the specified game instance.
+     *
+     * @param game The HeslingtonHustle game instance.
+     */
     public PauseScreen (final HeslingtonHustle game) {
         this.game = game;
         batch = game.batch;
@@ -33,6 +49,10 @@ public class PauseScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Called when this screen becomes the current screen for the Game.
+     * Sets up the UI elements for displaying the paused message and a resume button.
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -63,6 +83,11 @@ public class PauseScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Renders the screen.
+     *
+     * @param delta the time in seconds since the last render
+     */
     @Override
     public void render(float delta) {
         // Clear the screen ready for next set of images to be drawn
@@ -73,12 +98,21 @@ public class PauseScreen extends ScreenAdapter {
         stage.draw();
     }
 
+    /**
+     * Called when the screen is resized. Updates the stage's viewport accordingly.
+     *
+     * @param width  the new width of the screen
+     * @param height the new height of the screen
+     */
     @Override
     public void resize(int width, int height) {
         // Change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 
+    /**
+     * Called when the screen is hidden. Sets the input processor to null.
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
