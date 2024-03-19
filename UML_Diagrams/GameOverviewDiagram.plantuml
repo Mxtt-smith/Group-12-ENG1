@@ -1,0 +1,169 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Activity {
+  + Activity(float, float, ActivityType, String): 
+  ~ zone: Rectangle
+  ~ timeUse: float
+  ~ type: ActivityType
+  ~ description: String
+  ~ energy: float
+  + set(float, float, float, float): void
+   zone: Rectangle
+   description: String
+   type: ActivityType
+   energy: float
+   timeUse: float
+}
+class ActivityScreen {
+  + ActivityScreen(HeslingtonHustle, Activity): 
+  + hide(): void
+  + dispose(): void
+  + render(float): void
+  + resize(int, int): void
+  + show(): void
+}
+enum ActivityType << enumeration >> {
+  - ActivityType(): 
+  + values(): ActivityType[]
+  + valueOf(String): ActivityType
+}
+class CharacterSelectionScreen {
+  + CharacterSelectionScreen(HeslingtonHustle): 
+  + render(float): void
+  + resize(int, int): void
+  + show(): void
+  + dispose(): void
+  + hide(): void
+}
+class EndGameScreen {
+  + EndGameScreen(HeslingtonHustle): 
+  + dispose(): void
+  + show(): void
+  + render(float): void
+  + resize(int, int): void
+  + hide(): void
+}
+class ErrorScreen {
+  + ErrorScreen(HeslingtonHustle, String): 
+  + dispose(): void
+  + render(float): void
+  + show(): void
+  + resize(int, int): void
+  + hide(): void
+}
+class GameScreen {
+  + GameScreen(HeslingtonHustle): 
+  + render(float): void
+  + resize(int, int): void
+  + dispose(): void
+  + resume(): void
+}
+enum GameState << enumeration >> {
+  - GameState(): 
+  + values(): GameState[]
+  + valueOf(String): GameState
+}
+class HeslingtonHustle {
+  + HeslingtonHustle(): 
+  ~ state: GameState
+  + reset(): void
+  + resize(int, int): void
+  + dispose(): void
+  + pause(): void
+  + create(): void
+  + render(): void
+  + resume(): void
+  + changeScreen(int): void
+   state: GameState
+}
+class HowToPlayScreen {
+  + HowToPlayScreen(HeslingtonHustle): 
+  + dispose(): void
+  + show(): void
+  + hide(): void
+  + render(float): void
+  + resize(int, int): void
+}
+class MainMenuScreen {
+  + MainMenuScreen(HeslingtonHustle): 
+  + dispose(): void
+  + hide(): void
+  + resize(int, int): void
+  + render(float): void
+  + show(): void
+}
+class NewDayScreen {
+  + NewDayScreen(HeslingtonHustle): 
+  + resize(int, int): void
+  + show(): void
+  + dispose(): void
+  + render(float): void
+  + hide(): void
+}
+class PauseScreen {
+  + PauseScreen(HeslingtonHustle): 
+  + show(): void
+  + resize(int, int): void
+  + hide(): void
+  + render(float): void
+}
+class Player {
+  + Player(TextureAtlas, TiledMapTileLayer): 
+  + collision(int, int): boolean
+  + dispose(): void
+  + moveLeft(): void
+  + moveUp(): void
+  + moveRight(): void
+  + stationary(): void
+  + moveDown(): void
+   texture: String
+}
+class Stats {
+  + Stats(): 
+  + log(ActivityType): void
+  + addDay(Dictionary<String, Integer>): void
+  + getDay(int): Dictionary<String, Integer>
+  + reset(): void
+  + newDay(): void
+   stats: Dictionary<String, Integer>
+   tally: int[]
+}
+class build {
+  + build(): 
+  + main(String[]): void
+  + getProperty(String): Object
+  + invokeMethod(String, Object): Object
+  + run(): Object
+  + setProperty(String, Object): void
+   metaClass: MetaClass
+}
+
+Activity                 "1" *-[#595959,plain]-> "type\n1" ActivityType             
+ActivityScreen           "1" *-[#595959,plain]-> "activity\n1" Activity                 
+ActivityScreen           "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
+ActivityType              +-[#820000,plain]-  Activity                 
+CharacterSelectionScreen "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
+EndGameScreen            "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
+ErrorScreen              "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
+GameScreen               "1" *-[#595959,plain]-> "study\n1" Activity                 
+GameScreen               "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
+GameScreen               "1" *-[#595959,plain]-> "player\n1" Player                   
+GameState                 +-[#820000,plain]-  HeslingtonHustle         
+HeslingtonHustle         "1" *-[#595959,plain]-> "characterScreen\n1" CharacterSelectionScreen 
+HeslingtonHustle         "1" *-[#595959,plain]-> "endScreen\n1" EndGameScreen            
+HeslingtonHustle         "1" *-[#595959,plain]-> "gameScreen\n1" GameScreen               
+HeslingtonHustle         "1" *-[#595959,plain]-> "state\n1" GameState                
+HeslingtonHustle         "1" *-[#595959,plain]-> "howToPlayScreen\n1" HowToPlayScreen          
+HeslingtonHustle         "1" *-[#595959,plain]-> "menuScreen\n1" MainMenuScreen           
+HeslingtonHustle         "1" *-[#595959,plain]-> "newDayScreen\n1" NewDayScreen             
+HeslingtonHustle         "1" *-[#595959,plain]-> "pauseScreen\n1" PauseScreen              
+HeslingtonHustle         "1" *-[#595959,plain]-> "stats\n1" Stats                    
+HowToPlayScreen          "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
+MainMenuScreen           "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
+NewDayScreen             "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
+PauseScreen              "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
+@enduml
