@@ -1,0 +1,292 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+'***************Game****************
+'These are the objects that make up the game
+
+class Activity {
+    description: String
+    energy: float
+    timeUse: float
+    zone: Rectangle
+    type: ActivityType
+
+    + Activity(energy: float, timeUse: float, type: ActivityType, description: String)
+    + set(x: float, y: float, width: float, height: float)
+    + getType(): ActivityType
+    + getEnergy(): float
+    + setEnergy(energy: float)
+    + getTimeUse(): float
+    + setTimeUse(timeUse: float)
+    + getDescription(): String
+    + setDescription(description: String)
+    + getZone(): Rectangle
+}
+
+enum ActivityType{
+    EAT
+    RECREATION
+    SLEEP
+    STUDY
+}
+
+class HeslingtonHustle{
+    + batch : SpriteBatch
+    + font : BitmapFont
+    + Energy : float {static}
+    + hoursLeft : float {static}
+    + Day : int {static}
+    + Time : LocalTime {static}
+    + stats : Stats
+    + MENU = 0 {static}  : int
+    + CHARACTER = 1 {static} : int
+    + HOWTOPLAY = 2 {static} : int
+    + GAME = 3 {static} : int
+    + NEWDAY = 4 {static} : int
+    + END = 5 {static} : int
+    + PAUSE = 6 {static} : int
+
+    + create()
+    + render()
+    + resize(width : int, height : int)
+    + pause()
+    + resume()
+    + changeScreen(screen : int) : void
+    + reset()
+    + setState(state : GameState)
+    + getState() : GameState
+    + dispose()
+}
+
+enum GameState{
+    MENU
+    FREE_ROAM
+    ACTIVITY
+    END
+    }
+
+class Player{
+    + textureAtlas : TextureAtlas
+    + character : String {static}
+    + final collisionLayer : TiledMapTileLayer
+    + direction : String
+
+    + Player(TextureAtlas, TiledMapTileLayer)
+    + setTexture(String) : void
+    + collision(width int, height int) : boolean
+    + moveUp() : void
+    + moveDown() : void
+    + moveLeft() : void
+    + moveRight() : void
+    + stationary() : void
+    + dispose() : void
+}
+
+class Stats{
+    + study : int
+    + recreation : int
+    + eat : int
+    + studiedYesterday : int
+    + days : List<Dictionary<String, Integer>>
+    + Stats()
+    + log(Activity.ActivityType) : void <<throws>>
+    + getStats() : Dictionary<String, Integer>
+    + addDay(Dictionary<String, Integer>) : void
+    + newDay() : void
+    + getDay(int) : Dictionary<String, Integer>
+    + getTally() : int[]
+    + reset() : void
+}
+
+'*********Screens***********
+'These are all the screens that make up the game
+
+class ActivityScreen{
+    + {final} stage : Stage
+    + {final} game : HeslingtonHustle
+    + font : BitmapFont
+    + {final} batch : SpriteBatch
+    activity : Activity
+    skin : Skin
+
+    + ActivityScreen({final} HeslingtonHustle game, Activity activity)
+    <<override>> + show()
+    <<override>> + render(delta : float)
+    <<override>> + resize(width : int, height : int)
+    <<override>> + hide()
+    <<override>> + dispose()
+}
+
+class CharacterSelectionScreen{
+    + {final} stage : Stage
+    + skin : Skin
+    + {final} game : HeslingtonHustle
+
+    + CharacterSelectionScreen({final} HeslingtonHustle game)
+    <<override>> + show()
+    <<override>> + render(delta : float)
+    <<override>> + resize(width : int, height : int)
+    <<override>> + dispose()
+    <<override>> + hide()
+}
+
+class EndGameScreen{
+    + game : HeslingtonHustle
+    + {final} stage : Stage
+    skin : Skin
+    font : BitmapFont
+
+    + EndGameScreen({final} HeslingtonHustle game)
+    <<override>> + show()
+    <<override>> + render(delta : float)
+    <<override>> + resize(width : int, height : int)
+    <<override>> + hide()
+    <<override>> + dispose()
+}
+
+class ErrorScreen{
+    + {final} stage : Stage
+    skin : Skin
+    + {final} game : HeslingtonHustle
+    font : BitmapFont
+    + {final} batch : SpriteBatch
+    errorType : String
+
+    + ErrorScreen({final} HeslingtonHustle game, String errorType)
+    <<override>> + show()
+    <<override>> + render(delta : float)
+    <<override>> + resize(width : int, height : int)
+    <<override>> + hide()
+    <<override>> + dispose()
+}
+
+class GameScreen{
+    + game : HeslingtonHustle {color: lightblue}
+    + map : TiledMap
+    + renderer : OrthogonalTiledMapRenderer
+    + batch : SpriteBatch
+    + overviewCam : OrthographicCamera
+    + atlas : TextureAtlas
+    + player : Player
+    + blank : Texture
+    + orange : Texture
+    + font : BitmapFont
+    + study : Activity
+    + eat : Activity
+    + sleep : Activity
+    + recreation : Activity
+
+    + GameScreen({final} HeslingtonHustle game)
+    <<override>> + show()
+    <<override>> + render(delta : float)
+    <<override>> + resize(width : int, height : int)
+    <<override>> + resume()
+    <<override>> + dispose()
+}
+
+enum GameState{
+    FREE_ROAM
+    ACTIVITY
+    LOSE
+    NEW_DAY
+    TOO_TIRED
+}
+
+class HowToPlayScreen{
+   + {final} stage : Stage
+   skin : Skin
+   + {final} game : HeslingtonHustle {color: lightblue}
+   font : BitmapFont
+   batch : SpriteBatch
+
+    +HowToPlayScreen({final} HeslingtonHustle game)
+   <<override>> + show()
+   <<override>> + render(delta : float)
+   <<override>> + resize(width : int, height : int)
+   <<override>> + dispose()
+   <<override>> + hide()
+}
+
+class MainMenuScreen{
+   - {final} stage : Stage
+   - skin : Skin
+   - {final} game : HeslingtonHustle {color: lightblue}
+
+    + MainMenuScreen({final} HeslingtonHustle game)
+    <<override>> + show()
+    <<override>> + render(delta : float)
+    <<override>> + resize(width : int, height : int)
+    <<override>> + dispose()
+    <<override>> + hide()
+}
+
+class NewDayScreen{
+    + {final} stage : Stage
+    + {final} game : HeslingtonHustle {color: lightblue}
+    skin : Skin
+    font : BitmapFont
+    batch : SpriteBatch
+
+    + NewDayScreen({final} HeslingtonHustle game)
+    <<override>> + show()
+    <<override>> + render(delta : float)
+    <<override>> + resize(width : int, height : int)
+    <<override>> + dispose()
+    <<override>> + hide()
+}
+
+class PauseScreen{
+    - {final} stage : Stage
+    - {final} game : HeslingtonHustle {color: lightblue}
+    font : BitmapFont
+    - batch : SpriteBatch
+
+    + PauseScreen({final} HeslingtonHustle game)
+    + <<override>> show()
+    + <<override>> render(delta : float)
+    + <<override>> resize(width: int, height : int) Override?
+    + <<override>> hide()
+}
+
+class ScreenAdapter{
+    + <<override>> show()
+    + <<override>> render(delta : float)
+    + <<override>> resize(width: int, height : int) Override?
+    + <<override>> dispose()
+    + <<override>> hide()
+}
+
+ActivityScreen ^-- ScreenAdapter
+CharacterSelectionScreen ^-- ScreenAdapter
+EndGameScreen ^-- ScreenAdapter
+ErrorScreen ^-- ScreenAdapter
+GameScreen ^-- ScreenAdapter
+HowToPlayScreen ^-- ScreenAdapter
+MainMenuScreen ^-- ScreenAdapter
+NewDayScreen ^-- ScreenAdapter
+PauseScreen ^-- ScreenAdapter
+
+HeslingtonHustle --|> Game
+HeslingtonHustle <|-- Stats
+HeslingtonHustle --> MainMenuScreen
+HeslingtonHustle --> CharacterSelectionScreen
+HeslingtonHustle --> HowToPlayScreen
+HeslingtonHustle --> GameScreen
+HeslingtonHustle --> NewDayScreen
+HeslingtonHustle --> EndGameScreen
+HeslingtonHustle --> PauseScreen
+
+Player --|> Sprite
+Player o-- TextureAtlas
+Player o-- TiledMapTileLayer
+
+ActivityScreen o-- game
+ActivityScreen o-- activity
+CharacterSelectionScreen o-- game
+EndGameScreen o-- game
+ErrorScreen o-- game
+GameScreen o-- game
+HowToPlayScreen o-- game
+MainMenuScreen o-- game
+
+@enduml

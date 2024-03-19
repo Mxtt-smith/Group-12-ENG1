@@ -1,15 +1,167 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class CharacterSelectionScreen
+class ScreenAdapter{
+}
 
-class GameScreen
+class ActivityScreen{
+    - STAGE stage;
+    - HESLINGTONHUSTLE game;
+    - SPRITEBATCH batch;
+    BitmapFont font;
+    Activity activity;
 
-class HowToPlayScreen
+    + <<constructor>> ActivityScreen(HESLINGTONHUSTLE game, Activity activity)
+    + void show()
+    + void render()
+    + void resize(int width, int height)
+    + void hide()
+    + void dispose()
+}
 
-class MainMenuScreen
+class CharacterSelectionScreen{
+    - STAGE stage;
+    - HESLINGTONHUSTLE game;
+    Skin skin;
 
-class NewDayScreen
+    + <<constructor>> CharacterSelectionScreen(HESLINGTONHUSTLE game)
+    + void show()
+    + void render(float delta)
+    + void resize(int width, int height)
+    + void dispose()
+    + void hide()
+}
 
-class ActivityScreen
+class EndGameScreen{
+    - SPRITEBATCH batch;
+    - STAGE stage;
+    HeslingtonHustle game;
+    Skin skin;
+    BitmapFont font;
+
+    + <<constructor>> EndGameScreen(HESLINGTONHUSTLE game)
+    /'These are overwritten , how to represent them in UML
+    /'+ void show() Override?
+    + void render() Override?
+    + void resize(int width, int height) Override?
+    + void dispose() Override?
+    + void hide() Override?'/
+}
+
+class ErrorScreen{
+    - STAGE stage;
+    - HESLINGTONHUSTLE game;
+    - SPRITEBATCH batch;
+    String errorType;
+    Skin skin;
+    BitmapFont font;
+
+    + <<constructor>> ErrorScreen(HESLINGTONHUSTLE game, String errorType)
+    /'These are overwritten , how to represent them in UML
+    /'+ void show()
+    + void render(float delta)
+    + void resize(int width, int height)
+    + void dispose()
+    + void hide()'/
+}
+
+class GameScreen{
+    HESLINGTONHUSTLE game
+    TiledMap map
+    OrthogonalTiledMapRenderer renderer
+    SpriteBatch batch
+    OrthographicCamera overviewCam
+    TextureAtlas atlas
+    Player player
+    Texture blank
+    Texture orange
+    BitmapFont font
+    'is Activity not an enum here?
+    Activity study, eat, sleep, recreation
+
+    + <<constructor>> GameScreen(HESLINGTONHUSTLE game)
+    /'These are overwritten , how to represent them in UML
+    /'+ void render(float delta)
+    + void resize(int width, int height)
+    + void resume()
+    + void dispose()'/
+}
+
+enum GameState{
+    FREE_ROAM
+    ACTIVITY
+    LOSE
+    NEW_DAY
+    TOO_TIRED
+}
+
+class HowToPlayScreen{
+    - STAGE stage
+    - HESLINGTONHUSTLE game
+    Skin skin
+    BitmapFont font
+    SpriteBatch batch
+
+    /'These are overwritten , how to represent them in UML
+    /'+ void show()
+    + void render(float delta)
+    + void resize(int width, int height)
+    + void dispose()
+    + void hide()'/
+}
+
+class MainMenuScreen{
+    - STAGE stage
+    - Skin skin
+    - HESLINGTONHUSTLE game
+
+    + <<constructor>> MainMenuScreen(HeslingtonHustle game)
+    /'These are overwritten , how to represent them in UML
+    + void show()
+    + void render(float delta)
+    + void resize(int width, int height)
+    + void dispose()
+    + void hide()'/
+}
+
+class NewDayScreen{
+    - STAGE stage;
+    - HESLINGTONHUSTLE game;
+    - SPRITEBATCH batch;
+    Skin skin;
+    BitmapFont font;
+
+    + <<constructor>> NewDayScreen(HeslingtonHustle game)
+    /'These are overwritten , how to represent them in UML
+    +void show()
+    +void render(float delta)
+    +void resize(int width, int height)
+    +void hide()
+    +void dispose()'/
+}
+
+class PauseScreen{
+    - STAGE stage;
+    - HESLINGTONHUSTLE game;
+    - SPRITEBATCH batch;
+    BitmapFont font;
+
+    + <<constructor>> PauseScreen(HeslingtonHustle game)
+    /'These are overwritten , how to represent them in UML
+    +void show()
+    +void render(float delta)
+    +void resize(int width, int height)
+    +void hide()'/
+}
+
+ActivityScreen -up-|> ScreenAdapter
+CharacterSelectionScreen -down-|> ScreenAdapter
+EndGameScreen -up-|> ScreenAdapter
+ErrorScreen -down-|> ScreenAdapter
+GameScreen -right-|> ScreenAdapter
+HowToPlayScreen -left-|> ScreenAdapter
+MainMenuScreen -down-|> ScreenAdapter
+NewDayScreen -up-|> ScreenAdapter
+PauseScreen -up-|> ScreenAdapter
+
 @enduml
