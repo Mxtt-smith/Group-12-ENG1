@@ -37,7 +37,7 @@ public class Stats {
         }
     }
 
-    //Adds the current stats to a dictionary and returns it
+    // Adds the current stats to a dictionary and returns it
     public Dictionary<String, Integer> getStats(){
         Dictionary<String, Integer> statistics = new Hashtable<>();
         statistics.put("study", study);
@@ -47,12 +47,12 @@ public class Stats {
         return statistics;
     }
 
-    //Stores the given days stats in the list containing stats for the whole game
+    // Stores the given days stats in the list containing stats for the whole game
     public void addDay(Dictionary<String, Integer> day) {
         days.add(day);
     }
 
-    //Resets stats for the start of a new day
+    // Resets stats for the start of a new day
     public void newDay() {
         studiedYesterday = study;
         recreation = 0;
@@ -69,7 +69,7 @@ public class Stats {
         return days.get(index);
     }
 
-    //Returns total stats for the whole game
+    // Returns total stats for the whole game
     public int[] getTally(){
         int totalStudy = 0;
         int totalRecreation = 0;

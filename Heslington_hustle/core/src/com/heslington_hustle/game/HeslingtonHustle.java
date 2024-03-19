@@ -47,6 +47,7 @@ public class HeslingtonHustle extends Game {
         stats.reset();
     }
 
+    // Enum for the game's state
     public enum GameState {
         MENU,
         FREE_ROAM,
@@ -92,6 +93,7 @@ public class HeslingtonHustle extends Game {
         super.resume();
     }
 
+    // Tries to set the screen to an already made screen to reduce the number of screens created
     public void changeScreen(int screen) {
         switch (screen) {
             case MENU:
@@ -129,6 +131,7 @@ public class HeslingtonHustle extends Game {
         }
     }
 
+    // Set the game state
     public void setState(GameState state) {
         this.state = state;
     }

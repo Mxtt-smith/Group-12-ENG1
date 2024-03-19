@@ -34,18 +34,17 @@ public class MainMenuScreen extends ScreenAdapter {
         table.setFillParent(true);
         stage.addActor(table);
 
-        // temporary until we have asset manager in
         skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         // Game title
         Label titleLabel = new Label("Heslington Hustle", skin, "title", Color.WHITE);
 
-        //create buttons
+        // Create buttons
         TextButton newGame = new TextButton("New Game", skin);
         TextButton howToPlay = new TextButton("How to Play", skin);
         TextButton exit = new TextButton("Exit", skin);
 
-        //Format table
+        // Format table
         table.add(titleLabel).fillX().center();
         table.row().pad(10, 0, 0, 0);
         table.add(newGame);
@@ -54,7 +53,7 @@ public class MainMenuScreen extends ScreenAdapter {
         table.row();
         table.add(exit);
 
-        // create button listeners
+        // Create button listeners
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -80,10 +79,10 @@ public class MainMenuScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        // clear the screen ready for next set of images to be drawn
+        // Clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
 
-        // tell our stage to do actions and draw itself
+        // Tell our stage to do actions and draw itself
         stage.act();
         stage.draw();
     }

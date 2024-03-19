@@ -31,7 +31,7 @@ public class NewDayScreen extends ScreenAdapter {
         batch = game.batch;
         font = game.font;
 
-        // create stage and set it as input processor
+        // Create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
@@ -44,7 +44,7 @@ public class NewDayScreen extends ScreenAdapter {
         table.setFillParent(true);
         stage.addActor(table);
 
-        // assign skin to the menu
+        // Assign skin to the menu
         skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
         // Title
@@ -82,7 +82,7 @@ public class NewDayScreen extends ScreenAdapter {
         }
         table.add(ok).colspan(2);
 
-        // create button listeners
+        // Create button listeners
         ok.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -94,17 +94,17 @@ public class NewDayScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        // clear the screen ready for next set of images to be drawn
+        // Clear the screen ready for next set of images to be drawn
         ScreenUtils.clear(0, 0, 0, 0);
 
-        // tell our stage to do actions and draw itself
+        // Tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-        // change the stage's viewport when the screen size is changed
+        // Change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
     }
 

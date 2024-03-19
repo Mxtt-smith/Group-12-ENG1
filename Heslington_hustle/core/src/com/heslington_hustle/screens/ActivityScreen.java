@@ -65,7 +65,7 @@ public class ActivityScreen extends ScreenAdapter {
         table.add(back).uniformX().padRight(10).right();
         table.add(yes).uniformX().left();
 
-        // create button listeners
+        // Create button listeners
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -78,6 +78,7 @@ public class ActivityScreen extends ScreenAdapter {
                 // Check if player has enough energy
                 if ((HeslingtonHustle.Energy - activity.getEnergy()) < 0) {
                     game.setScreen(new ErrorScreen(game, "energy"));
+                    // Check if they have enough time
                 } else if (hoursLeft - activity.getTimeUse() < 0) {
                     game.setScreen(new ErrorScreen(game, "time"));
                 } else {
@@ -92,10 +93,12 @@ public class ActivityScreen extends ScreenAdapter {
                             game.setScreen(new EndGameScreen(game));
                         }
                     } else {
+                        // Change the energy and time left after the activity
                         HeslingtonHustle.Energy -= activity.getEnergy();
                         hoursLeft -= activity.getTimeUse();
                         Time = Time.plusHours((long)activity.getTimeUse());
                         try {
+                            // Try to log the activity
                             game.stats.log(activity.getType());
                         } catch (Exception e) {
                             throw new RuntimeException(e);

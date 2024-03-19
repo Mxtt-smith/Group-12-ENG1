@@ -101,11 +101,13 @@ public class GameScreen extends ScreenAdapter {
             player.stationary();
         }
 
+        // Activity detection
         Rectangle playerRect = player.getBoundingRectangle();
         if (playerRect.overlaps(eat.getZone()) || playerRect.overlaps(sleep.getZone()) || playerRect.overlaps(study.getZone()) || playerRect.overlaps(recreation.getZone())) {
             game.setState(HeslingtonHustle.GameState.ACTIVITY);
         } else game.setState(HeslingtonHustle.GameState.FREE_ROAM);
 
+        // If a player wishes to do an activity
         if (game.getState() == HeslingtonHustle.GameState.ACTIVITY) {
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
                 if (playerRect.overlaps(eat.getZone())) game.setScreen(new ActivityScreen(game, eat));
@@ -115,6 +117,7 @@ public class GameScreen extends ScreenAdapter {
             }
         }
 
+        // Pause game
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             game.changeScreen(HeslingtonHustle.PAUSE);
         }
@@ -122,10 +125,13 @@ public class GameScreen extends ScreenAdapter {
         batch.begin();
         player.draw(batch);
         batch.draw(blank,55,783,200,10);
+
+        // Show the player's energy and time
         if (HeslingtonHustle.Energy > 0) batch.draw(orange,55,783,200*(HeslingtonHustle.Energy/100),10);
         if (game.getState() == HeslingtonHustle.GameState.ACTIVITY) font.draw(batch, "Press SPACE for activity", 330, 50);
         font.draw(batch, "Energy", 5, 795);
         font.draw(batch, HeslingtonHustle.Time.toString(), 750, 795);
+
         batch.end();
     }
 
