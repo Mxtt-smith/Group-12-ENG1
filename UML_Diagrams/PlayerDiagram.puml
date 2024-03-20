@@ -1,0 +1,55 @@
+@startuml
+'https://plantuml.com/class-diagram
+/'
+a deeper look at the functionality and relationships of the player class
+'/
+
+package gdx {
+class Gdx {
++ {abstract} int : getWidth()
++ {abstract} int : getHeight()
+}
+}
+
+package graphics.g2d {
+class Sprite {
++ void : setOriginCenter()
++ void : setRegion(TextureRegion : region)
++ Rectangle : getBoundingRectangle()
+}
+class TextureAtlas {
++ Array<AtlasRegion> : getRegion()
++ AtlasRegion : findRegion(String : name)
+}
+}
+
+package game{
+
+class Player extends graphics.g2d.Sprite {
+- TextureAtlas : textureAtlas
+- {static} String : direction
+- TiledMapLayer : collisionLayer
++ String : character
+
++ void : setTexture(String : textureName)
++ boolean : collision(int : transX, int : transY)
++ void : moveUp()
++ void : moveDown()
++ void : moveLeft()
++ void : moveRight()
++ void : stationary()
++ void : dispose()
+}
+}
+
+package screens{
+class CharacterSelectionScreen
+class GameScreen
+
+}
+
+TextureAtlas --o Player
+Gdx --- Player
+GameScreen o-- Player
+CharacterSelectionScreen "2" o-- Player
+@enduml

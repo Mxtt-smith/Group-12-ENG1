@@ -1,0 +1,47 @@
+@startuml
+'https://plantuml.com/class-diagram
+/'
+overall class diagram for when our activitues were split up
+into separate classes
+
+'/
+abstract class Activity{
+}
+enum ActivityType
+
+class Eat
+
+class Study
+
+class Recreation
+
+class Sleep
+
+class Game
+
+class Graphics
+
+class Player
+
+
+Game --> Graphics
+Game *-- Map
+Game *-- Player
+
+
+Activity *-- ActivityType
+Eat <|-- Activity
+Sleep <|-- Activity
+Study <|-- Activity
+Recreation<|-- Activity
+
+
+Map *-- Eat
+Map *-- Study
+Map *-- Sleep
+Map *-- Recreation
+
+
+
+
+@enduml

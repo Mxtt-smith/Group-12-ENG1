@@ -47,18 +47,18 @@ state PauseMenu{
 }
 
 StartMenu -down-> Game: StartGame
-Game -> PauseMenu: Pause
-Game <- PauseMenu: Unpause
+Game --> PauseMenu: Pause
+Game <-- PauseMenu: Unpause
 Game -down-> End: End of 7th day
 End -up->  StartMenu
-StartMenu -> [*] :exit
+StartMenu -> [*] :Exit
 PauseMenu -down-> [*] : Quit game
 
 note right of StartMenu
 UR_CHARACTER
 end note
 
-note right of PauseMenu
+note left of PauseMenu
 UR_PAUSE
 end note
 

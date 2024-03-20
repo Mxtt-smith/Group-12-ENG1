@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/class-diagram
+class Activity{
+    String description
+    float energy
+    float timeUse
+    Rectangle zone
+    ActivityType type
+}
+
+
+@enduml

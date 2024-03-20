@@ -1,0 +1,63 @@
+@startuml
+'https://plantuml.com/class-diagram
+/'
+This is a large overall view of the project as it currently is
+with most of the relationships on
+
+'/
+
+package com.badlogic.gdx {
+class ScreenAdapter
+class Game
+}
+package game{
+
+class HeslingtonHustle extends com.badlogic.gdx.Game{
+    + {static} float Energy;
+    + {static} float hoursLeft;
+    + {static} int Day;
+    + {static} LocalTime Time;
+
+    +create()
+    +changeScreen(int Screen)
+}
+
+class Activity{
+
+}
+
+enum ActivityType {
+    EAT
+    RECREATION
+    SLEEP
+    STUDY
+}
+Activity o-- ActivityType
+
+class Player{}
+
+}
+
+package screens {
+class ActivityScreen extends com.badlogic.gdx.ScreenAdapter
+class CharacterSelectionScreen extends com.badlogic.gdx.ScreenAdapter
+class EndGameScreen extends com.badlogic.gdx.ScreenAdapter
+class ErrorScreen extends com.badlogic.gdx.ScreenAdapter
+class GameScreen extends com.badlogic.gdx.ScreenAdapter
+class HowToPlayScreen extends com.badlogic.gdx.ScreenAdapter
+class MainMenuScreen extends com.badlogic.gdx.ScreenAdapter
+class NewDayScreen extends com.badlogic.gdx.ScreenAdapter
+class PauseScreen extends com.badlogic.gdx.ScreenAdapter
+}
+
+HeslingtonHustle *-up- CharacterSelectionScreen
+HeslingtonHustle *-up- PauseScreen
+HeslingtonHustle *-up- NewDayScreen
+HeslingtonHustle *-up- EndGameScreen
+HeslingtonHustle *-up- MainMenuScreen
+HeslingtonHustle *-up- HowToPlayScreen
+HeslingtonHustle *-up- GameScreen
+
+Player -- CharacterSelectionScreen
+}
+@enduml

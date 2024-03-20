@@ -1,0 +1,48 @@
+@startuml
+skinparam linetype ortho
+
+class Activity
+enum ActivityType << enumeration >>
+enum GameState << enumeration >>
+class HeslingtonHustle
+class Player
+class Stats
+
+
+
+class ActivityScreen
+class CharacterSelectionScreen
+class EndGameScreen
+class ErrorScreen
+class GameScreen
+class HowToPlayScreen
+class MainMenuScreen
+class NewDayScreen
+class PauseScreen
+
+
+Activity                 "1" *-->  ActivityType
+ActivityScreen           "1" *--> Activity
+ActivityScreen           "1" *--> HeslingtonHustle
+ActivityType              +--  Activity
+CharacterSelectionScreen "1" *--> HeslingtonHustle
+EndGameScreen            "1" *--> HeslingtonHustle
+ErrorScreen              "1" *--> HeslingtonHustle
+GameScreen               "1" *--> Activity
+GameScreen               "1" *--> HeslingtonHustle
+GameScreen               "1" *--> Player
+GameState                 +--  HeslingtonHustle
+HeslingtonHustle         "1" *--> CharacterSelectionScreen
+HeslingtonHustle         "1" *--> EndGameScreen
+HeslingtonHustle         "1" *--> GameScreen
+HeslingtonHustle         "1" *--> GameState
+HeslingtonHustle         "1" *--> HowToPlayScreen
+HeslingtonHustle         "1" *--> MainMenuScreen
+HeslingtonHustle         "1" *--> NewDayScreen
+HeslingtonHustle         "1" *--> PauseScreen
+HeslingtonHustle         "1" *--> Stats
+HowToPlayScreen          "1" *--> HeslingtonHustle
+MainMenuScreen           "1" *--> HeslingtonHustle
+NewDayScreen             "1" *--> HeslingtonHustle
+PauseScreen              "1" *--> HeslingtonHustle
+@enduml
