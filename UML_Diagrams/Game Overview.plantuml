@@ -1,0 +1,70 @@
+@startuml
+
+top to bottom direction
+skinparam linetype ortho
+
+class Activity {
+  + Activity(float, float, ActivityType, String): 
+  ~ description: String
+  ~ energy: float
+  ~ timeUse: float
+  ~ zone: Rectangle
+  ~ type: ActivityType
+  + set(float, float, float, float): void
+   zone: Rectangle
+   description: String
+   energy: float
+   timeUse: float
+   type: ActivityType
+}
+enum ActivityType << enumeration >> {
+  + ActivityType(): 
+  + values(): ActivityType[]
+  + valueOf(String): ActivityType
+}
+enum GameState << enumeration >> {
+  + GameState(): 
+  + values(): GameState[]
+  + valueOf(String): GameState
+}
+class HeslingtonHustle {
+  + HeslingtonHustle(): 
+    state: GameState
+  + create(): void
+  + render(): void
+  + changeScreen(int): void
+  + dispose(): void
+  + reset(): void
+  + resize(int, int): void
+  + resume(): void
+  + pause(): void
+}
+class Player {
+  + Player(TextureAtlas, TiledMapTileLayer): 
+  + moveRight(): void
+  + moveUp(): void
+  + dispose(): void
+  + collision(int, int): boolean
+  + stationary(): void
+  + moveDown(): void
+  + moveLeft(): void
+   texture: String
+}
+class Stats {
+  + Stats(): 
+  + getDay(int): Dictionary<String, Integer>
+  + reset(): void
+  + newDay(): void
+  + log(ActivityType): void
+  + addDay(Dictionary<String, Integer>): void
+   tally: int[]
+   stats: Dictionary<String, Integer>
+}
+
+Activity         "1" *-[#595959,plain]-> "type\n1" ActivityType     
+ActivityType      +-[#820000,plain]-  Activity         
+GameState         +-[#820000,plain]-  HeslingtonHustle 
+HeslingtonHustle "1" *-[#595959,plain]-> "state\n1" GameState        
+HeslingtonHustle "1" *-[#595959,plain]-> "stats\n1" Stats            
+HeslingtonHustle  -[#595959,dashed]->  Stats            : "«create»"
+@enduml
