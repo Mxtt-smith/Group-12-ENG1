@@ -1,0 +1,86 @@
+@startuml
+skinparam linetype ortho
+
+package com.badlogic.gdx.graphics.g2d {
+class AtlasRegion
+class AtlasSprite
+class Cell
+class Sprite
+class TextureAtlas
+class TextureAtlasData
+}
+
+package com.badlogic.gdx.maps.tiled {
+class TiledMapTileLayer
+
+}
+
+class GameScreen {
+  + GameScreen(HeslingtonHustle): 
+  + resume(): void
+  + pause(): void
+  + hide(): void
+  + show(): void
+  + render(float): void
+  + resize(int, int): void
+}
+enum GameState << enumeration >> {
+  - GameState(): 
+  + values(): GameState[]
+  + valueOf(String): GameState
+}
+class HeslingtonHustle {
+  + HeslingtonHustle(): 
+  ~ state: GameState
+  + render(): void
+  + create(): void
+  + changeScreen(int): void
+  + reset(): void
+  + resize(int, int): void
+  + resume(): void
+  + dispose(): void
+  + pause(): void
+   state: GameState
+}
+class Player {
+  + Player(TextureAtlas, TiledMapTileLayer): 
+  + dispose(): void
+  + collision(int, int): boolean
+  + moveLeft(): void
+  + stationary(): void
+  + moveUp(): void
+  + moveRight(): void
+  + moveDown(): void
+   texture: String
+}
+
+AtlasRegion        -[#595959,dashed]->  AtlasRegion
+AtlasRegion        +-[#820000,plain]-  TextureAtlas
+AtlasSprite        -[#595959,dashed]->  AtlasRegion
+AtlasSprite       "1" *-[#595959,plain]-> AtlasRegion
+AtlasSprite        -[#595959,dashed]->  AtlasSprite
+AtlasSprite        -[#000082,plain]-^  Sprite
+AtlasSprite        +-[#820000,plain]-  TextureAtlas
+Cell               -[#595959,dashed]->  Cell
+Cell               +-[#820000,plain]-  TiledMapTileLayer
+GameScreen        "1" *-[#595959,plain]-> HeslingtonHustle
+GameScreen        "1" *-[#595959,plain]-> Player
+GameScreen        "1" *-[#595959,plain]-> TextureAtlas
+GameState          +-[#820000,plain]-  HeslingtonHustle
+HeslingtonHustle  "1" *-[#595959,plain]-> GameScreen
+HeslingtonHustle  "1" *-[#595959,plain]-> GameState
+Player             -[#000082,plain]-^  Sprite
+Player            "1" *-[#595959,plain]-> TextureAtlas
+Player            "1" *-[#595959,plain]-> TiledMapTileLayer
+Sprite             -[#595959,dashed]->  Sprite
+TextureAtlas      "1" *-[#595959,plain]-> AtlasRegion
+TextureAtlas       -[#595959,dashed]->  AtlasRegion
+TextureAtlas       -[#595959,dashed]->  AtlasSprite
+TextureAtlas       -[#595959,dashed]->  Sprite
+TextureAtlas       -[#595959,dashed]->  TextureAtlas
+TextureAtlas       -[#595959,dashed]->  TextureAtlasData
+TextureAtlasData   +-[#820000,plain]-  TextureAtlas
+TextureAtlasData   -[#595959,dashed]->  TextureAtlasData
+TiledMapTileLayer  -[#595959,dashed]->  Cell
+TiledMapTileLayer "1" *-[#595959,plain]-> Cell
+@enduml
