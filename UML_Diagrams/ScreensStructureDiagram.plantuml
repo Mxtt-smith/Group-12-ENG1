@@ -82,41 +82,7 @@ enum GameState << enumeration >> {
   + valueOf(String): GameState
   + values(): GameState[]
 }
-class HeslingtonHustle {
-  + HeslingtonHustle(): 
-  + font: BitmapFont
-  + END: int
-  + PAUSE: int
-  + Time: LocalTime
-  ~ pauseScreen: PauseScreen
-  ~ howToPlayScreen: HowToPlayScreen
-  + NEWDAY: int
-  ~ endScreen: EndGameScreen
-  + GAME: int
-  + CHARACTER: int
-  + Energy: float
-  + Day: int
-  + MENU: int
-  + batch: SpriteBatch
-  ~ gameScreen: GameScreen
-  + hoursLeft: float
-  ~ menuScreen: MainMenuScreen
-  + stats: Stats
-  + HOWTOPLAY: int
-  ~ newDayScreen: NewDayScreen
-  ~ state: GameState
-  ~ characterScreen: CharacterSelectionScreen
-  + create(): void
-  + dispose(): void
-  + setState(GameState): void
-  + render(): void
-  + getState(): GameState
-  + changeScreen(int): void
-  + reset(): void
-  + resize(int, int): void
-  + resume(): void
-  + pause(): void
-}
+class HeslingtonHustle
 class HowToPlayScreen {
   + HowToPlayScreen(HeslingtonHustle): 
   - stage: Stage
@@ -166,36 +132,23 @@ class PauseScreen {
   + hide(): void
 }
 
-ActivityScreen            -[#595959,dashed]->  ActivityScreen           
-ActivityScreen            -[#595959,dashed]->  EndGameScreen            : "«create»"
-ActivityScreen            -[#595959,dashed]->  ErrorScreen              : "«create»"
-ActivityScreen           "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
-ActivityScreen            -[#595959,dashed]->  NewDayScreen             : "«create»"
-CharacterSelectionScreen "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
-EndGameScreen             -[#595959,dashed]->  EndGameScreen            
-EndGameScreen            "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
-ErrorScreen              "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
-GameScreen                -[#595959,dashed]->  ActivityScreen           : "«create»"
-GameScreen               "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
+
+ActivityScreen           "1" *-[#595959,plain]-> HeslingtonHustle
+CharacterSelectionScreen "1" *-[#595959,plain]-> HeslingtonHustle
+EndGameScreen            "1" *-[#595959,plain]-> HeslingtonHustle
+ErrorScreen              "1" *-[#595959,plain]-> HeslingtonHustle
+GameScreen               "1" *-[#595959,plain]-> HeslingtonHustle
 GameState                 +-[#820000,plain]-  HeslingtonHustle         
-HeslingtonHustle          -[#595959,dashed]->  CharacterSelectionScreen : "«create»"
-HeslingtonHustle         "1" *-[#595959,plain]-> "characterScreen\n1" CharacterSelectionScreen 
-HeslingtonHustle         "1" *-[#595959,plain]-> "endScreen\n1" EndGameScreen            
-HeslingtonHustle          -[#595959,dashed]->  EndGameScreen            : "«create»"
-HeslingtonHustle         "1" *-[#595959,plain]-> "gameScreen\n1" GameScreen               
-HeslingtonHustle          -[#595959,dashed]->  GameScreen               : "«create»"
-HeslingtonHustle         "1" *-[#595959,plain]-> "state\n1" GameState                
-HeslingtonHustle          -[#595959,dashed]->  HeslingtonHustle         
-HeslingtonHustle          -[#595959,dashed]->  HowToPlayScreen          : "«create»"
-HeslingtonHustle         "1" *-[#595959,plain]-> "howToPlayScreen\n1" HowToPlayScreen          
-HeslingtonHustle         "1" *-[#595959,plain]-> "menuScreen\n1" MainMenuScreen           
-HeslingtonHustle          -[#595959,dashed]->  MainMenuScreen           : "«create»"
-HeslingtonHustle         "1" *-[#595959,plain]-> "newDayScreen\n1" NewDayScreen             
-HeslingtonHustle          -[#595959,dashed]->  NewDayScreen             : "«create»"
-HeslingtonHustle          -[#595959,dashed]->  PauseScreen              : "«create»"
-HeslingtonHustle         "1" *-[#595959,plain]-> "pauseScreen\n1" PauseScreen              
-HowToPlayScreen          "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
-MainMenuScreen           "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
-NewDayScreen             "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
-PauseScreen              "1" *-[#595959,plain]-> "game\n1" HeslingtonHustle         
+HeslingtonHustle         "1" *-[#595959,plain]-> CharacterSelectionScreen
+HeslingtonHustle         "1" *-[#595959,plain]-> EndGameScreen
+HeslingtonHustle         "1" *-[#595959,plain]-> GameScreen
+HeslingtonHustle         "1" *-[#595959,plain]-> GameState
+HeslingtonHustle         "1" *-[#595959,plain]-> HowToPlayScreen
+HeslingtonHustle         "1" *-[#595959,plain]-> MainMenuScreen
+HeslingtonHustle         "1" *-[#595959,plain]-> NewDayScreen
+HeslingtonHustle         "1" *-[#595959,plain]-> PauseScreen
+HowToPlayScreen          "1" *-[#595959,plain]-> HeslingtonHustle
+MainMenuScreen           "1" *-[#595959,plain]-> HeslingtonHustle
+NewDayScreen             "1" *-[#595959,plain]-> HeslingtonHustle
+PauseScreen              "1" *-[#595959,plain]-> HeslingtonHustle
 @enduml
