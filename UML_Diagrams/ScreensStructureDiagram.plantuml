@@ -1,0 +1,154 @@
+@startuml
+skinparam linetype ortho
+
+class ActivityScreen {
+  + ActivityScreen(HeslingtonHustle, Activity): 
+  - stage: Stage
+  ~ font: BitmapFont
+  ~ activity: Activity
+  - game: HeslingtonHustle
+  ~ skin: Skin
+  - batch: SpriteBatch
+  + resize(int, int): void
+  + show(): void
+  + render(float): void
+  + hide(): void
+  + dispose(): void
+}
+class CharacterSelectionScreen {
+  + CharacterSelectionScreen(HeslingtonHustle): 
+  - stage: Stage
+  ~ skin: Skin
+  - game: HeslingtonHustle
+  + resize(int, int): void
+  + dispose(): void
+  + hide(): void
+  + show(): void
+  + render(float): void
+}
+class EndGameScreen {
+  + EndGameScreen(HeslingtonHustle): 
+  ~ game: HeslingtonHustle
+  - stage: Stage
+  ~ skin: Skin
+  ~ font: BitmapFont
+  + resize(int, int): void
+  + show(): void
+  + hide(): void
+  + render(float): void
+  + dispose(): void
+}
+class ErrorScreen {
+  + ErrorScreen(HeslingtonHustle, String): 
+  ~ font: BitmapFont
+  - batch: SpriteBatch
+  - stage: Stage
+  - game: HeslingtonHustle
+  ~ skin: Skin
+  ~ errorType: String
+  + show(): void
+  + render(float): void
+  + dispose(): void
+  + resize(int, int): void
+  + hide(): void
+}
+class GameScreen {
+  + GameScreen(HeslingtonHustle): 
+  ~ eat: Activity
+  ~ orange: Texture
+  ~ atlas: TextureAtlas
+  ~ font: BitmapFont
+  ~ map: TiledMap
+  ~ blank: Texture
+  ~ study: Activity
+  ~ batch: SpriteBatch
+  ~ player: Player
+  ~ overviewCam: OrthographicCamera
+  ~ game: HeslingtonHustle
+  ~ renderer: OrthogonalTiledMapRenderer
+  ~ recreation: Activity
+  ~ sleep: Activity
+  + render(float): void
+  + dispose(): void
+  + resume(): void
+  + resize(int, int): void
+}
+enum GameState << enumeration >> {
+  + GameState(): 
+  + ACTIVITY: 
+  + MENU: 
+  + FREE_ROAM: 
+  + END: 
+  + valueOf(String): GameState
+  + values(): GameState[]
+}
+class HeslingtonHustle
+class HowToPlayScreen {
+  + HowToPlayScreen(HeslingtonHustle): 
+  - stage: Stage
+  ~ skin: Skin
+  ~ batch: SpriteBatch
+  - game: HeslingtonHustle
+  ~ font: BitmapFont
+  + show(): void
+  + hide(): void
+  + render(float): void
+  + resize(int, int): void
+  + dispose(): void
+}
+class MainMenuScreen {
+  + MainMenuScreen(HeslingtonHustle): 
+  - stage: Stage
+  - skin: Skin
+  - game: HeslingtonHustle
+  + resize(int, int): void
+  + hide(): void
+  + dispose(): void
+  + show(): void
+  + render(float): void
+}
+class NewDayScreen {
+  + NewDayScreen(HeslingtonHustle): 
+  ~ skin: Skin
+  - game: HeslingtonHustle
+  - batch: SpriteBatch
+  - stage: Stage
+  ~ font: BitmapFont
+  + dispose(): void
+  + hide(): void
+  + resize(int, int): void
+  + show(): void
+  + render(float): void
+}
+class PauseScreen {
+  + PauseScreen(HeslingtonHustle): 
+  - stage: Stage
+  ~ font: BitmapFont
+  - batch: SpriteBatch
+  - game: HeslingtonHustle
+  + resize(int, int): void
+  + show(): void
+  + render(float): void
+  + hide(): void
+}
+
+
+ActivityScreen           "1" *-[#595959,plain]-> HeslingtonHustle
+CharacterSelectionScreen "1" *-[#595959,plain]-> HeslingtonHustle
+EndGameScreen            "1" *-[#595959,plain]-> HeslingtonHustle
+ErrorScreen              "1" *-[#595959,plain]-> HeslingtonHustle
+GameScreen               "1" *-[#595959,plain]-> HeslingtonHustle
+GameState                 +-[#820000,plain]-  HeslingtonHustle         
+HeslingtonHustle         "1" *-[#595959,plain]-> CharacterSelectionScreen
+HeslingtonHustle         "1" *-[#595959,plain]-> EndGameScreen
+HeslingtonHustle         "1" *-[#595959,plain]-> GameScreen
+HeslingtonHustle         "1" *-[#595959,plain]-> GameState
+HeslingtonHustle         "1" *-[#595959,plain]-> HowToPlayScreen
+HeslingtonHustle         "1" *-[#595959,plain]-> MainMenuScreen
+HeslingtonHustle         "1" *-[#595959,plain]-> NewDayScreen
+HeslingtonHustle         "1" *-[#595959,plain]-> PauseScreen
+HowToPlayScreen          "1" *-[#595959,plain]-> HeslingtonHustle
+MainMenuScreen           "1" *-[#595959,plain]-> HeslingtonHustle
+NewDayScreen             "1" *-[#595959,plain]-> HeslingtonHustle
+PauseScreen              "1" *-[#595959,plain]-> HeslingtonHustle
+@enduml
