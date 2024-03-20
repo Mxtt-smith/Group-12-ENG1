@@ -59,26 +59,15 @@ public class Player extends Sprite {
         float oldX = getX();
         float oldY = getY();
 
-        float cellX = (oldX + transX) / 16;
-        float cellY = (oldY + transY) / 16;
+        int cellX = (int) Math.floor(oldX + transX + this.getWidth()/2)/16;
+        int cellY = (int) Math.floor(oldY + transY + this.getHeight()/2)/16;
         TiledMapTileLayer.Cell cell;
-
-        // Convert the coordinates into cell number, bottom left is 0, 0
-        // Map is 50 x 50 cells
-        // Try upper bound
+        // Check upper bound collision
+        // convert the coordinates into cell number, bottom left is 0, 0
+        // map is 50 x 50 cells
         try {
-            cell = collisionLayer.getCell((int) Math.ceil(cellX), (int) Math.ceil(cellY));
-            if (cell.getTile().getProperties().containsKey("Collidable")) {
-                return true;
-            }
-        } catch (Exception e) {
-            // Catch the null exception - no tile exists there
-        }
-
-        // Check for collision for lower bound
-        try {
-            cell = collisionLayer.getCell((int) Math.floor(cellX), (int) Math.floor(cellY));
-
+            cell = collisionLayer.getCell(cellX, cellY);
+            // try upper bound
             if (cell.getTile().getProperties().containsKey("Collidable")) {
                 return true;
             }
