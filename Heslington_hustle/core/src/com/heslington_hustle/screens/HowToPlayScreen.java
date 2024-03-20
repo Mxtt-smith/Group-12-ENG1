@@ -68,7 +68,7 @@ public class HowToPlayScreen extends ScreenAdapter {
         Label title = new Label("How to play!", skin, "title", Color.WHITE);
 
         Label description = new Label("Welcome to Heslington Hustle" +
-                "\nNavigate around the map with your WASD or arrow keys" +
+                "\nNavigate around the map with the arrow keys" +
                 "\nYou'll find different buildings scattered around the map!" +
                 "\nPress the [SPACE] to interact with them to see what they do." +
                 "\nYou have 7 days in game to do what it takes to pass your exams," +
