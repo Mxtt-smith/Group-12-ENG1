@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+actor Player as P
+    usecase "Menu"
+    usecase "StartGame"
+    usecase "HowToPlay"
+    usecase "Exit"
+    usecase "AvatarSelection"
+    usecase "EndGame"
+
+
+rectangle Game{
+    usecase "Study"
+    usecase "Recreational Activity"
+    usecase "Eat"
+    usecase "Sleep"
+}
+P-->Menu
+Menu-->StartGame
+Menu-->HowToPlay
+Menu-->Exit
+HowToPlay-->Menu
+StartGame-->AvatarSelection
+AvatarSelection-->Game
+Game-->EndGame
+EndGame-->Menu
+@enduml
